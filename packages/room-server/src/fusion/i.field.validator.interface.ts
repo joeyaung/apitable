@@ -24,7 +24,6 @@ import { IFieldValue } from 'shared/interfaces';
  * Field validation interface
  */
 export interface IFieldValidatorInterface {
-
   /**
    * Return `string` for failed validation, return `null` for passed validation
    *

@@ -17,9 +17,9 @@
  */
 
 export interface ITriggerTypeServiceRelDto {
-  serviceId: string,
-  triggerTypeId: string,
-  endpoint?: string,
+  serviceId: string;
+  triggerTypeId: string;
+  endpoint?: string;
 }
 
 export class TriggerTypeDetailDto {

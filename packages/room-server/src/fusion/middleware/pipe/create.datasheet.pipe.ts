@@ -17,7 +17,15 @@
  */
 
 import {
-  ApiTipConstant, Field, FieldTypeDescriptionMap, getFieldClass, getFieldTypeByString, getMaxFieldCountPerSheet, getNewId, IDPrefix, IField,
+  ApiTipConstant,
+  Field,
+  FieldTypeDescriptionMap,
+  getFieldClass,
+  getFieldTypeByString,
+  getMaxFieldCountPerSheet,
+  getNewId,
+  IDPrefix,
+  IField,
   IReduxState,
 } from '@apitable/core';
 import { Inject, Injectable, PipeTransform } from '@nestjs/common';

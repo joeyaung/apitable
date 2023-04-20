@@ -28,7 +28,7 @@ import { CreateFieldPipe } from './create.field.pipe';
 describe('CreateFieldPipe', () => {
   let app: NestFastifyApplication;
   let pipe: CreateFieldPipe;
-  beforeAll(async() => {
+  beforeAll(async () => {
     jest.setTimeout(60000);
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -38,12 +38,11 @@ describe('CreateFieldPipe', () => {
     pipe = new CreateFieldPipe();
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await app.close();
   });
 
   describe('validate field', () => {
-
     it('missing field name, should return 400 code', () => {
       const ro: FieldCreateRo = new FieldCreateRo('', 'Text');
       const error = ApiException.tipError(ApiTipConstant.api_params_invalid_value, { property: 'name' });
@@ -77,21 +76,18 @@ describe('CreateFieldPipe', () => {
         pipe.validate(field);
       }).toThrow(error);
     });
-
   });
 
   describe('transformProperty', () => {
-
     it('transform number property, should change precision from string to number', () => {
       const field: FieldCreateRo = new FieldCreateRo('abc', 'number');
       field.property = {
         defaultValue: '1.0',
-        precision: 2
+        precision: 2,
       };
       pipe.transformProperty(field);
       expect(field).toHaveProperty(['property', 'precision'], 2.0);
       expect(field).not.toHaveProperty(['property', 'precision'], '2.0');
     });
   });
-
 });

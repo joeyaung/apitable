@@ -24,7 +24,6 @@ import { ResourceRobotTriggerDto, RobotTriggerBaseInfoDto, RobotTriggerInfoDto }
 
 @EntityRepository(AutomationTriggerEntity)
 export class AutomationTriggerRepository extends Repository<AutomationTriggerEntity> {
-
   getAllTriggersByRobotIds(robotIds: string[]): Promise<AutomationTriggerEntity[]> {
     return this.find({
       where: {
@@ -63,7 +62,7 @@ export class AutomationTriggerRepository extends Repository<AutomationTriggerEnt
         robotId: robotId,
         triggerTypeId: triggerTypeId,
         isDeleted: 0,
-      }
+      },
     });
   }
 
@@ -72,8 +71,8 @@ export class AutomationTriggerRepository extends Repository<AutomationTriggerEnt
       select: ['triggerId', 'input', 'triggerTypeId'],
       where: {
         isDeleted: 0,
-        robotId: robotId
-      }
+        robotId: robotId,
+      },
     });
   }
 
@@ -83,7 +82,7 @@ export class AutomationTriggerRepository extends Repository<AutomationTriggerEnt
       where: {
         isDeleted: 0,
         robotId: In(robotIds),
-      }
+      },
     });
   }
 }

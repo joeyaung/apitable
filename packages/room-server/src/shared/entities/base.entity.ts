@@ -23,7 +23,6 @@ import { BeforeInsert, Column, PrimaryColumn } from 'typeorm';
  * base entity class with common fields
  */
 export abstract class BaseEntity {
-
   @PrimaryColumn('bigint')
   id!: string;
 

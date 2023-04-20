@@ -35,7 +35,7 @@ export class ResourceService {
     private readonly datasheetMetaService: DatasheetMetaService,
     private readonly widgetService: WidgetService,
     private readonly automationService: AutomationService,
-  ) { }
+  ) {}
 
   @Span()
   async getSpaceIdByResourceId(resourceId: string): Promise<string> {
@@ -58,8 +58,7 @@ export class ResourceService {
 
   async fetchForeignDatasheetPack(resourceId: string, foreignDatasheetId: string, auth: IAuthHeader, shareId?: string) {
     // Obtain referenced datasheet
-    const datasheetId = resourceId.startsWith(ResourceIdPrefix.Datasheet) ? resourceId :
-      await this.nodeService.getMainNodeId(resourceId);
+    const datasheetId = resourceId.startsWith(ResourceIdPrefix.Datasheet) ? resourceId : await this.nodeService.getMainNodeId(resourceId);
     return await this.datasheetService.fetchForeignDatasheetPack(datasheetId, foreignDatasheetId, auth, shareId);
   }
 

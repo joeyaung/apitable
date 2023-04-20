@@ -63,7 +63,6 @@ export class NodeDetailParamRo {
 }
 
 export class NodeListQueryRo {
-
   @ApiProperty({
     type: Number,
     required: true,
@@ -86,4 +85,3 @@ export class NodeListQueryRo {
   @IsOptional()
   role?: 'reader' | 'editor';
 }
-

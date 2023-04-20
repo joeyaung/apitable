@@ -42,6 +42,6 @@ export class InternalCreateDatasheetVo {
 export class InternalSpaceInfoVo {
   spaceId!: string;
   labs!: {
-    viewManualSave: boolean
+    viewManualSave: boolean;
   };
 }

@@ -31,17 +31,19 @@ interface IWebhookRequest {
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   headers: IHeader[];
   url: string;
-  body?: {
-    type: 'form-data';
-    formData: {
-      key: string;
-      value: any;
-    }[];
-  } | {
-    format: 'json' | 'text';
-    type: 'json' | 'raw'; // TODO: remove json
-    data: any;
-  }
+  body?:
+    | {
+        type: 'form-data';
+        formData: {
+          key: string;
+          value: any;
+        }[];
+      }
+    | {
+        format: 'json' | 'text';
+        type: 'json' | 'raw'; // TODO: remove json
+        data: any;
+      };
 }
 interface IWebhookResponse {
   status: number;
@@ -106,25 +108,27 @@ export async function sendRequest(request: IWebhookRequest): Promise<IActionResp
     const data: ISuccessResponse<IWebhookResponse> = {
       data: {
         status: res.status,
-        json: respJson
-      }
+        json: respJson,
+      },
     };
     return {
       success: true,
       code: ResponseStatusCodeEnums.Success,
-      data: data
+      data: data,
     };
   } catch (error: any) {
     // network error
     const res: IErrorResponse = {
-      errors: [{
-        message: error.message
-      }]
+      errors: [
+        {
+          message: error.message,
+        },
+      ],
     };
     return {
       success: false,
       data: res,
-      code: ResponseStatusCodeEnums.ServerError
+      code: ResponseStatusCodeEnums.ServerError,
     };
   }
 }

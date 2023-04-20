@@ -25,14 +25,11 @@ import { RobotTriggerTypeService } from '../services/robot.trigger.type.service'
 
 @Controller('nest/v1/robots/trigger-types')
 export class RobotTriggerTypeController {
-  constructor(
-    private readonly robotTriggerTypeService: RobotTriggerTypeService,
-    private readonly userService: UserService,
-  ) { }
+  constructor(private readonly robotTriggerTypeService: RobotTriggerTypeService, private readonly userService: UserService) {}
 
   @Get(['/'])
   getTriggerTypes(@Query('lang') lang: string | string[]) {
-    const language = (!lang || lang.includes('zh')) ? 'zh' : 'en';
+    const language = !lang || lang.includes('zh') ? 'zh' : 'en';
     return this.robotTriggerTypeService.getTriggerType(language);
   }
 
@@ -46,16 +43,11 @@ export class RobotTriggerTypeController {
   }
 
   @Patch('/:triggerTypeId')
-  async updateTriggerType(
-    @Param('triggerTypeId') triggerTypeId: string,
-    @Body() data: TriggerTypeUpdateRo,
-    @Headers('cookie') cookie: string
-  ) {
+  async updateTriggerType(@Param('triggerTypeId') triggerTypeId: string, @Body() data: TriggerTypeUpdateRo, @Headers('cookie') cookie: string) {
     if (isProdMode) {
       throw new Error('cant update trigger type in production mode');
     }
     const user = await this.userService.getMe({ cookie });
     return this.robotTriggerTypeService.updateTriggerType(triggerTypeId, data, user);
   }
-
 }

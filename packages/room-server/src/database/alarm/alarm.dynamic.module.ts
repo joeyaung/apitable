@@ -25,17 +25,17 @@ import * as fs from 'fs';
   providers: [
     {
       provide: DatasheetRecordAlarmBaseService,
-      useClass: class AlarmService extends DatasheetRecordAlarmBaseService {}
+      useClass: class AlarmService extends DatasheetRecordAlarmBaseService {},
     },
   ],
   exports: [
     {
       provide: DatasheetRecordAlarmBaseService,
-      useClass: class AlarmService extends DatasheetRecordAlarmBaseService {}
+      useClass: class AlarmService extends DatasheetRecordAlarmBaseService {},
     },
-  ]
+  ],
 })
-export class AlarmDynamicModule { 
+export class AlarmDynamicModule {
   static forRoot(): DynamicModule {
     const alarmEnterpriseModulePath = path.join(__dirname, '../../enterprise/database/alarm');
     const isEnterpriseLevel: boolean = fs.existsSync(alarmEnterpriseModulePath);
@@ -45,9 +45,8 @@ export class AlarmDynamicModule {
         module: AlarmEnterpriseModule,
       };
     }
-    return { 
+    return {
       module: AlarmDynamicModule,
-    }; 
-
+    };
   }
 }

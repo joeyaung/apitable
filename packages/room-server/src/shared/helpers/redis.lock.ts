@@ -25,16 +25,20 @@ import path from 'path';
 const listLock = fs.readFileSync(path.resolve(__dirname, 'list.lock.lua'), 'utf8');
 
 const defaultTimeout = 5000;
-const promisify = util.promisify || function (x: any) { return x; };
+const promisify =
+  util.promisify ||
+  function(x: any) {
+    return x;
+  };
 
 function acquireLock(client: Redis, lockNames: string[], timeout: number, retryDelay: number, onLockAcquired: (number: any) => void) {
   function retry() {
-    setTimeout(function () {
+    setTimeout(function() {
       acquireLock(client, lockNames, timeout, retryDelay, onLockAcquired);
     }, retryDelay);
   }
 
-  const lockTimeoutValue = (Date.now() + timeout + 1);
+  const lockTimeoutValue = Date.now() + timeout + 1;
   // client.set(lockNames, lockTimeoutValue, 'PX', timeout, 'NX', function (err, result) {
   //   if (err || result === null) return retry();
   //   onLockAcquired(lockTimeoutValue);
@@ -77,22 +81,24 @@ export function RedisLock(client: Redis, retryDelay?: number): any {
       lockName = [lockNamePrefix + lockName];
     }
 
-    acquireLock(client, lockName, timeout as number, retryDelay!, function (lockTimeoutValue) {
-      taskToPerform!(promisify(function (done) {
-        done = done || function () { };
-        if (lockTimeoutValue > Date.now()) {
-          // @ts-ignore
-          client.del(lockName, done);
-        } else {
-          (done as () => void)();
-        }
-      }));
+    acquireLock(client, lockName, timeout as number, retryDelay!, function(lockTimeoutValue) {
+      taskToPerform!(
+        promisify(function(done) {
+          done = done || function() {};
+          if (lockTimeoutValue > Date.now()) {
+            // @ts-ignore
+            client.del(lockName, done);
+          } else {
+            (done as () => void)();
+          }
+        }),
+      );
     });
   }
 
   if (util.promisify) {
-    lock[util.promisify.custom] = function (lockName: string, timeout: number) {
-      return new Promise(function (resolve) {
+    lock[util.promisify.custom] = function(lockName: string, timeout: number) {
+      return new Promise(function(resolve) {
         lock(lockName, timeout || defaultTimeout, resolve);
       });
     };

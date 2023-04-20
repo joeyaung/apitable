@@ -24,7 +24,6 @@ import { BaseEntity } from 'shared/entities/base.entity';
  */
 @Entity('datasheet_operation')
 export class DatasheetOperationEntity extends BaseEntity {
-
   @Column({
     name: 'op_id',
     nullable: true,

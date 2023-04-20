@@ -24,13 +24,9 @@ import { DashboardController } from './controllers/dashboard.controller';
 import { DashboardService } from './services/dashboard.service';
 
 @Module({
-  imports: [
-    forwardRef(()=>NodeModule),
-    UserModule,
-    forwardRef(()=>ResourceModule)
-  ],
+  imports: [forwardRef(() => NodeModule), UserModule, forwardRef(() => ResourceModule)],
   controllers: [DashboardController],
   providers: [DashboardService],
-  exports: [DashboardService]
+  exports: [DashboardService],
 })
 export class DashboardModule {}

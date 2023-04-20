@@ -117,11 +117,13 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       message: errMsg,
     };
 
-    this.logger.error({
-      message: `request error: ${exception?.message || ''}`, 
-      response: exception?.response || ''
-    },
-    exception?.stack || errMsg);
+    this.logger.error(
+      {
+        message: `request error: ${exception?.message || ''}`,
+        response: exception?.response || '',
+      },
+      exception?.stack || errMsg,
+    );
 
     // set header, status code and error response data
     if (response instanceof ServerResponse) {

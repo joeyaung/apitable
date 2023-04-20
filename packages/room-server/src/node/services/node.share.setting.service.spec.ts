@@ -27,7 +27,7 @@ describe('Test NodeShareSettingService', () => {
   let nodeRepository: NodeRepository;
   let service: NodeShareSettingService;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       providers: [
         {
@@ -97,57 +97,57 @@ describe('Test NodeShareSettingService', () => {
     jest.spyOn(nodeRepository, 'selectAllSubNodeIds').mockResolvedValue(['1']);
   });
 
-  it('should be return share setting', async() => {
+  it('should be return share setting', async () => {
     const shareSetting = await service.getByShareId('1');
     expect(shareSetting).toBeDefined();
   });
 
-  it('should be return share status', async() => {
+  it('should be return share status', async () => {
     const shareStatus = await service.getShareStatusByNodeId('1');
     expect(shareStatus).toBeTruthy();
   });
 
-  it('should be pass check', async() => {
+  it('should be pass check', async () => {
     await service.checkNodeHasOpenShare('1', '1');
   });
 
-  it('should be pass check', async() => {
+  it('should be pass check', async () => {
     await service.checkNodeHasOpenShare('1', '0');
   });
 
-  it('should be throw ACCESS_DENIED exception because empty share setting', async() => {
-    await expect(async() => {
+  it('should be throw ACCESS_DENIED exception because empty share setting', async () => {
+    await expect(async () => {
       await service.checkNodeHasOpenShare('0', '1');
     }).rejects.toThrow(PermissionException.ACCESS_DENIED.message);
   });
 
-  it('should be throw ACCESS_DENIED exception because no share', async() => {
-    await expect(async() => {
+  it('should be throw ACCESS_DENIED exception because no share', async () => {
+    await expect(async () => {
       await service.checkNodeHasOpenShare('2', '2');
     }).rejects.toThrow(PermissionException.ACCESS_DENIED.message);
   });
 
-  it('should be check pass', async() => {
+  it('should be check pass', async () => {
     await service.checkNodeShareCanBeEdited('1', '1');
   });
 
-  it('should be throw NODE_SHARE_NO_ALLOW_EDIT error', async() => {
-    await expect(async() => {
+  it('should be throw NODE_SHARE_NO_ALLOW_EDIT error', async () => {
+    await expect(async () => {
       await service.checkNodeShareCanBeEdited('2', '3');
     }).rejects.toThrow(CommonException.NODE_SHARE_NO_ALLOW_EDIT.message);
   });
 
-  it('should be return null because empty share setting', async() => {
+  it('should be return null because empty share setting', async () => {
     const props = await service.getNodeShareProps('3', '-1');
     expect(props).toEqual(null);
   });
 
-  it('should be return null because no share', async() => {
+  it('should be return null because no share', async () => {
     const props = await service.getNodeShareProps('4', '-1');
     expect(props).toEqual(null);
   });
 
-  it('should be return children propre', async() => {
+  it('should be return children propre', async () => {
     const props = await service.getNodeShareProps('4', '1');
     expect(props).toEqual({});
   });

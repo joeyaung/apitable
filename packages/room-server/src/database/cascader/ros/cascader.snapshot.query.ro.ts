@@ -21,7 +21,6 @@ import { IsOptional } from 'class-validator';
 import { stringToArray } from 'shared/helpers/fusion.helper';
 
 export class CascaderSnapshotQueryRo {
-
   @ApiProperty({
     type: [String],
     description: 'linked field id',

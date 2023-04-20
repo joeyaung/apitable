@@ -31,10 +31,12 @@ export class ExecuteTimeInterceptor implements NestInterceptor {
       tap(data => {
         const executeTime = Date.now() - now;
         if (executeTime > GatewayConstants.ACK_TIMEOUT) {
-          const message = data.data && data.data.changesets ?
-            data.data.changesets.map((item: any) => {
-              return { messageId: item?.messageId, dstId: item?.resourceId };
-            }) : [];
+          const message =
+            data.data && data.data.changesets
+              ? data.data.changesets.map((item: any) => {
+                  return { messageId: item?.messageId, dstId: item?.resourceId };
+                })
+              : [];
           this.logger.log({ time: `${executeTime}ms`, message: JSON.stringify(message) });
         }
       }),

@@ -29,9 +29,7 @@ export class SchedTaskDynamicModule {
   static register(enabled: boolean): DynamicModule {
     const dynamicModule = {
       module: SchedTaskDynamicModule,
-      imports: [
-        DatabaseModule, 
-      ],
+      imports: [DatabaseModule],
       providers: [],
     };
 

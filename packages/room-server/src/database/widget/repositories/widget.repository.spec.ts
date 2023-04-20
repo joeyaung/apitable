@@ -29,7 +29,7 @@ describe('DatasheetRepositoryTest', () => {
   let repository: WidgetRepository;
   let entity: WidgetEntity;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({ isGlobal: true }),
@@ -42,7 +42,7 @@ describe('DatasheetRepositoryTest', () => {
     repository = module.get<WidgetRepository>(WidgetRepository);
   });
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     const widgetEntity: DeepPartial<WidgetEntity> = {
       widgetId: 'widgetId',
       revision: 1,
@@ -51,15 +51,15 @@ describe('DatasheetRepositoryTest', () => {
     entity = await repository.save(record);
   });
 
-  afterEach(async() => {
+  afterEach(async () => {
     await repository.delete(entity.id);
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await repository.manager.connection.close();
   });
 
-  it('should get revisions by widget ids', async() => {
+  it('should get revisions by widget ids', async () => {
     const resourceRevisions = await repository.getRevisionByWdtIds([entity.widgetId]);
     expect(resourceRevisions.length).toEqual(1);
     expect(resourceRevisions[0]?.resourceId).toEqual(entity.widgetId);

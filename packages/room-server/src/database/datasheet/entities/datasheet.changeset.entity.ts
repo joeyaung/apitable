@@ -25,7 +25,6 @@ import { Column, Entity } from 'typeorm';
  */
 @Entity('datasheet_changeset')
 export class DatasheetChangesetEntity extends BaseEntity {
-
   @Column({
     name: 'message_id',
     nullable: true,

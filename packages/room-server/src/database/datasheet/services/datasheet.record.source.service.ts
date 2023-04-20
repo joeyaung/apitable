@@ -38,7 +38,8 @@ export class DatasheetRecordSourceService {
         createdBy: userId?.length ? userId : null,
       });
     }
-    await this.repository.createQueryBuilder()
+    await this.repository
+      .createQueryBuilder()
       .insert()
       .into(DatasheetRecordSourceEntity)
       .values(entities)

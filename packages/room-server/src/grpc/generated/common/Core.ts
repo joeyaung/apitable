@@ -17,10 +17,10 @@
  */
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import { Any } from "../google/protobuf/any";
+import _m0 from 'protobufjs/minimal';
+import { Any } from '../google/protobuf/any';
 
-export const protobufPackage = "grpc.common";
+export const protobufPackage = 'grpc.common';
 
 export interface BasicResult {
   code: number;
@@ -34,7 +34,7 @@ export interface ServerRoomChangeRo {
 }
 
 function createBaseBasicResult(): BasicResult {
-  return { code: 0, message: "", success: false };
+  return { code: 0, message: '', success: false };
 }
 
 export const BasicResult = {
@@ -42,7 +42,7 @@ export const BasicResult = {
     if (message.code !== 0) {
       writer.uint32(8).int32(message.code);
     }
-    if (message.message !== "") {
+    if (message.message !== '') {
       writer.uint32(18).string(message.message);
     }
     if (message.success === true) {
@@ -78,7 +78,7 @@ export const BasicResult = {
   fromJSON(object: any): BasicResult {
     return {
       code: isSet(object.code) ? Number(object.code) : 0,
-      message: isSet(object.message) ? String(object.message) : "",
+      message: isSet(object.message) ? String(object.message) : '',
       success: isSet(object.success) ? Boolean(object.success) : false,
     };
   },
@@ -94,19 +94,19 @@ export const BasicResult = {
   fromPartial<I extends Exact<DeepPartial<BasicResult>, I>>(object: I): BasicResult {
     const message = Object.create(createBaseBasicResult()) as BasicResult;
     message.code = object.code ?? 0;
-    message.message = object.message ?? "";
+    message.message = object.message ?? '';
     message.success = object.success ?? false;
     return message;
   },
 };
 
 function createBaseServerRoomChangeRo(): ServerRoomChangeRo {
-  return { roomId: "", data: undefined };
+  return { roomId: '', data: undefined };
 }
 
 export const ServerRoomChangeRo = {
   encode(message: ServerRoomChangeRo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.roomId !== "") {
+    if (message.roomId !== '') {
       writer.uint32(10).string(message.roomId);
     }
     if (message.data !== undefined) {
@@ -138,7 +138,7 @@ export const ServerRoomChangeRo = {
 
   fromJSON(object: any): ServerRoomChangeRo {
     return {
-      roomId: isSet(object.roomId) ? String(object.roomId) : "",
+      roomId: isSet(object.roomId) ? String(object.roomId) : '',
       data: isSet(object.data) ? Any.fromJSON(object.data) : undefined,
     };
   },
@@ -152,21 +152,27 @@ export const ServerRoomChangeRo = {
 
   fromPartial<I extends Exact<DeepPartial<ServerRoomChangeRo>, I>>(object: I): ServerRoomChangeRo {
     const message = Object.create(createBaseServerRoomChangeRo()) as ServerRoomChangeRo;
-    message.roomId = object.roomId ?? "";
-    message.data = (object.data !== undefined && object.data !== null) ? Any.fromPartial(object.data) : undefined;
+    message.roomId = object.roomId ?? '';
+    message.data = object.data !== undefined && object.data !== null ? Any.fromPartial(object.data) : undefined;
     return message;
   },
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : T extends {}
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {

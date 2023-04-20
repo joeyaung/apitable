@@ -46,8 +46,8 @@ import { DatasheetWidgetService } from './services/datasheet.widget.service';
 
 @Module({
   imports: [
-    forwardRef(()=>ResourceModule),
-    forwardRef(()=>NodeModule),
+    forwardRef(() => ResourceModule),
+    forwardRef(() => NodeModule),
     UnitModule,
     UserModule,
     CommandModule,

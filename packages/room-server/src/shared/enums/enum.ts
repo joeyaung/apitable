@@ -17,8 +17,8 @@
  */
 
 export default class Enum {
-  private readonly props: { [key: string | number]: { key: string, value: any, [key: string]: any } };
-  constructor(props: { key: string, value: any, [key: string]: any }[] = []) {
+  private readonly props: { [key: string | number]: { key: string; value: any; [key: string]: any } };
+  constructor(props: { key: string; value: any; [key: string]: any }[] = []) {
     this.props = {};
     if (props.length) {
       props.forEach(element => {

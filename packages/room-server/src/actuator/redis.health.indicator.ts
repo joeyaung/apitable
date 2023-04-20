@@ -17,15 +17,11 @@
  */
 
 import { Injectable } from '@nestjs/common';
-import {
-  HealthCheckError,
-  HealthIndicator,
-} from '@nestjs/terminus';
+import { HealthCheckError, HealthIndicator } from '@nestjs/terminus';
 import { RedisService } from '@apitable/nestjs-redis';
 
 @Injectable()
 export class RedisHealthIndicator extends HealthIndicator {
-
   isRedisHealthy(redisService: RedisService) {
     const redisClient = redisService.getClient();
     const isHealthy = redisClient.status !== 'end';
@@ -33,9 +29,6 @@ export class RedisHealthIndicator extends HealthIndicator {
     if (isHealthy) {
       return Promise.resolve(result);
     }
-    throw new HealthCheckError(
-      'redis',
-      this.getStatus('redis', false, { message: 'down' }),
-    );
+    throw new HealthCheckError('redis', this.getStatus('redis', false, { message: 'down' }));
   }
 }

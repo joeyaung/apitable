@@ -45,8 +45,7 @@ export class AttachmentService {
     private readonly httpService: HttpService,
     @InjectLogger() private readonly logger: Logger,
     private readonly i18n: I18nService,
-  ) {
-  }
+  ) {}
 
   /**
    *
@@ -114,7 +113,7 @@ export class AttachmentService {
    * @date 2020/9/1 4:05 pm
    */
   getFileUploadHandler(_dstId: string, newFiles: IFileInterface[], req: FastifyRequest, reply: FastifyReply) {
-    return async(field: string, file: pump.Stream, filename: string, _encoding: string, mimetype: string): Promise<void> => {
+    return async (field: string, file: pump.Stream, filename: string, _encoding: string, mimetype: string): Promise<void> => {
       if (!filename) {
         const err = ApiException.tipError(ApiTipConstant.api_upload_invalid_file_name);
         const errMsg = await this.i18n.translate(err.message, {

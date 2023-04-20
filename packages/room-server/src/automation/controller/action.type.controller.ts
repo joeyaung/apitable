@@ -25,14 +25,11 @@ import { RobotActionTypeBaseService } from '../services/robot.action.type.base.s
 
 @Controller('nest/v1/robots/action-types')
 export class RobotActionTypeController {
-  constructor(
-    private readonly robotActionTypeService: RobotActionTypeBaseService,
-    private readonly userService: UserService,
-  ) { }
+  constructor(private readonly robotActionTypeService: RobotActionTypeBaseService, private readonly userService: UserService) {}
 
   @Get(['/'])
   getActionTypes(@Query('lang') lang: string | string[]) {
-    const language = (!lang || lang.includes('zh')) ? 'zh' : 'en';
+    const language = !lang || lang.includes('zh') ? 'zh' : 'en';
     return this.robotActionTypeService.getActionType(language);
   }
 
@@ -46,11 +43,7 @@ export class RobotActionTypeController {
   }
 
   @Patch('/:actionTypeId')
-  async updateActionType(
-    @Param('actionTypeId') actionTypeId: string,
-    @Body() data: TriggerTypeUpdateRo,
-    @Headers('cookie') cookie: string
-  ) {
+  async updateActionType(@Param('actionTypeId') actionTypeId: string, @Body() data: TriggerTypeUpdateRo, @Headers('cookie') cookie: string) {
     if (isProdMode) {
       throw new Error('cannot update action type in production mode');
     }

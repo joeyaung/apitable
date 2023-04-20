@@ -27,14 +27,7 @@ import { UnitTeamService } from './services/unit.team.service';
 import { UnitMemberService } from './services/unit.member.service';
 
 @Module({
-  imports: [
-    UserModule,
-    TypeOrmModule.forFeature([
-      UnitRepository,
-      UnitMemberRepository,
-      UnitTeamRepository,
-    ]),
-  ],
+  imports: [UserModule, TypeOrmModule.forFeature([UnitRepository, UnitMemberRepository, UnitTeamRepository])],
   providers: [UnitService, UnitTeamService, UnitMemberService],
   exports: [UnitService, UnitTeamService, UnitMemberService],
 })

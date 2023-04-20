@@ -28,10 +28,7 @@ import { RoomService } from 'socket/services/room/room.service';
 export class SocketIoService {
   private readonly logger = new Logger(SocketIoService.name);
 
-  constructor(
-    private readonly nestService: NestService,
-    private readonly roomService: RoomService,
-  ) { }
+  constructor(private readonly nestService: NestService, private readonly roomService: RoomService) {}
 
   public joinRoom(socket: AuthenticatedSocket) {
     // nest-server room

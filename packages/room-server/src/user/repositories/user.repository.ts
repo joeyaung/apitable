@@ -22,7 +22,7 @@ import { UserBaseInfoDto } from '../dtos/user.dto';
 
 /**
  * Operations on table `developer`
- * 
+ *
  * @author Zoe zheng
  * @date 2020/7/24 3:15 PM
  */
@@ -30,7 +30,7 @@ import { UserBaseInfoDto } from '../dtos/user.dto';
 export class UserRepository extends Repository<UserEntity> {
   /**
    * Query user info by user ID
-   * 
+   *
    * @author Zoe Zheng
    * @date 2020/7/24 6:10 PM
    */
@@ -51,15 +51,16 @@ export class UserRepository extends Repository<UserEntity> {
   /**
    * TODO(Troy): stop using multiple joins query and break it in several small queries instead(refactor: multiple joins query is prohibited #2848)
    * TODO(Troy): use DTO instead of any
-   * @param spaceId 
-   * @param uuids 
-   * @returns 
+   * @param spaceId
+   * @param uuids
+   * @returns
    */
   async selectUserInfoBySpaceIdAndUuids(spaceId: string, uuids: string[]): Promise<any[]> {
     const queryRunner = getConnection().createQueryRunner();
     const tableNamePrefix = this.manager.connection.options.entityPrefix;
     // todo(itou): replace dynamic sql
-    const users: any[] = await queryRunner.query(`
+    const users: any[] = await queryRunner.query(
+      `
           SELECT
             vu.uuid userId,
             vu.uuid uuid,
@@ -78,7 +79,7 @@ export class UserRepository extends Repository<UserEntity> {
           LEFT JOIN ${tableNamePrefix}unit vui ON vui.unit_ref_id = vum.id
           WHERE uuid IN (?)
         `,
-    [spaceId, uuids],
+      [spaceId, uuids],
     );
     await queryRunner.release();
     return users;
@@ -86,17 +87,19 @@ export class UserRepository extends Repository<UserEntity> {
 
   /**
    * Query user info by user ID array
-   * 
+   *
    * @author Zoe Zheng
    * @date 2020/7/24 6:10 PM
    */
   public async selectUserBaseInfoByIds(userIds: number[]): Promise<UserBaseInfoDto[]> {
     return await this.find({
       select: ['id', 'uuid', 'avatar', 'nikeName', 'color', 'isSocialNameModified'],
-      where: [{
-        id: In(userIds),
-        isDeleted: false
-      }]
+      where: [
+        {
+          id: In(userIds),
+          isDeleted: false,
+        },
+      ],
     });
   }
 

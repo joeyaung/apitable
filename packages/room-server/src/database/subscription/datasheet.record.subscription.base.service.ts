@@ -23,7 +23,6 @@ import { DatasheetRecordSubscriptionEntity } from './entities/datasheet.record.s
 
 @Injectable()
 export class DatasheetRecordSubscriptionBaseService {
-
   public async subscribeDatasheetRecords(_userId: string, _dstId: string, recordIds: string[], _mirrorId?: string | null) {
     if (isEmpty(recordIds)) return;
     await Promise.resolve();
@@ -49,5 +48,4 @@ export class DatasheetRecordSubscriptionBaseService {
   public async handleChangesets(_changesets: IRemoteChangeset[], _context: any) {
     await Promise.resolve();
   }
-
 }

@@ -43,7 +43,7 @@ export class TracingHandlerInterceptor implements NestInterceptor {
       const mapping = {
         method: req?.context?.config?.method,
         url: req?.raw?.url,
-        path: req?.context?.config?.url
+        path: req?.context?.config?.url,
       };
       httpTracingHandler(req.raw, res.raw, req.user, mapping);
     } else if (host.getType() === 'rpc') {
@@ -90,7 +90,9 @@ function httpTracingHandler(req: http.IncomingMessage, res: http.ServerResponse,
 
   // We put the transaction on the scope so users can attach children to it
   getCurrentHub().configureScope(scope => {
-    scope.clear().setSpan(transaction)
+    scope
+      .clear()
+      .setSpan(transaction)
       .setUser(currentUser)
       .setTag('url', extractRequestData.url)
       .setContext('Request', extractRequestData);
@@ -104,8 +106,7 @@ function httpTracingHandler(req: http.IncomingMessage, res: http.ServerResponse,
   res.once('finish', () => {
     setImmediate(() => {
       addExpressReqToTransaction(transaction, req, mapping);
-      transaction.setHttpStatus(res.statusCode)
-        .finish();
+      transaction.setHttpStatus(res.statusCode).finish();
     });
   });
 }
@@ -118,12 +119,14 @@ function grpcTracingHandler(data: any, context: Metadata, serverUnaryCall: Http2
       op: 'rpc.server',
     },
     {
-      request: rpcData
+      request: rpcData,
     },
   );
 
   getCurrentHub().configureScope(scope => {
-    scope.clear().setSpan(transaction)
+    scope
+      .clear()
+      .setSpan(transaction)
       .setContext('Request', rpcData);
   });
 
@@ -133,14 +136,14 @@ function grpcTracingHandler(data: any, context: Metadata, serverUnaryCall: Http2
       const changesetsMessageId = context.get(CHANGESETS_MESSAGE_ID)?.toString();
       const changesetsCmd = context.get(TRACE_ID)?.toString();
 
-      transaction.setTag('grpc.status_code', code)
-        .setTag('grpc.trace_id', traceId);
+      transaction.setTag('grpc.status_code', code).setTag('grpc.trace_id', traceId);
 
       // add changesets meta info
       !isEmpty(changesetsMessageId) && transaction.setTag(CHANGESETS_MESSAGE_ID, changesetsMessageId);
       !isEmpty(changesetsCmd) && transaction.setTag(CHANGESETS_CMD, changesetsCmd);
 
-      transaction.setTag('grpc.status_code', code)
+      transaction
+        .setTag('grpc.status_code', code)
         .setStatus(code === status.OK ? SpanStatus.Ok : SpanStatus.UnknownError)
         .finish();
     });
@@ -176,10 +179,7 @@ function extractExpressTransactionName(
 
 const DEFAULT_REQUEST_KEYS = ['userAgent', 'cookies', 'requestType', 'changesetsCmd', 'roomId'];
 
-function extractRpcData(
-  req: { [key: string]: any },
-  keys: string[] = DEFAULT_REQUEST_KEYS
-): { [key: string]: any } {
+function extractRpcData(req: { [key: string]: any }, keys: string[] = DEFAULT_REQUEST_KEYS): { [key: string]: any } {
   const requestData: { [key: string]: any } = {};
   keys.forEach(key => {
     switch (key) {

@@ -17,13 +17,13 @@
  */
 
 /* eslint-disable */
-import { Metadata } from "@grpc/grpc-js";
-import _m0 from "protobufjs/minimal";
-import { Observable } from "rxjs";
-import { BasicResult, ServerRoomChangeRo } from "../common/Core";
-import { Any } from "../google/protobuf/any";
+import { Metadata } from '@grpc/grpc-js';
+import _m0 from 'protobufjs/minimal';
+import { Observable } from 'rxjs';
+import { BasicResult, ServerRoomChangeRo } from '../common/Core';
+import { Any } from '../google/protobuf/any';
 
-export const protobufPackage = "grpc.serving";
+export const protobufPackage = 'grpc.serving';
 
 export interface WatchRoomRo {
   roomId: string;
@@ -151,9 +151,9 @@ export interface NodeDeleteRo {
 
 function createBaseWatchRoomRo(): WatchRoomRo {
   return {
-    roomId: "",
-    clientId: "",
-    cookie: "",
+    roomId: '',
+    clientId: '',
+    cookie: '',
     socketIds: [],
     shareId: undefined,
     spaceId: undefined,
@@ -163,13 +163,13 @@ function createBaseWatchRoomRo(): WatchRoomRo {
 
 export const WatchRoomRo = {
   encode(message: WatchRoomRo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.roomId !== "") {
+    if (message.roomId !== '') {
       writer.uint32(10).string(message.roomId);
     }
-    if (message.clientId !== "") {
+    if (message.clientId !== '') {
       writer.uint32(18).string(message.clientId);
     }
-    if (message.cookie !== "") {
+    if (message.cookie !== '') {
       writer.uint32(26).string(message.cookie);
     }
     for (const v of message.socketIds) {
@@ -225,9 +225,9 @@ export const WatchRoomRo = {
 
   fromJSON(object: any): WatchRoomRo {
     return {
-      roomId: isSet(object.roomId) ? String(object.roomId) : "",
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-      cookie: isSet(object.cookie) ? String(object.cookie) : "",
+      roomId: isSet(object.roomId) ? String(object.roomId) : '',
+      clientId: isSet(object.clientId) ? String(object.clientId) : '',
+      cookie: isSet(object.cookie) ? String(object.cookie) : '',
       socketIds: Array.isArray(object?.socketIds) ? object.socketIds.map((e: any) => String(e)) : [],
       shareId: isSet(object.shareId) ? String(object.shareId) : undefined,
       spaceId: isSet(object.spaceId) ? String(object.spaceId) : undefined,
@@ -241,7 +241,7 @@ export const WatchRoomRo = {
     message.clientId !== undefined && (obj.clientId = message.clientId);
     message.cookie !== undefined && (obj.cookie = message.cookie);
     if (message.socketIds) {
-      obj.socketIds = message.socketIds.map((e) => e);
+      obj.socketIds = message.socketIds.map(e => e);
     } else {
       obj.socketIds = [];
     }
@@ -253,10 +253,10 @@ export const WatchRoomRo = {
 
   fromPartial<I extends Exact<DeepPartial<WatchRoomRo>, I>>(object: I): WatchRoomRo {
     const message = Object.create(createBaseWatchRoomRo()) as WatchRoomRo;
-    message.roomId = object.roomId ?? "";
-    message.clientId = object.clientId ?? "";
-    message.cookie = object.cookie ?? "";
-    message.socketIds = object.socketIds?.map((e) => e) || [];
+    message.roomId = object.roomId ?? '';
+    message.clientId = object.clientId ?? '';
+    message.cookie = object.cookie ?? '';
+    message.socketIds = object.socketIds?.map(e => e) || [];
     message.shareId = object.shareId ?? undefined;
     message.spaceId = object.spaceId ?? undefined;
     message.embedLinkId = object.embedLinkId ?? undefined;
@@ -265,7 +265,7 @@ export const WatchRoomRo = {
 };
 
 function createBaseWatchRoomVo(): WatchRoomVo {
-  return { success: false, code: 0, message: "", data: undefined };
+  return { success: false, code: 0, message: '', data: undefined };
 }
 
 export const WatchRoomVo = {
@@ -276,7 +276,7 @@ export const WatchRoomVo = {
     if (message.code !== 0) {
       writer.uint32(16).int32(message.code);
     }
-    if (message.message !== "") {
+    if (message.message !== '') {
       writer.uint32(26).string(message.message);
     }
     if (message.data !== undefined) {
@@ -316,7 +316,7 @@ export const WatchRoomVo = {
     return {
       success: isSet(object.success) ? Boolean(object.success) : false,
       code: isSet(object.code) ? Number(object.code) : 0,
-      message: isSet(object.message) ? String(object.message) : "",
+      message: isSet(object.message) ? String(object.message) : '',
       data: isSet(object.data) ? WatchRoomVo_Data.fromJSON(object.data) : undefined,
     };
   },
@@ -334,21 +334,19 @@ export const WatchRoomVo = {
     const message = Object.create(createBaseWatchRoomVo()) as WatchRoomVo;
     message.success = object.success ?? false;
     message.code = object.code ?? 0;
-    message.message = object.message ?? "";
-    message.data = (object.data !== undefined && object.data !== null)
-      ? WatchRoomVo_Data.fromPartial(object.data)
-      : undefined;
+    message.message = object.message ?? '';
+    message.data = object.data !== undefined && object.data !== null ? WatchRoomVo_Data.fromPartial(object.data) : undefined;
     return message;
   },
 };
 
 function createBaseWatchRoomVo_ResourceRevision(): WatchRoomVo_ResourceRevision {
-  return { resourceId: "", revision: 0 };
+  return { resourceId: '', revision: 0 };
 }
 
 export const WatchRoomVo_ResourceRevision = {
   encode(message: WatchRoomVo_ResourceRevision, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.resourceId !== "") {
+    if (message.resourceId !== '') {
       writer.uint32(10).string(message.resourceId);
     }
     if (message.revision !== 0) {
@@ -380,7 +378,7 @@ export const WatchRoomVo_ResourceRevision = {
 
   fromJSON(object: any): WatchRoomVo_ResourceRevision {
     return {
-      resourceId: isSet(object.resourceId) ? String(object.resourceId) : "",
+      resourceId: isSet(object.resourceId) ? String(object.resourceId) : '',
       revision: isSet(object.revision) ? Number(object.revision) : 0,
     };
   },
@@ -394,22 +392,22 @@ export const WatchRoomVo_ResourceRevision = {
 
   fromPartial<I extends Exact<DeepPartial<WatchRoomVo_ResourceRevision>, I>>(object: I): WatchRoomVo_ResourceRevision {
     const message = Object.create(createBaseWatchRoomVo_ResourceRevision()) as WatchRoomVo_ResourceRevision;
-    message.resourceId = object.resourceId ?? "";
+    message.resourceId = object.resourceId ?? '';
     message.revision = object.revision ?? 0;
     return message;
   },
 };
 
 function createBaseWatchRoomVo_ActiveCell(): WatchRoomVo_ActiveCell {
-  return { fieldId: "", recordId: "", time: 0 };
+  return { fieldId: '', recordId: '', time: 0 };
 }
 
 export const WatchRoomVo_ActiveCell = {
   encode(message: WatchRoomVo_ActiveCell, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.fieldId !== "") {
+    if (message.fieldId !== '') {
       writer.uint32(10).string(message.fieldId);
     }
-    if (message.recordId !== "") {
+    if (message.recordId !== '') {
       writer.uint32(18).string(message.recordId);
     }
     if (message.time !== 0) {
@@ -444,8 +442,8 @@ export const WatchRoomVo_ActiveCell = {
 
   fromJSON(object: any): WatchRoomVo_ActiveCell {
     return {
-      fieldId: isSet(object.fieldId) ? String(object.fieldId) : "",
-      recordId: isSet(object.recordId) ? String(object.recordId) : "",
+      fieldId: isSet(object.fieldId) ? String(object.fieldId) : '',
+      recordId: isSet(object.recordId) ? String(object.recordId) : '',
       time: isSet(object.time) ? Number(object.time) : 0,
     };
   },
@@ -460,8 +458,8 @@ export const WatchRoomVo_ActiveCell = {
 
   fromPartial<I extends Exact<DeepPartial<WatchRoomVo_ActiveCell>, I>>(object: I): WatchRoomVo_ActiveCell {
     const message = Object.create(createBaseWatchRoomVo_ActiveCell()) as WatchRoomVo_ActiveCell;
-    message.fieldId = object.fieldId ?? "";
-    message.recordId = object.recordId ?? "";
+    message.fieldId = object.fieldId ?? '';
+    message.recordId = object.recordId ?? '';
     message.time = object.time ?? 0;
     return message;
   },
@@ -469,8 +467,8 @@ export const WatchRoomVo_ActiveCell = {
 
 function createBaseWatchRoomVo_Collaborator(): WatchRoomVo_Collaborator {
   return {
-    activeDatasheet: "",
-    socketId: "",
+    activeDatasheet: '',
+    socketId: '',
     userName: undefined,
     memberName: undefined,
     avatar: undefined,
@@ -485,10 +483,10 @@ function createBaseWatchRoomVo_Collaborator(): WatchRoomVo_Collaborator {
 
 export const WatchRoomVo_Collaborator = {
   encode(message: WatchRoomVo_Collaborator, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.activeDatasheet !== "") {
+    if (message.activeDatasheet !== '') {
       writer.uint32(10).string(message.activeDatasheet);
     }
-    if (message.socketId !== "") {
+    if (message.socketId !== '') {
       writer.uint32(18).string(message.socketId);
     }
     if (message.userName !== undefined) {
@@ -571,8 +569,8 @@ export const WatchRoomVo_Collaborator = {
 
   fromJSON(object: any): WatchRoomVo_Collaborator {
     return {
-      activeDatasheet: isSet(object.activeDatasheet) ? String(object.activeDatasheet) : "",
-      socketId: isSet(object.socketId) ? String(object.socketId) : "",
+      activeDatasheet: isSet(object.activeDatasheet) ? String(object.activeDatasheet) : '',
+      socketId: isSet(object.socketId) ? String(object.socketId) : '',
       userName: isSet(object.userName) ? String(object.userName) : undefined,
       memberName: isSet(object.memberName) ? String(object.memberName) : undefined,
       avatar: isSet(object.avatar) ? String(object.avatar) : undefined,
@@ -595,8 +593,7 @@ export const WatchRoomVo_Collaborator = {
     message.userId !== undefined && (obj.userId = message.userId);
     message.shareId !== undefined && (obj.shareId = message.shareId);
     message.createTime !== undefined && (obj.createTime = Math.round(message.createTime));
-    message.activeCell !== undefined &&
-      (obj.activeCell = message.activeCell ? WatchRoomVo_ActiveCell.toJSON(message.activeCell) : undefined);
+    message.activeCell !== undefined && (obj.activeCell = message.activeCell ? WatchRoomVo_ActiveCell.toJSON(message.activeCell) : undefined);
     message.nickName !== undefined && (obj.nickName = message.nickName);
     message.avatarColor !== undefined && (obj.avatarColor = Math.round(message.avatarColor));
     return obj;
@@ -604,17 +601,16 @@ export const WatchRoomVo_Collaborator = {
 
   fromPartial<I extends Exact<DeepPartial<WatchRoomVo_Collaborator>, I>>(object: I): WatchRoomVo_Collaborator {
     const message = Object.create(createBaseWatchRoomVo_Collaborator()) as WatchRoomVo_Collaborator;
-    message.activeDatasheet = object.activeDatasheet ?? "";
-    message.socketId = object.socketId ?? "";
+    message.activeDatasheet = object.activeDatasheet ?? '';
+    message.socketId = object.socketId ?? '';
     message.userName = object.userName ?? undefined;
     message.memberName = object.memberName ?? undefined;
     message.avatar = object.avatar ?? undefined;
     message.userId = object.userId ?? undefined;
     message.shareId = object.shareId ?? undefined;
     message.createTime = object.createTime ?? undefined;
-    message.activeCell = (object.activeCell !== undefined && object.activeCell !== null)
-      ? WatchRoomVo_ActiveCell.fromPartial(object.activeCell)
-      : undefined;
+    message.activeCell =
+      object.activeCell !== undefined && object.activeCell !== null ? WatchRoomVo_ActiveCell.fromPartial(object.activeCell) : undefined;
     message.nickName = object.nickName ?? undefined;
     message.avatarColor = object.avatarColor ?? undefined;
     return message;
@@ -674,9 +670,7 @@ export const WatchRoomVo_Data = {
       resourceRevisions: Array.isArray(object?.resourceRevisions)
         ? object.resourceRevisions.map((e: any) => WatchRoomVo_ResourceRevision.fromJSON(e))
         : [],
-      collaborators: Array.isArray(object?.collaborators)
-        ? object.collaborators.map((e: any) => WatchRoomVo_Collaborator.fromJSON(e))
-        : [],
+      collaborators: Array.isArray(object?.collaborators) ? object.collaborators.map((e: any) => WatchRoomVo_Collaborator.fromJSON(e)) : [],
       collaborator: isSet(object.collaborator) ? WatchRoomVo_Collaborator.fromJSON(object.collaborator) : undefined,
       spaceId: isSet(object.spaceId) ? String(object.spaceId) : undefined,
     };
@@ -685,14 +679,12 @@ export const WatchRoomVo_Data = {
   toJSON(message: WatchRoomVo_Data): unknown {
     const obj: any = {};
     if (message.resourceRevisions) {
-      obj.resourceRevisions = message.resourceRevisions.map((e) =>
-        e ? WatchRoomVo_ResourceRevision.toJSON(e) : undefined
-      );
+      obj.resourceRevisions = message.resourceRevisions.map(e => (e ? WatchRoomVo_ResourceRevision.toJSON(e) : undefined));
     } else {
       obj.resourceRevisions = [];
     }
     if (message.collaborators) {
-      obj.collaborators = message.collaborators.map((e) => e ? WatchRoomVo_Collaborator.toJSON(e) : undefined);
+      obj.collaborators = message.collaborators.map(e => (e ? WatchRoomVo_Collaborator.toJSON(e) : undefined));
     } else {
       obj.collaborators = [];
     }
@@ -704,18 +696,17 @@ export const WatchRoomVo_Data = {
 
   fromPartial<I extends Exact<DeepPartial<WatchRoomVo_Data>, I>>(object: I): WatchRoomVo_Data {
     const message = Object.create(createBaseWatchRoomVo_Data()) as WatchRoomVo_Data;
-    message.resourceRevisions = object.resourceRevisions?.map((e) => WatchRoomVo_ResourceRevision.fromPartial(e)) || [];
-    message.collaborators = object.collaborators?.map((e) => WatchRoomVo_Collaborator.fromPartial(e)) || [];
-    message.collaborator = (object.collaborator !== undefined && object.collaborator !== null)
-      ? WatchRoomVo_Collaborator.fromPartial(object.collaborator)
-      : undefined;
+    message.resourceRevisions = object.resourceRevisions?.map(e => WatchRoomVo_ResourceRevision.fromPartial(e)) || [];
+    message.collaborators = object.collaborators?.map(e => WatchRoomVo_Collaborator.fromPartial(e)) || [];
+    message.collaborator =
+      object.collaborator !== undefined && object.collaborator !== null ? WatchRoomVo_Collaborator.fromPartial(object.collaborator) : undefined;
     message.spaceId = object.spaceId ?? undefined;
     return message;
   },
 };
 
 function createBaseGetActiveCollaboratorsVo(): GetActiveCollaboratorsVo {
-  return { success: false, code: 0, message: "", data: undefined };
+  return { success: false, code: 0, message: '', data: undefined };
 }
 
 export const GetActiveCollaboratorsVo = {
@@ -726,7 +717,7 @@ export const GetActiveCollaboratorsVo = {
     if (message.code !== 0) {
       writer.uint32(16).int32(message.code);
     }
-    if (message.message !== "") {
+    if (message.message !== '') {
       writer.uint32(26).string(message.message);
     }
     if (message.data !== undefined) {
@@ -766,7 +757,7 @@ export const GetActiveCollaboratorsVo = {
     return {
       success: isSet(object.success) ? Boolean(object.success) : false,
       code: isSet(object.code) ? Number(object.code) : 0,
-      message: isSet(object.message) ? String(object.message) : "",
+      message: isSet(object.message) ? String(object.message) : '',
       data: isSet(object.data) ? GetActiveCollaboratorsVo_Data.fromJSON(object.data) : undefined,
     };
   },
@@ -776,8 +767,7 @@ export const GetActiveCollaboratorsVo = {
     message.success !== undefined && (obj.success = message.success);
     message.code !== undefined && (obj.code = Math.round(message.code));
     message.message !== undefined && (obj.message = message.message);
-    message.data !== undefined &&
-      (obj.data = message.data ? GetActiveCollaboratorsVo_Data.toJSON(message.data) : undefined);
+    message.data !== undefined && (obj.data = message.data ? GetActiveCollaboratorsVo_Data.toJSON(message.data) : undefined);
     return obj;
   },
 
@@ -785,24 +775,22 @@ export const GetActiveCollaboratorsVo = {
     const message = Object.create(createBaseGetActiveCollaboratorsVo()) as GetActiveCollaboratorsVo;
     message.success = object.success ?? false;
     message.code = object.code ?? 0;
-    message.message = object.message ?? "";
-    message.data = (object.data !== undefined && object.data !== null)
-      ? GetActiveCollaboratorsVo_Data.fromPartial(object.data)
-      : undefined;
+    message.message = object.message ?? '';
+    message.data = object.data !== undefined && object.data !== null ? GetActiveCollaboratorsVo_Data.fromPartial(object.data) : undefined;
     return message;
   },
 };
 
 function createBaseGetActiveCollaboratorsVo_ActiveCell(): GetActiveCollaboratorsVo_ActiveCell {
-  return { fieldId: "", recordId: "", time: 0 };
+  return { fieldId: '', recordId: '', time: 0 };
 }
 
 export const GetActiveCollaboratorsVo_ActiveCell = {
   encode(message: GetActiveCollaboratorsVo_ActiveCell, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.fieldId !== "") {
+    if (message.fieldId !== '') {
       writer.uint32(10).string(message.fieldId);
     }
-    if (message.recordId !== "") {
+    if (message.recordId !== '') {
       writer.uint32(18).string(message.recordId);
     }
     if (message.time !== 0) {
@@ -814,9 +802,7 @@ export const GetActiveCollaboratorsVo_ActiveCell = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GetActiveCollaboratorsVo_ActiveCell {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(
-      createBaseGetActiveCollaboratorsVo_ActiveCell(),
-    ) as GetActiveCollaboratorsVo_ActiveCell;
+    const message = Object.create(createBaseGetActiveCollaboratorsVo_ActiveCell()) as GetActiveCollaboratorsVo_ActiveCell;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -839,8 +825,8 @@ export const GetActiveCollaboratorsVo_ActiveCell = {
 
   fromJSON(object: any): GetActiveCollaboratorsVo_ActiveCell {
     return {
-      fieldId: isSet(object.fieldId) ? String(object.fieldId) : "",
-      recordId: isSet(object.recordId) ? String(object.recordId) : "",
+      fieldId: isSet(object.fieldId) ? String(object.fieldId) : '',
+      recordId: isSet(object.recordId) ? String(object.recordId) : '',
       time: isSet(object.time) ? Number(object.time) : 0,
     };
   },
@@ -853,14 +839,10 @@ export const GetActiveCollaboratorsVo_ActiveCell = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetActiveCollaboratorsVo_ActiveCell>, I>>(
-    object: I,
-  ): GetActiveCollaboratorsVo_ActiveCell {
-    const message = Object.create(
-      createBaseGetActiveCollaboratorsVo_ActiveCell(),
-    ) as GetActiveCollaboratorsVo_ActiveCell;
-    message.fieldId = object.fieldId ?? "";
-    message.recordId = object.recordId ?? "";
+  fromPartial<I extends Exact<DeepPartial<GetActiveCollaboratorsVo_ActiveCell>, I>>(object: I): GetActiveCollaboratorsVo_ActiveCell {
+    const message = Object.create(createBaseGetActiveCollaboratorsVo_ActiveCell()) as GetActiveCollaboratorsVo_ActiveCell;
+    message.fieldId = object.fieldId ?? '';
+    message.recordId = object.recordId ?? '';
     message.time = object.time ?? 0;
     return message;
   },
@@ -868,8 +850,8 @@ export const GetActiveCollaboratorsVo_ActiveCell = {
 
 function createBaseGetActiveCollaboratorsVo_Collaborator(): GetActiveCollaboratorsVo_Collaborator {
   return {
-    activeDatasheet: "",
-    socketId: "",
+    activeDatasheet: '',
+    socketId: '',
     userName: undefined,
     memberName: undefined,
     avatar: undefined,
@@ -884,10 +866,10 @@ function createBaseGetActiveCollaboratorsVo_Collaborator(): GetActiveCollaborato
 
 export const GetActiveCollaboratorsVo_Collaborator = {
   encode(message: GetActiveCollaboratorsVo_Collaborator, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.activeDatasheet !== "") {
+    if (message.activeDatasheet !== '') {
       writer.uint32(10).string(message.activeDatasheet);
     }
-    if (message.socketId !== "") {
+    if (message.socketId !== '') {
       writer.uint32(18).string(message.socketId);
     }
     if (message.userName !== undefined) {
@@ -923,9 +905,7 @@ export const GetActiveCollaboratorsVo_Collaborator = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GetActiveCollaboratorsVo_Collaborator {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(
-      createBaseGetActiveCollaboratorsVo_Collaborator(),
-    ) as GetActiveCollaboratorsVo_Collaborator;
+    const message = Object.create(createBaseGetActiveCollaboratorsVo_Collaborator()) as GetActiveCollaboratorsVo_Collaborator;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -972,17 +952,15 @@ export const GetActiveCollaboratorsVo_Collaborator = {
 
   fromJSON(object: any): GetActiveCollaboratorsVo_Collaborator {
     return {
-      activeDatasheet: isSet(object.activeDatasheet) ? String(object.activeDatasheet) : "",
-      socketId: isSet(object.socketId) ? String(object.socketId) : "",
+      activeDatasheet: isSet(object.activeDatasheet) ? String(object.activeDatasheet) : '',
+      socketId: isSet(object.socketId) ? String(object.socketId) : '',
       userName: isSet(object.userName) ? String(object.userName) : undefined,
       memberName: isSet(object.memberName) ? String(object.memberName) : undefined,
       avatar: isSet(object.avatar) ? String(object.avatar) : undefined,
       userId: isSet(object.userId) ? String(object.userId) : undefined,
       shareId: isSet(object.shareId) ? String(object.shareId) : undefined,
       createTime: isSet(object.createTime) ? Number(object.createTime) : undefined,
-      activeCell: isSet(object.activeCell)
-        ? GetActiveCollaboratorsVo_ActiveCell.fromJSON(object.activeCell)
-        : undefined,
+      activeCell: isSet(object.activeCell) ? GetActiveCollaboratorsVo_ActiveCell.fromJSON(object.activeCell) : undefined,
       nickName: isSet(object.nickName) ? String(object.nickName) : undefined,
       avatarColor: isSet(object.avatarColor) ? Number(object.avatarColor) : undefined,
     };
@@ -999,31 +977,24 @@ export const GetActiveCollaboratorsVo_Collaborator = {
     message.shareId !== undefined && (obj.shareId = message.shareId);
     message.createTime !== undefined && (obj.createTime = Math.round(message.createTime));
     message.activeCell !== undefined &&
-      (obj.activeCell = message.activeCell
-        ? GetActiveCollaboratorsVo_ActiveCell.toJSON(message.activeCell)
-        : undefined);
+      (obj.activeCell = message.activeCell ? GetActiveCollaboratorsVo_ActiveCell.toJSON(message.activeCell) : undefined);
     message.nickName !== undefined && (obj.nickName = message.nickName);
     message.avatarColor !== undefined && (obj.avatarColor = Math.round(message.avatarColor));
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetActiveCollaboratorsVo_Collaborator>, I>>(
-    object: I,
-  ): GetActiveCollaboratorsVo_Collaborator {
-    const message = Object.create(
-      createBaseGetActiveCollaboratorsVo_Collaborator(),
-    ) as GetActiveCollaboratorsVo_Collaborator;
-    message.activeDatasheet = object.activeDatasheet ?? "";
-    message.socketId = object.socketId ?? "";
+  fromPartial<I extends Exact<DeepPartial<GetActiveCollaboratorsVo_Collaborator>, I>>(object: I): GetActiveCollaboratorsVo_Collaborator {
+    const message = Object.create(createBaseGetActiveCollaboratorsVo_Collaborator()) as GetActiveCollaboratorsVo_Collaborator;
+    message.activeDatasheet = object.activeDatasheet ?? '';
+    message.socketId = object.socketId ?? '';
     message.userName = object.userName ?? undefined;
     message.memberName = object.memberName ?? undefined;
     message.avatar = object.avatar ?? undefined;
     message.userId = object.userId ?? undefined;
     message.shareId = object.shareId ?? undefined;
     message.createTime = object.createTime ?? undefined;
-    message.activeCell = (object.activeCell !== undefined && object.activeCell !== null)
-      ? GetActiveCollaboratorsVo_ActiveCell.fromPartial(object.activeCell)
-      : undefined;
+    message.activeCell =
+      object.activeCell !== undefined && object.activeCell !== null ? GetActiveCollaboratorsVo_ActiveCell.fromPartial(object.activeCell) : undefined;
     message.nickName = object.nickName ?? undefined;
     message.avatarColor = object.avatarColor ?? undefined;
     return message;
@@ -1071,32 +1042,27 @@ export const GetActiveCollaboratorsVo_Data = {
   toJSON(message: GetActiveCollaboratorsVo_Data): unknown {
     const obj: any = {};
     if (message.collaborators) {
-      obj.collaborators = message.collaborators.map((e) =>
-        e ? GetActiveCollaboratorsVo_Collaborator.toJSON(e) : undefined
-      );
+      obj.collaborators = message.collaborators.map(e => (e ? GetActiveCollaboratorsVo_Collaborator.toJSON(e) : undefined));
     } else {
       obj.collaborators = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetActiveCollaboratorsVo_Data>, I>>(
-    object: I,
-  ): GetActiveCollaboratorsVo_Data {
+  fromPartial<I extends Exact<DeepPartial<GetActiveCollaboratorsVo_Data>, I>>(object: I): GetActiveCollaboratorsVo_Data {
     const message = Object.create(createBaseGetActiveCollaboratorsVo_Data()) as GetActiveCollaboratorsVo_Data;
-    message.collaborators = object.collaborators?.map((e) => GetActiveCollaboratorsVo_Collaborator.fromPartial(e)) ||
-      [];
+    message.collaborators = object.collaborators?.map(e => GetActiveCollaboratorsVo_Collaborator.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseLeaveRoomRo(): LeaveRoomRo {
-  return { clientId: "" };
+  return { clientId: '' };
 }
 
 export const LeaveRoomRo = {
   encode(message: LeaveRoomRo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== "") {
+    if (message.clientId !== '') {
       writer.uint32(10).string(message.clientId);
     }
     return writer;
@@ -1121,7 +1087,7 @@ export const LeaveRoomRo = {
   },
 
   fromJSON(object: any): LeaveRoomRo {
-    return { clientId: isSet(object.clientId) ? String(object.clientId) : "" };
+    return { clientId: isSet(object.clientId) ? String(object.clientId) : '' };
   },
 
   toJSON(message: LeaveRoomRo): unknown {
@@ -1132,24 +1098,24 @@ export const LeaveRoomRo = {
 
   fromPartial<I extends Exact<DeepPartial<LeaveRoomRo>, I>>(object: I): LeaveRoomRo {
     const message = Object.create(createBaseLeaveRoomRo()) as LeaveRoomRo;
-    message.clientId = object.clientId ?? "";
+    message.clientId = object.clientId ?? '';
     return message;
   },
 };
 
 function createBaseUserRoomChangeRo(): UserRoomChangeRo {
-  return { cookie: "", type: "", roomId: "", changesets: undefined, shareId: undefined, clientId: "" };
+  return { cookie: '', type: '', roomId: '', changesets: undefined, shareId: undefined, clientId: '' };
 }
 
 export const UserRoomChangeRo = {
   encode(message: UserRoomChangeRo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.cookie !== "") {
+    if (message.cookie !== '') {
       writer.uint32(10).string(message.cookie);
     }
-    if (message.type !== "") {
+    if (message.type !== '') {
       writer.uint32(18).string(message.type);
     }
-    if (message.roomId !== "") {
+    if (message.roomId !== '') {
       writer.uint32(26).string(message.roomId);
     }
     if (message.changesets !== undefined) {
@@ -1158,7 +1124,7 @@ export const UserRoomChangeRo = {
     if (message.shareId !== undefined) {
       writer.uint32(42).string(message.shareId);
     }
-    if (message.clientId !== "") {
+    if (message.clientId !== '') {
       writer.uint32(50).string(message.clientId);
     }
     return writer;
@@ -1199,12 +1165,12 @@ export const UserRoomChangeRo = {
 
   fromJSON(object: any): UserRoomChangeRo {
     return {
-      cookie: isSet(object.cookie) ? String(object.cookie) : "",
-      type: isSet(object.type) ? String(object.type) : "",
-      roomId: isSet(object.roomId) ? String(object.roomId) : "",
+      cookie: isSet(object.cookie) ? String(object.cookie) : '',
+      type: isSet(object.type) ? String(object.type) : '',
+      roomId: isSet(object.roomId) ? String(object.roomId) : '',
       changesets: isSet(object.changesets) ? Any.fromJSON(object.changesets) : undefined,
       shareId: isSet(object.shareId) ? String(object.shareId) : undefined,
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
+      clientId: isSet(object.clientId) ? String(object.clientId) : '',
     };
   },
 
@@ -1213,8 +1179,7 @@ export const UserRoomChangeRo = {
     message.cookie !== undefined && (obj.cookie = message.cookie);
     message.type !== undefined && (obj.type = message.type);
     message.roomId !== undefined && (obj.roomId = message.roomId);
-    message.changesets !== undefined &&
-      (obj.changesets = message.changesets ? Any.toJSON(message.changesets) : undefined);
+    message.changesets !== undefined && (obj.changesets = message.changesets ? Any.toJSON(message.changesets) : undefined);
     message.shareId !== undefined && (obj.shareId = message.shareId);
     message.clientId !== undefined && (obj.clientId = message.clientId);
     return obj;
@@ -1222,20 +1187,18 @@ export const UserRoomChangeRo = {
 
   fromPartial<I extends Exact<DeepPartial<UserRoomChangeRo>, I>>(object: I): UserRoomChangeRo {
     const message = Object.create(createBaseUserRoomChangeRo()) as UserRoomChangeRo;
-    message.cookie = object.cookie ?? "";
-    message.type = object.type ?? "";
-    message.roomId = object.roomId ?? "";
-    message.changesets = (object.changesets !== undefined && object.changesets !== null)
-      ? Any.fromPartial(object.changesets)
-      : undefined;
+    message.cookie = object.cookie ?? '';
+    message.type = object.type ?? '';
+    message.roomId = object.roomId ?? '';
+    message.changesets = object.changesets !== undefined && object.changesets !== null ? Any.fromPartial(object.changesets) : undefined;
     message.shareId = object.shareId ?? undefined;
-    message.clientId = object.clientId ?? "";
+    message.clientId = object.clientId ?? '';
     return message;
   },
 };
 
 function createBaseUserRoomChangeVo(): UserRoomChangeVo {
-  return { success: false, code: 0, message: "", data: undefined };
+  return { success: false, code: 0, message: '', data: undefined };
 }
 
 export const UserRoomChangeVo = {
@@ -1246,7 +1209,7 @@ export const UserRoomChangeVo = {
     if (message.code !== 0) {
       writer.uint32(16).int32(message.code);
     }
-    if (message.message !== "") {
+    if (message.message !== '') {
       writer.uint32(26).string(message.message);
     }
     if (message.data !== undefined) {
@@ -1286,7 +1249,7 @@ export const UserRoomChangeVo = {
     return {
       success: isSet(object.success) ? Boolean(object.success) : false,
       code: isSet(object.code) ? Number(object.code) : 0,
-      message: isSet(object.message) ? String(object.message) : "",
+      message: isSet(object.message) ? String(object.message) : '',
       data: isSet(object.data) ? Any.fromJSON(object.data) : undefined,
     };
   },
@@ -1304,28 +1267,28 @@ export const UserRoomChangeVo = {
     const message = Object.create(createBaseUserRoomChangeVo()) as UserRoomChangeVo;
     message.success = object.success ?? false;
     message.code = object.code ?? 0;
-    message.message = object.message ?? "";
-    message.data = (object.data !== undefined && object.data !== null) ? Any.fromPartial(object.data) : undefined;
+    message.message = object.message ?? '';
+    message.data = object.data !== undefined && object.data !== null ? Any.fromPartial(object.data) : undefined;
     return message;
   },
 };
 
 function createBaseNodeCopyRo(): NodeCopyRo {
-  return { nodeId: "", copyNodeId: "", userId: "", uuid: "", fieldIds: [] };
+  return { nodeId: '', copyNodeId: '', userId: '', uuid: '', fieldIds: [] };
 }
 
 export const NodeCopyRo = {
   encode(message: NodeCopyRo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.nodeId !== "") {
+    if (message.nodeId !== '') {
       writer.uint32(10).string(message.nodeId);
     }
-    if (message.copyNodeId !== "") {
+    if (message.copyNodeId !== '') {
       writer.uint32(18).string(message.copyNodeId);
     }
-    if (message.userId !== "") {
+    if (message.userId !== '') {
       writer.uint32(26).string(message.userId);
     }
-    if (message.uuid !== "") {
+    if (message.uuid !== '') {
       writer.uint32(34).string(message.uuid);
     }
     for (const v of message.fieldIds) {
@@ -1366,10 +1329,10 @@ export const NodeCopyRo = {
 
   fromJSON(object: any): NodeCopyRo {
     return {
-      nodeId: isSet(object.nodeId) ? String(object.nodeId) : "",
-      copyNodeId: isSet(object.copyNodeId) ? String(object.copyNodeId) : "",
-      userId: isSet(object.userId) ? String(object.userId) : "",
-      uuid: isSet(object.uuid) ? String(object.uuid) : "",
+      nodeId: isSet(object.nodeId) ? String(object.nodeId) : '',
+      copyNodeId: isSet(object.copyNodeId) ? String(object.copyNodeId) : '',
+      userId: isSet(object.userId) ? String(object.userId) : '',
+      uuid: isSet(object.uuid) ? String(object.uuid) : '',
       fieldIds: Array.isArray(object?.fieldIds) ? object.fieldIds.map((e: any) => String(e)) : [],
     };
   },
@@ -1381,7 +1344,7 @@ export const NodeCopyRo = {
     message.userId !== undefined && (obj.userId = message.userId);
     message.uuid !== undefined && (obj.uuid = message.uuid);
     if (message.fieldIds) {
-      obj.fieldIds = message.fieldIds.map((e) => e);
+      obj.fieldIds = message.fieldIds.map(e => e);
     } else {
       obj.fieldIds = [];
     }
@@ -1390,17 +1353,17 @@ export const NodeCopyRo = {
 
   fromPartial<I extends Exact<DeepPartial<NodeCopyRo>, I>>(object: I): NodeCopyRo {
     const message = Object.create(createBaseNodeCopyRo()) as NodeCopyRo;
-    message.nodeId = object.nodeId ?? "";
-    message.copyNodeId = object.copyNodeId ?? "";
-    message.userId = object.userId ?? "";
-    message.uuid = object.uuid ?? "";
-    message.fieldIds = object.fieldIds?.map((e) => e) || [];
+    message.nodeId = object.nodeId ?? '';
+    message.copyNodeId = object.copyNodeId ?? '';
+    message.userId = object.userId ?? '';
+    message.uuid = object.uuid ?? '';
+    message.fieldIds = object.fieldIds?.map(e => e) || [];
     return message;
   },
 };
 
 function createBaseNodeDeleteRo(): NodeDeleteRo {
-  return { deleteNodeId: [], linkNodeId: [], userId: "", uuid: "" };
+  return { deleteNodeId: [], linkNodeId: [], userId: '', uuid: '' };
 }
 
 export const NodeDeleteRo = {
@@ -1411,10 +1374,10 @@ export const NodeDeleteRo = {
     for (const v of message.linkNodeId) {
       writer.uint32(18).string(v!);
     }
-    if (message.userId !== "") {
+    if (message.userId !== '') {
       writer.uint32(26).string(message.userId);
     }
-    if (message.uuid !== "") {
+    if (message.uuid !== '') {
       writer.uint32(34).string(message.uuid);
     }
     return writer;
@@ -1451,20 +1414,20 @@ export const NodeDeleteRo = {
     return {
       deleteNodeId: Array.isArray(object?.deleteNodeId) ? object.deleteNodeId.map((e: any) => String(e)) : [],
       linkNodeId: Array.isArray(object?.linkNodeId) ? object.linkNodeId.map((e: any) => String(e)) : [],
-      userId: isSet(object.userId) ? String(object.userId) : "",
-      uuid: isSet(object.uuid) ? String(object.uuid) : "",
+      userId: isSet(object.userId) ? String(object.userId) : '',
+      uuid: isSet(object.uuid) ? String(object.uuid) : '',
     };
   },
 
   toJSON(message: NodeDeleteRo): unknown {
     const obj: any = {};
     if (message.deleteNodeId) {
-      obj.deleteNodeId = message.deleteNodeId.map((e) => e);
+      obj.deleteNodeId = message.deleteNodeId.map(e => e);
     } else {
       obj.deleteNodeId = [];
     }
     if (message.linkNodeId) {
-      obj.linkNodeId = message.linkNodeId.map((e) => e);
+      obj.linkNodeId = message.linkNodeId.map(e => e);
     } else {
       obj.linkNodeId = [];
     }
@@ -1475,10 +1438,10 @@ export const NodeDeleteRo = {
 
   fromPartial<I extends Exact<DeepPartial<NodeDeleteRo>, I>>(object: I): NodeDeleteRo {
     const message = Object.create(createBaseNodeDeleteRo()) as NodeDeleteRo;
-    message.deleteNodeId = object.deleteNodeId?.map((e) => e) || [];
-    message.linkNodeId = object.linkNodeId?.map((e) => e) || [];
-    message.userId = object.userId ?? "";
-    message.uuid = object.uuid ?? "";
+    message.deleteNodeId = object.deleteNodeId?.map(e => e) || [];
+    message.linkNodeId = object.linkNodeId?.map(e => e) || [];
+    message.userId = object.userId ?? '';
+    message.uuid = object.uuid ?? '';
     return message;
   },
 };
@@ -1506,13 +1469,19 @@ export interface RoomServingService {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : T extends {}
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {

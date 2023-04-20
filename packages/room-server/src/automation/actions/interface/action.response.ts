@@ -25,11 +25,11 @@ export interface ISuccessResponse<T> {
 export interface IErrorResponse {
   errors: {
     message: string;
-  }[]
+  }[];
 }
 
 export type IActionResponse<T> = {
   success: boolean;
   data: ISuccessResponse<T> | IErrorResponse;
-  code: ResponseStatusCodeEnums
+  code: ResponseStatusCodeEnums;
 };

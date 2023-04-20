@@ -19,7 +19,6 @@
 import { AutomationActionEntity } from '../entities/automation.action.entity';
 
 export class RobotActionBaseInfoDto {
-
   actionId!: string;
 
   actionTypeId!: string;
@@ -32,7 +31,6 @@ export class RobotActionBaseInfoDto {
 }
 
 export class RobotActionInfoDto {
-
   id?: string;
 
   actionId!: string;

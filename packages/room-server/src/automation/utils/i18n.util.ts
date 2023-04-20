@@ -18,12 +18,12 @@
 
 export function replaceSchemaByLanguage(language: string, source: any): any {
   if (Array.isArray(source)) {
-    return source.map((item) => {
+    return source.map(item => {
       return replaceSchemaByLanguage(language, item);
     });
   } else if (typeof source === 'object') {
     const copySource: any = {};
-    Object.keys(source).forEach((key) => {
+    Object.keys(source).forEach(key => {
       copySource[key] = replaceSchemaByLanguage(language, source[key]);
     });
     return copySource;
@@ -48,7 +48,7 @@ export function getTypeByItem(item: any, lang: string, type = 'action') {
       serviceId: item.serviceId,
       name: serviceLanguage[item.serviceName],
       logo: item.serviceLogo,
-      slug: item.serviceSlug
-    }
+      slug: item.serviceSlug,
+    },
   };
 }

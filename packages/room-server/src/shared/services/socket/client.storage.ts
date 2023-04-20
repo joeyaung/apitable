@@ -26,9 +26,7 @@ import { CacheKeys, STORAGE_EXPIRE_TIME } from '../../common';
  */
 @Injectable()
 export class ClientStorage {
-  constructor(
-    private readonly redisService: RedisService,
-  ) { }
+  constructor(private readonly redisService: RedisService) {}
 
   /**
    * Obtain socket info by socket ID

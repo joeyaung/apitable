@@ -26,10 +26,7 @@ import { UnitMemberBaseInfoVo } from '../vos/unit.member.vo';
 
 @Injectable()
 export class UnitMemberService {
-  constructor(
-    private readonly memberRepo: UnitMemberRepository,
-    private readonly userService: UserService,
-  ) {}
+  constructor(private readonly memberRepo: UnitMemberRepository, private readonly userService: UserService) {}
 
   /**
    * Get member base infos by member ids
@@ -99,8 +96,13 @@ export class UnitMemberService {
     if (!members || !members.length) return {};
     return members.reduce<{
       [userId: string]: {
-        memberId: string, memberName: string; isActive: boolean; isDeleted: boolean; isMemberNameModified: boolean; unitId: string
-      }
+        memberId: string;
+        memberName: string;
+        isActive: boolean;
+        isDeleted: boolean;
+        isMemberNameModified: boolean;
+        unitId: string;
+      };
     }>((pre, cur) => {
       pre[cur.userId] = {
         memberId: cur.id,

@@ -25,10 +25,7 @@ import { AutomationTriggerTypeRepository } from '../repositories/automation.trig
 import { AutomationActionRepository } from '../repositories/automation.action.repository';
 import { LoggerConfigService } from '../../shared/services/config/logger.config.service';
 import { WinstonModule } from 'nest-winston';
-import {
-  RobotTriggerBaseInfoDto,
-  RobotTriggerInfoDto, TriggerTriggerTypeRelDto
-} from '../dtos/trigger.dto';
+import { RobotTriggerBaseInfoDto, RobotTriggerInfoDto, TriggerTriggerTypeRelDto } from '../dtos/trigger.dto';
 import { RobotActionBaseInfoDto, RobotActionInfoDto } from '../dtos/action.dto';
 import { AutomationRobotEntity } from '../entities/automation.robot.entity';
 import { ActionTypeBaseInfoDto } from '../dtos/action.type.dto';
@@ -47,7 +44,7 @@ describe('RobotRobotServiceTest', () => {
   let automationActionTypeRepository: AutomationActionTypeRepository;
   let automationServiceRepository: AutomationServiceRepository;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       providers: [
         AutomationTriggerRepository,
@@ -115,95 +112,101 @@ describe('RobotRobotServiceTest', () => {
       actionTypeId: actionType.actionTypeId,
       prevActionId: null,
       robotId: robot1.robotId,
-      input: {}
+      input: {},
     };
     const action2 = {
       actionId: 'action-2',
       actionTypeId: actionType.actionTypeId,
       prevActionId: action1.actionId,
       robotId: robot1.robotId,
-      input: {}
+      input: {},
     };
     const service = {
       serviceId: actionType.serviceId,
       baseUrl: 'baseUrl',
     };
-    jest.spyOn(automationRobotRepository, 'selectRobotIdsByResourceId')
-      .mockImplementation((resourceId: string): Promise<Pick<AutomationRobotEntity, 'robotId'>[]> => {
-        if(resourceId === 'resourceId') {
+    jest.spyOn(automationRobotRepository, 'selectRobotIdsByResourceId').mockImplementation(
+      (resourceId: string): Promise<Pick<AutomationRobotEntity, 'robotId'>[]> => {
+        if (resourceId === 'resourceId') {
           return Promise.resolve([{ robotId: robot1.robotId }, { robotId: robot2.robotId }, { robotId: robot3.robotId }]);
         }
         return Promise.resolve([]);
-      });
-    jest.spyOn(automationRobotRepository, 'selectRobotBaseInfoDtoByRobotIds')
-      .mockImplementation((robotIds: string[]): Promise<RobotBaseInfoDto[]> => {
-        if (robotIds?.length === 3 && robotIds[0] === robot1.robotId
-          && robotIds[1] === robot2.robotId && robotIds[2] === robot3.robotId) {
+      },
+    );
+    jest.spyOn(automationRobotRepository, 'selectRobotBaseInfoDtoByRobotIds').mockImplementation(
+      (robotIds: string[]): Promise<RobotBaseInfoDto[]> => {
+        if (robotIds?.length === 3 && robotIds[0] === robot1.robotId && robotIds[1] === robot2.robotId && robotIds[2] === robot3.robotId) {
           return Promise.resolve([robot1, robot2, robot3]);
         }
         return Promise.resolve([]);
-      });
-    jest.spyOn(automationTriggerRepository, 'selectTriggerInfoByRobotId')
-      .mockImplementation((robotId: string): Promise<RobotTriggerInfoDto | undefined> => {
-        if(robotId === robot1.robotId) {
+      },
+    );
+    jest.spyOn(automationTriggerRepository, 'selectTriggerInfoByRobotId').mockImplementation(
+      (robotId: string): Promise<RobotTriggerInfoDto | undefined> => {
+        if (robotId === robot1.robotId) {
           return Promise.resolve(trigger1);
         }
-        if(robotId === robot2.robotId) {
+        if (robotId === robot2.robotId) {
           return Promise.resolve(trigger2);
         }
         return Promise.resolve(undefined);
-      });
-    jest.spyOn(automationTriggerTypeRepository, 'selectInputJsonSchemaById')
-      .mockImplementation((triggerTypeId: string): Promise<TriggerInputJsonSchemaDto | undefined> => {
-        if(triggerTypeId === triggerType.triggerTypeId) {
+      },
+    );
+    jest.spyOn(automationTriggerTypeRepository, 'selectInputJsonSchemaById').mockImplementation(
+      (triggerTypeId: string): Promise<TriggerInputJsonSchemaDto | undefined> => {
+        if (triggerTypeId === triggerType.triggerTypeId) {
           return Promise.resolve(triggerType);
         }
         return Promise.resolve(undefined);
-      });
-    jest.spyOn(automationTriggerRepository, 'selectTriggerBaseInfosByRobotIds')
-      .mockImplementation((robotIds: string[]): Promise<RobotTriggerBaseInfoDto[]> => {
-        if (robotIds?.length === 3 && robotIds[0] === robot1.robotId
-          && robotIds[1] === robot2.robotId && robotIds[2] === robot3.robotId) {
+      },
+    );
+    jest.spyOn(automationTriggerRepository, 'selectTriggerBaseInfosByRobotIds').mockImplementation(
+      (robotIds: string[]): Promise<RobotTriggerBaseInfoDto[]> => {
+        if (robotIds?.length === 3 && robotIds[0] === robot1.robotId && robotIds[1] === robot2.robotId && robotIds[2] === robot3.robotId) {
           return Promise.resolve([trigger1, trigger2]);
         }
         return Promise.resolve([]);
-      });
-    jest.spyOn(automationActionRepository, 'selectActionInfosByRobotId')
-      .mockImplementation((robotId: string): Promise<RobotActionInfoDto[]>=> {
+      },
+    );
+    jest.spyOn(automationActionRepository, 'selectActionInfosByRobotId').mockImplementation(
+      (robotId: string): Promise<RobotActionInfoDto[]> => {
         if (robotId === robot1.robotId) {
           return Promise.resolve([action1 as RobotActionInfoDto, action2 as RobotActionInfoDto]);
         }
         return Promise.resolve([]);
-      });
-    jest.spyOn(automationActionRepository, 'selectActionBaseInfosByRobotIds')
-      .mockImplementation((robotIds: string[]): Promise<RobotActionBaseInfoDto[]> => {
-        if (robotIds?.length === 3 && robotIds[0] === robot1.robotId
-          && robotIds[1] === robot2.robotId && robotIds[2] === robot3.robotId) {
+      },
+    );
+    jest.spyOn(automationActionRepository, 'selectActionBaseInfosByRobotIds').mockImplementation(
+      (robotIds: string[]): Promise<RobotActionBaseInfoDto[]> => {
+        if (robotIds?.length === 3 && robotIds[0] === robot1.robotId && robotIds[1] === robot2.robotId && robotIds[2] === robot3.robotId) {
           return Promise.resolve([action2, action1]);
         }
         return Promise.resolve([]);
-      });
-    jest.spyOn(automationActionTypeRepository, 'selectByActionTypeIds')
-      .mockImplementation((actionTypeIds: string[]): Promise<ActionTypeBaseInfoDto[]> => {
+      },
+    );
+    jest.spyOn(automationActionTypeRepository, 'selectByActionTypeIds').mockImplementation(
+      (actionTypeIds: string[]): Promise<ActionTypeBaseInfoDto[]> => {
         if (actionTypeIds?.length === 1 && actionTypeIds[0] === action1.actionTypeId) {
           return Promise.resolve([actionType]);
         }
         return Promise.resolve([]);
-      });
-    jest.spyOn(automationServiceRepository, 'selectBaseUrlsByServiceIds')
-      .mockImplementation((serviceIds: string[]): Promise<ServiceBaseUrlDto[]> => {
-        if(serviceIds?.length === 1 && serviceIds[0] === service.serviceId) {
+      },
+    );
+    jest.spyOn(automationServiceRepository, 'selectBaseUrlsByServiceIds').mockImplementation(
+      (serviceIds: string[]): Promise<ServiceBaseUrlDto[]> => {
+        if (serviceIds?.length === 1 && serviceIds[0] === service.serviceId) {
           return Promise.resolve([service]);
         }
         return Promise.resolve([]);
-      });
+      },
+    );
   });
 
   afterAll(() => {
     module.close();
   });
 
-  it('should get robot base info by robot ids', async() => {
+  it('should get robot base info by robot ids', async () => {
     const robotBaseInfoVos = await service.getRobotBaseInfoByIds(['robot-1', 'robot-2', 'robot-3']);
     expect(robotBaseInfoVos.length).toEqual(3);
     expect(robotBaseInfoVos[2]!.nodes.length).toEqual(0);
@@ -218,12 +221,12 @@ describe('RobotRobotServiceTest', () => {
     expect((robotBaseInfoVos[0]!.nodes[2] as RobotActionBaseInfoDto).nextActionId).toEqual(undefined);
   });
 
-  it('should get robot base info by resource id', async() => {
+  it('should get robot base info by resource id', async () => {
     const robotBaseInfoVos = await service.getRobotListByResourceId('resourceId');
     expect(robotBaseInfoVos.length).toEqual(3);
   });
 
-  it('should get robot details info by robot id', async() => {
+  it('should get robot details info by robot id', async () => {
     const iRobot = await service.getRobotById('robot-1');
     expect(iRobot.id).toEqual('robot-1');
     expect(iRobot.triggerId).toEqual('trigger-1');
@@ -240,19 +243,19 @@ describe('RobotRobotServiceTest', () => {
     expect(iRobot.actionTypesById['action-type']?.outputJSONSchema).toEqual({});
   });
 
-  it('should be throw exception when the action is empty', async()=> {
-    await expect(async() => {
+  it('should be throw exception when the action is empty', async () => {
+    await expect(async () => {
       await service.getRobotById('robot-2');
     }).rejects.toThrow(CommonException.ROBOT_FORM_CHECK_ERROR.message);
   });
 
-  it('should be throw exception when the trigger is empty', async()=> {
-    await expect(async() => {
+  it('should be throw exception when the trigger is empty', async () => {
+    await expect(async () => {
       await service.getRobotById('robot-3');
     }).rejects.toThrow(CommonException.ROBOT_FORM_CHECK_ERROR.message);
   });
 
-  it('should get robot detail info vo by robot id', async() => {
+  it('should get robot detail info vo by robot id', async () => {
     const robotDetailVo = await service.getRobotDetailById('robot-1');
     expect(robotDetailVo.id).toEqual('robot-1');
     expect(robotDetailVo.triggerId).toEqual('trigger-1');
@@ -273,5 +276,4 @@ describe('RobotRobotServiceTest', () => {
     expect(robotDetailVo.triggerType?.triggerTypeId).toEqual('trigger-type');
     expect(robotDetailVo.triggerType?.inputJSONSchema).toEqual({});
   });
-
 });

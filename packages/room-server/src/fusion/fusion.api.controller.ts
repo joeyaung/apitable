@@ -18,7 +18,21 @@
 
 import { ApiTipConstant, Field, ICollaCommandOptions } from '@apitable/core';
 import {
-  Body, CacheTTL, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Put, Query, Req, Res, UseGuards, UseInterceptors,
+  Body,
+  CacheTTL,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
+  Req,
+  Res,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiInternalServerErrorResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger';
 import { AttachmentService } from 'database/attachment/services/attachment.service';

@@ -25,17 +25,17 @@ import * as fs from 'fs';
   providers: [
     {
       provide: DatasheetRecordSubscriptionBaseService,
-      useClass: class SubscriptionService extends DatasheetRecordSubscriptionBaseService {}
+      useClass: class SubscriptionService extends DatasheetRecordSubscriptionBaseService {},
     },
   ],
   exports: [
     {
       provide: DatasheetRecordSubscriptionBaseService,
-      useClass: class SubscriptionService extends DatasheetRecordSubscriptionBaseService {}
+      useClass: class SubscriptionService extends DatasheetRecordSubscriptionBaseService {},
     },
-  ]
+  ],
 })
-export class SubscriptionDynamicModule { 
+export class SubscriptionDynamicModule {
   static forRoot(): DynamicModule {
     const subscriptionEnterpriseModulePath = path.join(__dirname, '../../enterprise/database/subscription');
     const isEnterpriseLevel: boolean = fs.existsSync(subscriptionEnterpriseModulePath);
@@ -45,9 +45,8 @@ export class SubscriptionDynamicModule {
         module: SubscriptionEnterpriseModule,
       };
     }
-    return { 
+    return {
       module: SubscriptionDynamicModule,
-    }; 
-
+    };
   }
 }

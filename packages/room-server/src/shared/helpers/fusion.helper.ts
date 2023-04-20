@@ -22,7 +22,7 @@ import { NodeTypeEnum } from 'shared/enums/node.enum';
 
 /**
  * get datasheetId from url
- * @param url 
+ * @param url
  */
 export const parseDstIdFromUrl = (url: string) => {
   let datasheetId;
@@ -109,4 +109,3 @@ const EFFECTIVE_OPTION_ID_LENGTH = 13;
 export const isOptionId = (optionId: string) => {
   return optionId && optionId.startsWith('opt') && optionId.length === EFFECTIVE_OPTION_ID_LENGTH;
 };
-

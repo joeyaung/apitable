@@ -62,7 +62,7 @@ export class S3Store extends BaseOssStore implements CacheStore {
         Key: this.getFileNameByKey(key), // The name of the object. For example, 'sample_upload.txt'.
         Body: stream, // The content of the object. For example, 'Hello world!".
         Expires: date,
-        CacheControl: `max-age=${ttl}`
+        CacheControl: `max-age=${ttl}`,
       };
       this.s3Client.send(new PutObjectCommand(params), this.handleResponse(cb));
     });

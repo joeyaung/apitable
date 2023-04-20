@@ -194,7 +194,7 @@ describe('AttachmentField', () => {
           width: 0,
           name: 'Internet Media Industry: 2020 Weibo Animation White Paper.pdf',
           mimeType: 'application/pdf',
-        }
+        },
       ];
       try {
         await fieldClass.roTransform(fieldValues, field);
@@ -302,11 +302,7 @@ describe('AttachmentField', () => {
         },
       ];
       // The assertion for a promise must be returned.source.host
-      const data = fieldClass.voTransform(
-        cellValue,
-        field,
-        { cellFormat: CellFormatEnum.JSON, store }
-      );
+      const data = fieldClass.voTransform(cellValue, field, { cellFormat: CellFormatEnum.JSON, store });
       expect(data![0].token).toBe('space/2020/06/20/38f89e81bb83496da5d8af6a0ba637ec');
       expect(data![0].preview).toBe(oss.host + '/space/2020/06/20/38f89e81bb83496da5d8af6a0ba637ec');
       expect(data![0].size).toBe(5008519);
@@ -332,13 +328,9 @@ describe('AttachmentField', () => {
         },
       ];
       // The assertion for a promise must be returned.
-      expect(
-        fieldClass.voTransform(
-          cellValue,
-          field,
-          { cellFormat: CellFormatEnum.STRING, store },
-        ),
-      ).toBe('Internet Media Industry: 2020 Weibo Animation White Paper.pdf (https://s1.vika.cn/space/2020/06/20/38f89e81bb83496da5d8af6a0ba637ec)');
+      expect(fieldClass.voTransform(cellValue, field, { cellFormat: CellFormatEnum.STRING, store })).toBe(
+        'Internet Media Industry: 2020 Weibo Animation White Paper.pdf (https://s1.vika.cn/space/2020/06/20/38f89e81bb83496da5d8af6a0ba637ec)',
+      );
     });
 
     it('image--json--should return json array', () => {
@@ -352,14 +344,10 @@ describe('AttachmentField', () => {
           height: 478,
           width: 479,
           bucket: oss.bucket,
-        }
+        },
       ];
 
-      const data = fieldClass.voTransform(
-        cellValue,
-        field,
-        { cellFormat: CellFormatEnum.JSON, store },
-      );
+      const data = fieldClass.voTransform(cellValue, field, { cellFormat: CellFormatEnum.JSON, store });
       expect(data![0].token).toBe('space/2020/07/28/6fdc652231a8480398e302606ae28213');
       expect(data![0].url).toBe(oss.host + '/space/2020/07/28/6fdc652231a8480398e302606ae28213');
       expect(data![0].size).toBe(7194);

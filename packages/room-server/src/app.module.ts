@@ -87,5 +87,4 @@ import { UserModule } from 'user/user.module';
   ],
   providers: [],
 })
-export class AppModule {
-}
+export class AppModule {}

@@ -25,10 +25,7 @@ import { RobotServiceService } from '../services/robot.service.service';
 
 @Controller('nest/v1/robots/actions')
 export class RobotServiceController {
-  constructor(
-    private readonly robotServiceService: RobotServiceService,
-    private readonly userService: UserService,
-  ) { }
+  constructor(private readonly robotServiceService: RobotServiceService, private readonly userService: UserService) {}
 
   @Post('service')
   async createService(@Body() service: AutomationServiceCreateRo, @Headers('cookie') cookie: string) {
@@ -40,16 +37,11 @@ export class RobotServiceController {
   }
 
   @Patch('service/:serviceId')
-  async updateService(
-    @Param('serviceId') serviceId: string,
-    @Body() data: AutomationServiceUpdateRo,
-    @Headers('cookie') cookie: string
-  ) {
+  async updateService(@Param('serviceId') serviceId: string, @Body() data: AutomationServiceUpdateRo, @Headers('cookie') cookie: string) {
     if (isProdMode) {
       throw new Error('cant update service in production mode');
     }
     const user = await this.userService.getMe({ cookie });
     return this.robotServiceService.updateService(serviceId, data, user);
   }
-
 }

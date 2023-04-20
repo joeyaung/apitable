@@ -42,7 +42,7 @@ describe('user service', () => {
   const loggedSession = 'NWUzMDIxMmEtYjAyYi00ZDcxLWEzMTMtN2I4NzNmY2QzYTRj';
   const loggedInCookie = `SESSION=${loggedSession}; lang=zh-CN;`;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({
@@ -52,13 +52,13 @@ describe('user service', () => {
           expandVariables: true,
         }),
       ],
-      providers: [UserService, EnvConfigService, { provide: RestService, useValue: { hasLogin: jest.fn(), fetchMe: jest.fn() }}, UserRepository],
+      providers: [UserService, EnvConfigService, { provide: RestService, useValue: { hasLogin: jest.fn(), fetchMe: jest.fn() } }, UserRepository],
     }).compile();
     app = module.createNestApplication<NestFastifyApplication>(new FastifyAdapter());
     await app.init();
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await app.close();
   });
 
@@ -68,18 +68,30 @@ describe('user service', () => {
     envConfigService = module.get<EnvConfigService>(EnvConfigService);
     userRepo = module.get<UserRepository>(UserRepository);
 
-    jest.spyOn(userRepo, 'selectUserInfoBySpaceIdAndUuids').mockImplementation(async(spaceId: string, uuids: string[]) => {
+    jest.spyOn(userRepo, 'selectUserInfoBySpaceIdAndUuids').mockImplementation(async (spaceId: string, uuids: string[]) => {
       if (spaceId === knownSpaceId) {
         if (uuids.includes(knownUuid)) {
-          return await Promise.resolve([{ userId: knownUuid, uuid: knownUuid, avatarColor: null, nickName: 'test000', 
-            unitId: 1567455154058297346n, isDeleted: false, type: 1, name: 'test000', avatar: 'space/2020/09/11/e4d073b1fa674bc884a8c194e9248ecf', 
-            isMemberNameModified: true, isNickNameModified: true }]);
+          return await Promise.resolve([
+            {
+              userId: knownUuid,
+              uuid: knownUuid,
+              avatarColor: null,
+              nickName: 'test000',
+              unitId: 1567455154058297346n,
+              isDeleted: false,
+              type: 1,
+              name: 'test000',
+              avatar: 'space/2020/09/11/e4d073b1fa674bc884a8c194e9248ecf',
+              isMemberNameModified: true,
+              isNickNameModified: true,
+            },
+          ]);
         }
       }
       return await Promise.resolve([]);
     });
 
-    jest.spyOn(userRepo, 'selectUserBaseInfoByIds').mockImplementation(async(userIds: number[]) => {
+    jest.spyOn(userRepo, 'selectUserBaseInfoByIds').mockImplementation(async (userIds: number[]) => {
       if (userIds.includes(knownUserId)) {
         const userEntity = new UserEntity();
         userEntity.avatar = 'space/2020/09/11/e4d073b1fa674bc884a8c194e9248ecf';
@@ -92,42 +104,39 @@ describe('user service', () => {
       return await Promise.resolve([]);
     });
 
-    jest.spyOn(restService, 'hasLogin').mockImplementation(async(cookie: string) => {
+    jest.spyOn(restService, 'hasLogin').mockImplementation(async (cookie: string) => {
       if (cookie && cookie.includes(loggedSession)) {
         return await Promise.resolve(true);
       }
       return await Promise.resolve(false);
     });
 
-    jest.spyOn(restService, 'fetchMe').mockImplementation(async(headers: IAuthHeader) => {
+    jest.spyOn(restService, 'fetchMe').mockImplementation(async (headers: IAuthHeader) => {
       if (headers && headers.cookie?.includes(loggedSession)) {
-        const userBaseInfo: IUserBaseInfo = { userId: knownUserId.toString(),
-          uuid: knownUuid };
+        const userBaseInfo: IUserBaseInfo = { userId: knownUserId.toString(), uuid: knownUuid };
         return await Promise.resolve(userBaseInfo);
       }
       throw new ServerException(CommonException.UNAUTHORIZED);
     });
-
   });
 
   describe('test getUserInfo', () => {
-
-    it('should return empty array with an unknown spaceId', async() => {
+    it('should return empty array with an unknown spaceId', async () => {
       const result = await userService.getUserInfo('spc123456', [knownUuid]);
       expect(result).toHaveLength(0);
     });
 
-    it('should return empty array with an unknown uuid', async() => {
+    it('should return empty array with an unknown uuid', async () => {
       const result = await userService.getUserInfo(knownSpaceId, ['123456']);
       expect(result).toHaveLength(0);
     });
 
-    it('should return empty array with empty array of uuids', async() => {
+    it('should return empty array with empty array of uuids', async () => {
       const result1 = await userService.getUserInfo(knownSpaceId, []);
       expect(result1).toHaveLength(0);
     });
 
-    it('should return userDto with transformed avatar', async() => {
+    it('should return userDto with transformed avatar', async () => {
       const result = await userService.getUserInfo(knownSpaceId, [knownUuid]);
       expect(result).toBeDefined();
       const userDto = result.filter(user => user.uuid === knownUuid)[0];
@@ -135,41 +144,35 @@ describe('user service', () => {
       expect(userDto).toBeDefined();
       expect(userDto?.avatar).toContain(oss.host);
     });
-
   });
 
   describe('test getUserBaseInfoMapByUserIds', () => {
-
-    it('should return empty map with an unknown userId', async() => {
+    it('should return empty map with an unknown userId', async () => {
       const result = await userService.getUserBaseInfoMapByUserIds([123456]);
       expect(result).toEqual(new Map());
     });
 
-    it('should return INamedUser DTO instance with an known userId', async() => {
+    it('should return INamedUser DTO instance with an known userId', async () => {
       const result = await userService.getUserBaseInfoMapByUserIds([knownUserId]);
       expect(result.keys()).toContain(knownUserId.toString());
       expect(result.get(knownUserId.toString())).toHaveProperty(['isSocialNameModified']);
     });
-
   });
 
   describe('test getMeNullable', () => {
-
-    it('should return {} with invalid cookies', async() => {
+    it('should return {} with invalid cookies', async () => {
       const result = await userService.getMeNullable('');
       expect(result).toEqual({});
     });
 
-    it('should return IUserBaseInfo DTO instance with a logged-in cookie', async() => {
+    it('should return IUserBaseInfo DTO instance with a logged-in cookie', async () => {
       const result = await userService.getMeNullable(loggedInCookie);
       expect(result.userId).toEqual(knownUserId.toString());
     });
-
   });
 
   describe('test getMe', () => {
-
-    it('should throw exception with invalid cookie', async() => {
+    it('should throw exception with invalid cookie', async () => {
       // const res = async() => {
       //   await userService.getMe({ cookie: '' });
       // };
@@ -181,35 +184,30 @@ describe('user service', () => {
       }
     });
 
-    it('should return IUserBaseInfo DTO instance with a logged-in cookie', async() => {
+    it('should return IUserBaseInfo DTO instance with a logged-in cookie', async () => {
       const result = await userService.getMe({ cookie: loggedInCookie });
       expect(result.userId).toEqual(knownUserId.toString());
     });
-
   });
 
   describe('test session', () => {
-
-    it('should return false with invalid cookie', async() => {
+    it('should return false with invalid cookie', async () => {
       const result = await userService.session('');
       expect(result).toBeFalsy();
     });
 
-    it('should return true with a logged-in cookie', async() => {
+    it('should return true with a logged-in cookie', async () => {
       const result = await userService.session(loggedInCookie);
       expect(result).toBeTruthy();
     });
-
   });
 
   /**
    * API tests already implemented
    */
   describe('test getUserInfoBySpaceId', () => {
-
     it('should be defined', () => {
       expect(userService.getUserInfoBySpaceId).toBeDefined();
     });
-
   });
 });

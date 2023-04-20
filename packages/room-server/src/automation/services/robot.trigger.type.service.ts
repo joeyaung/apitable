@@ -28,19 +28,17 @@ import { getTypeByItem } from '../utils';
 
 @Injectable()
 export class RobotTriggerTypeService {
-
   constructor(
     private readonly automationTriggerTypeRepository: AutomationTriggerTypeRepository,
     private readonly automationServiceRepository: AutomationServiceRepository,
-  ) {
-  }
+  ) {}
 
   public async getServiceSlugToTriggerTypeId(endpoints: string[], serviceSlug: string): Promise<IServiceSlugTriggerTypeVo> {
     const triggerTypeServiceRelDtos = await this.automationTriggerTypeRepository.getTriggerTypeServiceRelByEndPoints(endpoints);
     const triggerTypes: {
-      triggerTypeId: string,
-      endpoint: string,
-      serviceSlug: string,
+      triggerTypeId: string;
+      endpoint: string;
+      serviceSlug: string;
     }[] = [];
     for (const triggerTypeServiceRelDto of triggerTypeServiceRelDtos) {
       const number = await this.automationServiceRepository.countServiceByServiceIdAndSlug(triggerTypeServiceRelDto.serviceId, serviceSlug);
@@ -52,7 +50,7 @@ export class RobotTriggerTypeService {
         });
       }
     }
-    return triggerTypes.reduce((serviceSlugToTriggerTypeId, item)=> {
+    return triggerTypes.reduce((serviceSlugToTriggerTypeId, item) => {
       const triggerSlug = `${item.endpoint}@${item.serviceSlug}`;
       serviceSlugToTriggerTypeId[triggerSlug] = item.triggerTypeId;
       return serviceSlugToTriggerTypeId;
@@ -111,9 +109,12 @@ export class RobotTriggerTypeService {
   }
 
   async updateTriggerType(triggerTypeId: string, data: TriggerTypeUpdateRo, user: IUserBaseInfo) {
-    return await this.automationTriggerTypeRepository.update({ triggerTypeId }, {
-      ...data,
-      updatedBy: user.userId,
-    });
+    return await this.automationTriggerTypeRepository.update(
+      { triggerTypeId },
+      {
+        ...data,
+        updatedBy: user.userId,
+      },
+    );
   }
 }

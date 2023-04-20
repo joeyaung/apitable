@@ -82,11 +82,6 @@ import { RobotRobotService } from './services/robot.robot.service';
     RobotActionService,
     RobotRobotService,
   ],
-  exports: [
-    AutomationService,
-    RobotTriggerService,
-    RobotTriggerTypeService,
-  ],
+  exports: [AutomationService, RobotTriggerService, RobotTriggerTypeService],
 })
-export class RobotModule {
-}
+export class RobotModule {}

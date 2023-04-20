@@ -23,10 +23,7 @@ import { TriggerCreateRo } from '../ros/trigger.create.ro';
 
 @Controller('nest/v1/robots/triggers')
 export class RobotTriggerController {
-  constructor(
-    private readonly automationTriggerRepository: AutomationTriggerRepository,
-    private readonly userService: UserService,
-  ) { }
+  constructor(private readonly automationTriggerRepository: AutomationTriggerRepository, private readonly userService: UserService) {}
 
   @Post(['/'])
   async createTrigger(@Body() trigger: TriggerCreateRo, @Headers('cookie') cookie: string) {
@@ -38,7 +35,7 @@ export class RobotTriggerController {
   async changeTriggerTypeId(
     @Headers('cookie') cookie: string,
     @Param('triggerId') triggerId: string,
-    @Body() data: { triggerTypeId?: string, input?: object }
+    @Body() data: { triggerTypeId?: string; input?: object },
   ) {
     const { userId } = await this.userService.getMe({ cookie });
     if (data.triggerTypeId) {
@@ -49,5 +46,4 @@ export class RobotTriggerController {
     }
     return { ok: false, msg: 'nothing changed' };
   }
-
 }

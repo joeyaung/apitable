@@ -25,7 +25,7 @@ describe('Test FusionNodeApiService', () => {
   let service: FusionNodeApiService;
   let restService: RestService;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       providers: [
         {
@@ -39,7 +39,7 @@ describe('Test FusionNodeApiService', () => {
           useValue: {
             headers: {
               authorization: 'token',
-            }
+            },
           },
         },
         FusionNodeApiService,
@@ -49,11 +49,11 @@ describe('Test FusionNodeApiService', () => {
     service = module.get<FusionNodeApiService>(FusionNodeApiService);
   });
 
-  it('should be return edit space\'s datasheets', async() => {
-    jest.spyOn(restService, 'getNodesList').mockResolvedValue([
-      {nodeId: 'datasheetId', nodeName: 'datasheetId', type: 2, icon: '100', parentId: 'parentId'}
-    ] as any);
-    const nodes = await service.getNodeList('spaceId', 2,'editor');
+  it("should be return edit space's datasheets", async () => {
+    jest
+      .spyOn(restService, 'getNodesList')
+      .mockResolvedValue([{ nodeId: 'datasheetId', nodeName: 'datasheetId', type: 2, icon: '100', parentId: 'parentId' }] as any);
+    const nodes = await service.getNodeList('spaceId', 2, 'editor');
     expect(nodes.length).toEqual(1);
   });
 });

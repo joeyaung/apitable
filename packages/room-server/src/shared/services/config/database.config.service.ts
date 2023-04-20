@@ -65,8 +65,8 @@ export class DatabaseConfigService implements TypeOrmOptionsFactory {
       retryDelay,
       verboseRetryLog: true,
       extra: {
-        connectionLimit
-      }
+        connectionLimit,
+      },
     };
   }
 }

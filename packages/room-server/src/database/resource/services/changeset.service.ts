@@ -113,5 +113,4 @@ export class ChangesetService {
     }
     return await this.resourceChangesetRepository.getChangesetOrderList(resourceId, startRevision, endRevision);
   }
-
 }

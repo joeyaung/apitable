@@ -28,7 +28,7 @@ describe('Test NodeRepository', () => {
   let repository: NodeRepository;
   let entities: NodeEntity[];
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({ isGlobal: true }),
@@ -41,88 +41,92 @@ describe('Test NodeRepository', () => {
     repository = module.get<NodeRepository>(NodeRepository);
   });
 
-  beforeEach(async() => {
-    const nodes: DeepPartial<NodeEntity>[] = [{
-      type: 1,
-      spaceId: 'spaceId',
-      parentId: '0',
-      nodeId: 'folderId',
-      nodeName: 'folder',
-    }, {
-      type: 2,
-      spaceId: 'spaceId',
-      parentId: 'folderId',
-      nodeId: 'datasheetId',
-      nodeName: 'datasheet',
-      extra: {},
-    }, {
-      type: 2,
-      spaceId: 'spaceId',
-      parentId: 'folderId',
-      nodeId: 'templateId',
-      nodeName: 'template',
-      isTemplate: true,
-    }];
+  beforeEach(async () => {
+    const nodes: DeepPartial<NodeEntity>[] = [
+      {
+        type: 1,
+        spaceId: 'spaceId',
+        parentId: '0',
+        nodeId: 'folderId',
+        nodeName: 'folder',
+      },
+      {
+        type: 2,
+        spaceId: 'spaceId',
+        parentId: 'folderId',
+        nodeId: 'datasheetId',
+        nodeName: 'datasheet',
+        extra: {},
+      },
+      {
+        type: 2,
+        spaceId: 'spaceId',
+        parentId: 'folderId',
+        nodeId: 'templateId',
+        nodeName: 'template',
+        isTemplate: true,
+      },
+    ];
     const record = repository.create(nodes);
     entities = await repository.save(record);
   });
 
-  afterEach(async() => {
+  afterEach(async () => {
     for (let i = 0; i < entities.length; i++) {
       await repository.delete(entities[i]!.id);
     }
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await repository.manager.connection.close();
   });
 
-  it('should be return node one count', async() => {
+  it('should be return node one count', async () => {
     const count = await repository.selectCountByNodeId('datasheetId');
     expect(count).toEqual(1);
   });
 
-  it('should be return node zero count', async() => {
+  it('should be return node zero count', async () => {
     const count = await repository.selectCountByNodeId('');
     expect(count).toEqual(0);
   });
 
-  it('should be return template one count', async() => {
+  it('should be return template one count', async () => {
     const count = await repository.selectTemplateCountByNodeId('templateId');
     expect(count).toEqual(1);
   });
 
-  it('should be return template zero count', async() => {
+  it('should be return template zero count', async () => {
     const count = await repository.selectTemplateCountByNodeId('datasheetId');
     expect(count).toEqual(0);
   });
 
-  it('should be return count under parent node', async() => {
+  it('should be return count under parent node', async () => {
     const count = await repository.selectCountByParentId('folderId');
     expect(count).toEqual(2);
   });
 
-  it('should be return zero count under parent node', async() => {
+  it('should be return zero count under parent node', async () => {
     const count = await repository.selectCountByParentId('');
     expect(count).toEqual(0);
   });
 
-  it('should be return the children node list of a given node', async() => {
+  it('should be return the children node list of a given node', async () => {
     const children = await repository.selectAllSubNodeIds('folderId');
     expect(children.length).toEqual(2);
   });
 
-  it('should be return the parent node list of a given node', async() => {
+  it('should be return the parent node list of a given node', async () => {
     const parent = await repository.selectParentPathByNodeId('datasheetId');
     expect(parent.length).toEqual(1);
   });
 
-  it('should be return node', async() => {
+  it('should be return node', async () => {
     const node = await repository.getNodeInfo('datasheetId');
     expect(node?.nodeId).toEqual('datasheetId');
   });
 
-  it('should be return extra', async() => {
+  it('should be return extra', async () => {
     const extra = await repository.selectExtraByNodeId('datasheetId');
     expect(extra?.extra).toBeDefined();
   });

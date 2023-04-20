@@ -23,12 +23,7 @@ import { DeveloperRepository } from './repositories/developer.repository';
 import { DeveloperService } from './services/developer.service';
 
 @Module({
-  imports: [
-    UserModule,
-    TypeOrmModule.forFeature([
-      DeveloperRepository,
-    ]),
-  ],
+  imports: [UserModule, TypeOrmModule.forFeature([DeveloperRepository])],
   providers: [DeveloperService],
   controllers: [],
   exports: [DeveloperService],

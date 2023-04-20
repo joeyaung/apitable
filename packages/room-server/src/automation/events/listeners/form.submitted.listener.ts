@@ -31,7 +31,6 @@ import { ResourceRobotTriggerDto } from '../../dtos/trigger.dto';
 
 @Injectable()
 export class FormSubmittedListener {
-
   private readonly options: IEventListenerOptions;
 
   constructor(
@@ -45,7 +44,7 @@ export class FormSubmittedListener {
 
   @OnEvent(OPEventNameEnums.FormSubmitted, { async: true })
   public async handleFormSubmittedEvent(event: FormSubmittedEvent) {
-    if(!isHandleEvent(event, event.beforeApply, this.options)) {
+    if (!isHandleEvent(event, event.beforeApply, this.options)) {
       return;
     }
 
@@ -68,7 +67,8 @@ export class FormSubmittedListener {
   }
 
   public getRenderTriggers(triggers: ResourceRobotTriggerDto[], eventContext: FormSubmittedEventContext): IShouldFireRobot[] {
-    return triggers.filter(item => Boolean(item.input))
+    return triggers
+      .filter(item => Boolean(item.input))
       .reduce((prev, item) => {
         const triggerInput = this.triggerEventHelper.renderInput(item.input!);
         if (triggerInput.formId === eventContext.formId) {
@@ -77,7 +77,7 @@ export class FormSubmittedListener {
             trigger: {
               input: triggerInput,
               output: eventContext,
-            }
+            },
           });
         }
         return prev;

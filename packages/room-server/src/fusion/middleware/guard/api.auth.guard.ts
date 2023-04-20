@@ -27,7 +27,6 @@ import { ApiException } from '../../../shared/exception';
  */
 @Injectable()
 export class ApiAuthGuard implements CanActivate {
-
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
     const user = request[USER_HTTP_DECORATE];

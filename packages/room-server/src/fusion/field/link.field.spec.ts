@@ -29,7 +29,7 @@ describe('LinkField', () => {
   let field: ILinkField;
   let recordService: any;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     jest.setTimeout(60000);
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -46,7 +46,7 @@ describe('LinkField', () => {
     };
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await app.close();
   });
 

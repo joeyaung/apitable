@@ -35,7 +35,7 @@ export class MetaService {
     private readonly datasheetService: DatasheetService,
     private readonly widgetService: WidgetService,
     private readonly resourceMetaRepository: ResourceMetaRepository,
-  ) { }
+  ) {}
 
   async getResourceInfo(resourceId: string, resourceType: ResourceType): Promise<IResourceInfo> {
     switch (resourceType) {

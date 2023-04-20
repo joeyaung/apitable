@@ -28,10 +28,7 @@ import { RoomService } from 'socket/services/room/room.service';
 @UseFilters(new GrpcExceptionFilter())
 @Controller(protobufPackage)
 export class SocketGrpcController {
-  constructor(
-    private readonly roomGateway: RoomGateway,
-    private readonly roomService: RoomService
-  ) {}
+  constructor(private readonly roomGateway: RoomGateway, private readonly roomService: RoomService) {}
 
   @GrpcMethod('SocketService', 'serverRoomChange')
   serverRoomChange(message: ServerRoomChangeRo): BasicResult {

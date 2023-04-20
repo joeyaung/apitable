@@ -27,7 +27,6 @@ import DailyRotateFile from 'winston-daily-rotate-file';
 
 @Injectable()
 export class LoggerConfigService implements WinstonModuleOptionsFactory {
-
   // app name
   private defaultAppName = APPLICATION_NAME;
 
@@ -52,37 +51,37 @@ export class LoggerConfigService implements WinstonModuleOptionsFactory {
 
   // logger formatter
   private formatter = winston.format.combine(
-    ...isDevMode ?
-      [
-        tracingFormat(),
-        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
-        // Development environment friendly output log format
-        nestWinstonModuleUtilities.format.nestLike(this.defaultAppName, { colors: true, prettyPrint: true }),
-      ] :
-      [
-        // Production environment using Json format + elk to analyze logs
-        escFormat({ format: 'YYYY-MM-DD HH:mm:ss.SSS' })
-      ]
+    ...(isDevMode
+      ? [
+          tracingFormat(),
+          winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
+          // Development environment friendly output log format
+          nestWinstonModuleUtilities.format.nestLike(this.defaultAppName, { colors: true, prettyPrint: true }),
+        ]
+      : [
+          // Production environment using Json format + elk to analyze logs
+          escFormat({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
+        ]),
   );
 
   // logger transports
   // console print configuration
   private consoleTransport = new winston.transports.Console({
     format: this.formatter,
-    level: this.defaultLogLevel
+    level: this.defaultLogLevel,
   });
   private logTransports = [
     this.consoleTransport,
     new winston.transports.File({
       level: 'error',
-      filename: this.errorFile
+      filename: this.errorFile,
     }),
     new DailyRotateFile({
       filename: this.logFile,
       datePattern: 'YYYY-MM-DD-HH',
       maxFiles: this.defaultMaxFiles,
-      maxSize: this.defaultMaxSize
-    })
+      maxSize: this.defaultMaxSize,
+    }),
   ];
 
   createWinstonModuleOptions(): Promise<WinstonModuleOptions> | WinstonModuleOptions {
@@ -92,10 +91,10 @@ export class LoggerConfigService implements WinstonModuleOptionsFactory {
       transports: isDevMode ? this.consoleTransport : this.logTransports,
       exceptionHandlers: [
         new winston.transports.File({
-          filename: this.exceptionFile
-        })
+          filename: this.exceptionFile,
+        }),
       ],
-      exitOnError: false
+      exitOnError: false,
     };
   }
 }

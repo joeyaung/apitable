@@ -23,17 +23,18 @@ import { AppModule } from 'app.module';
 describe('HealthController (e2e)', () => {
   let app: NestFastifyApplication;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
-    app = moduleRef.createNestApplication<NestFastifyApplication>(
-      new FastifyAdapter(),
-    );
+    app = moduleRef.createNestApplication<NestFastifyApplication>(new FastifyAdapter());
 
     await app.init();
-    await app.getHttpAdapter().getInstance().ready();
+    await app
+      .getHttpAdapter()
+      .getInstance()
+      .ready();
   });
 
   it('/GET actuator/health', () => {
@@ -47,7 +48,7 @@ describe('HealthController (e2e)', () => {
       });
   });
 
-  afterEach(async() => {
+  afterEach(async () => {
     await app.close();
   });
 });

@@ -49,7 +49,7 @@ import { GrpcClientProxy } from './grpc.client.proxy';
               package: [protobufPackage],
               protoPath: [
                 join(PROJECT_DIR, 'grpc/generated/serving/RoomServingService.proto'),
-                join(PROJECT_DIR, 'grpc/generated/common/Core.proto')
+                join(PROJECT_DIR, 'grpc/generated/common/Core.proto'),
               ],
               loader: {
                 json: true,
@@ -73,7 +73,7 @@ import { GrpcClientProxy } from './grpc.client.proxy';
               package: [protobufPackage],
               protoPath: [
                 join(PROJECT_DIR, 'grpc/generated/serving/BackendServingService.proto'),
-                join(PROJECT_DIR, 'grpc/generated/common/Core.proto')
+                join(PROJECT_DIR, 'grpc/generated/common/Core.proto'),
               ],
               loader: {
                 json: true,
@@ -87,5 +87,4 @@ import { GrpcClientProxy } from './grpc.client.proxy';
   providers: [GrpcClient],
   exports: [GrpcClient],
 })
-export class GrpcClientModule {
-}
+export class GrpcClientModule {}

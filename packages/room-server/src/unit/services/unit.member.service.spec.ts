@@ -31,7 +31,7 @@ describe('UnitMemberServiceTest', () => {
   let userService: UserService;
   let unitMemberRepository: UnitMemberRepository;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       providers: [
         UnitMemberRepository,
@@ -77,46 +77,51 @@ describe('UnitMemberServiceTest', () => {
       isMemberNameModified: false,
       unitId: '2023',
     };
-    jest.spyOn(unitMemberRepository, 'selectMembersByIdsIncludeDeleted')
-      .mockImplementation((memberIds: number[]): Promise<UnitMemberInfoDto[]> => {
+    jest.spyOn(unitMemberRepository, 'selectMembersByIdsIncludeDeleted').mockImplementation(
+      (memberIds: number[]): Promise<UnitMemberInfoDto[]> => {
         if (memberIds?.length === 1 && `${memberIds[0]}` === unitMember.id) {
           return Promise.resolve([unitMember]);
         }
         return Promise.resolve([]);
-      });
-    jest.spyOn(unitMemberRepository, 'selectIdBySpaceIdAndName')
-      .mockImplementation((spaceId: string, memberName: string): Promise<{ id: string } | undefined> => {
-        if(spaceId === 'spaceId' && memberName === 'memberName') {
+      },
+    );
+    jest.spyOn(unitMemberRepository, 'selectIdBySpaceIdAndName').mockImplementation(
+      (spaceId: string, memberName: string): Promise<{ id: string } | undefined> => {
+        if (spaceId === 'spaceId' && memberName === 'memberName') {
           return Promise.resolve({ id: '2023' });
         }
         return Promise.resolve(undefined);
-      });
-    jest.spyOn(unitMemberRepository, 'selectIdBySpaceIdAndUserId')
-      .mockImplementation((spaceId: string, userId: string): Promise<{ id: string } | undefined> => {
-        if(spaceId === 'spaceId' && userId === '2023') {
+      },
+    );
+    jest.spyOn(unitMemberRepository, 'selectIdBySpaceIdAndUserId').mockImplementation(
+      (spaceId: string, userId: string): Promise<{ id: string } | undefined> => {
+        if (spaceId === 'spaceId' && userId === '2023') {
           return Promise.resolve({ id: '2023' });
         }
         return Promise.resolve(undefined);
-      });
-    jest.spyOn(unitMemberRepository, 'selectMembersBySpaceIdAndUserIds')
-      .mockImplementation((spaceId: string, userIds: string[], excludeDeleted = true): Promise<UnitMemberBaseInfoDto[]> => {
+      },
+    );
+    jest.spyOn(unitMemberRepository, 'selectMembersBySpaceIdAndUserIds').mockImplementation(
+      (spaceId: string, userIds: string[], excludeDeleted = true): Promise<UnitMemberBaseInfoDto[]> => {
         if (spaceId === 'spaceId' && userIds?.length === 1 && userIds[0] === '2023' && excludeDeleted) {
           return Promise.resolve([unitMemberBaseInfo]);
         }
         return Promise.resolve([]);
-      });
-    jest.spyOn(userService, 'getUserBaseInfoMapByUserIds')
-      .mockImplementation((userIds: number[]): Promise<Map<string, INamedUser>> => {
-        if(userIds?.length === 1 && userIds[0] === 2023) {
+      },
+    );
+    jest.spyOn(userService, 'getUserBaseInfoMapByUserIds').mockImplementation(
+      (userIds: number[]): Promise<Map<string, INamedUser>> => {
+        if (userIds?.length === 1 && userIds[0] === 2023) {
           const map = new Map();
           map.set(namedUser.id, namedUser);
           return Promise.resolve(map);
         }
         return Promise.resolve(new Map());
-      });
+      },
+    );
   });
 
-  it('should be return user info map by user id', async() => {
+  it('should be return user info map by user id', async () => {
     const userIdToUserInfoMap = await service.getMembersBaseInfo([2023]);
     expect(userIdToUserInfoMap[2023]?.userId).toEqual('2023');
     expect(userIdToUserInfoMap[2023]?.userId).toEqual('2023');
@@ -131,33 +136,33 @@ describe('UnitMemberServiceTest', () => {
     expect(userIdToUserInfoMap[2023]?.isMemberNameModified).toBeFalsy();
   });
 
-  it('should get id by space id and member name', async() => {
+  it('should get id by space id and member name', async () => {
     const id = await service.getIdBySpaceIdAndName('spaceId', 'memberName');
     expect(id).toEqual('2023');
   });
 
-  it('should get null by space id and no exist member name', async() => {
+  it('should get null by space id and no exist member name', async () => {
     const id = await service.getIdBySpaceIdAndName('spaceId', 'noExistMemberName');
     expect(id).toEqual(null);
   });
 
-  it('should get id by space id and user id', async() => {
+  it('should get id by space id and user id', async () => {
     const id = await service.getIdBySpaceIdAndName('spaceId', 'memberName');
     expect(id).toEqual('2023');
   });
 
-  it('should get null by space id and no exist user id', async() => {
+  it('should get null by space id and no exist user id', async () => {
     const id = await service.getIdBySpaceIdAndName('spaceId', '2024');
     expect(id).toEqual(null);
   });
 
-  it('should throw when user no exist in space', async() => {
-    await expect(async() => {
+  it('should throw when user no exist in space', async () => {
+    await expect(async () => {
       await service.checkUserIfInSpace('spaceId', '2024');
     }).rejects.toThrow(PermissionException.ACCESS_DENIED.message);
   });
 
-  it('should return members base info', async() => {
+  it('should return members base info', async () => {
     const baseInfoVos = await service.getMembersBaseInfoBySpaceIdAndUserIds('spaceId', ['2023']);
     expect(baseInfoVos['2023']?.memberId).toEqual('2023');
     expect(baseInfoVos['2023']?.memberName).toEqual('memberName');

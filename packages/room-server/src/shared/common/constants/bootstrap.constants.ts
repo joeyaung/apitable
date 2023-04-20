@@ -22,7 +22,6 @@
  * Usually store IP, port etc...
  */
 export class BootstrapConstants {
-
   /*
    * The port on which the service starts listening，
    * Under `dual-mode` boot, the service port preference is 3333
@@ -69,7 +68,7 @@ export class BootstrapConstants {
  * application type, could be one of the following
  */
 export type ApplicationType =
-/** full functionality（default） **/
+  /** full functionality（default） **/
   | 'ROOM_SERVER'
   /** fusion API only **/
   | 'FUSION_SERVER'

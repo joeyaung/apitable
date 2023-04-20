@@ -36,7 +36,7 @@ export class FormController {
     private readonly nodeService: NodeService,
     private readonly formService: FormService,
     private readonly nodeShareSettingService: NodeShareSettingService,
-  ) { }
+  ) {}
 
   @Get(['forms/:formId/dataPack', 'form/:formId/dataPack'])
   @UseInterceptors(ResourceDataInterceptor)
@@ -50,11 +50,13 @@ export class FormController {
   @Get(['shares/:shareId/forms/:formId/dataPack', 'share/:shareId/form/:formId/dataPack'])
   @UseInterceptors(ResourceDataInterceptor)
   async getShareDataPack(
-    @Headers('cookie') cookie: string, @Param('shareId') shareId: string, @Param('formId') formId: string
+    @Headers('cookie') cookie: string,
+    @Param('shareId') shareId: string,
+    @Param('formId') formId: string,
   ): Promise<FormDataPack> {
     // check if the node has been shared
     await this.nodeShareSettingService.checkNodeHasOpenShare(shareId, formId);
-    // Only works for logged-in user 
+    // Only works for logged-in user
     // would throw exception if the user is not logged-in
     const { userId } = await this.userService.getMeNullable(cookie);
     return await this.formService.fetchShareDataPack(formId, shareId, userId, { cookie });
@@ -62,7 +64,9 @@ export class FormController {
 
   @Get(['templates/:templateId/forms/:formId/dataPack', 'template/:templateId/form/:formId/dataPack'])
   async getTemplateDataPack(
-    @Headers('cookie') cookie: string, @Param('templateId') templateId: string, @Param('formId') formId: string
+    @Headers('cookie') cookie: string,
+    @Param('templateId') templateId: string,
+    @Param('formId') formId: string,
   ): Promise<FormDataPack> {
     const isTemplate = await this.nodeService.isTemplate(formId);
     if (!isTemplate) {
@@ -78,9 +82,7 @@ export class FormController {
   }
 
   @Post(['forms/:formId/addRecord', 'form/:formId/addRecord'])
-  async addFormRecord(
-    @Headers('cookie') cookie: string, @Param('formId') formId: string, @Body() recordData: IRecordCellValue
-  ): Promise<any> {
+  async addFormRecord(@Headers('cookie') cookie: string, @Param('formId') formId: string, @Body() recordData: IRecordCellValue): Promise<any> {
     const { userId } = await this.userService.getMe({ cookie });
     await this.nodeService.checkUserForNode(userId, formId);
     return await this.formService.addRecord({ formId, userId, recordData }, { cookie });
@@ -88,7 +90,10 @@ export class FormController {
 
   @Post(['shares/:shareId/forms/:formId/addRecord', 'share/:shareId/form/:formId/addRecord'])
   async addShareFormRecord(
-    @Headers('cookie') cookie: string, @Param('shareId') shareId: string, @Param('formId') formId: string, @Body() recordData: IRecordCellValue
+    @Headers('cookie') cookie: string,
+    @Param('shareId') shareId: string,
+    @Param('formId') formId: string,
+    @Body() recordData: IRecordCellValue,
   ): Promise<any> {
     // check if the node has been shared
     await this.nodeShareSettingService.checkNodeHasOpenShare(shareId, formId);

@@ -39,8 +39,7 @@ describe('BaseNumberField', () => {
     });
 
     it('not number--should throw error', () => {
-      expect(() => fieldClass.validate('null', field, { field: 'fldpRxaCC8Mhe' }))
-        .toThrow(/^api_param_number_field_type_error$/);
+      expect(() => fieldClass.validate('null', field, { field: 'fldpRxaCC8Mhe' })).toThrow(/^api_param_number_field_type_error$/);
     });
   });
 });

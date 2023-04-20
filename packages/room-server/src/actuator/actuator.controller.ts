@@ -34,7 +34,7 @@ export class ActuatorController {
     private health: HealthCheckService,
     private db: TypeOrmHealthIndicator,
     private redis: RedisHealthIndicator,
-    private memory: MemoryHealthIndicator
+    private memory: MemoryHealthIndicator,
   ) {}
 
   @Get()
@@ -45,7 +45,7 @@ export class ActuatorController {
       () => this.db.pingCheck('database', { timeout: 60000 }),
       () => this.memoryOfCheckRSS(actuator),
       () => this.memoryOfCheckHeap(actuator),
-      () => this.redis.isRedisHealthy(this.redisService)
+      () => this.redis.isRedisHealthy(this.redisService),
     ]);
   }
 
@@ -53,7 +53,7 @@ export class ActuatorController {
     const totalMem = os.totalmem();
     const rssThreshold = (actuator.rssRatio / 100) * totalMem;
     return this.memory.checkRSS('memory_rss', rssThreshold).then(result => {
-      Object.assign(result['memory_rss']!, { totalMem: (totalMem / 1024 / 1024) });
+      Object.assign(result['memory_rss']!, { totalMem: totalMem / 1024 / 1024 });
       return result;
     });
   }
@@ -62,10 +62,8 @@ export class ActuatorController {
     const { heapTotal } = process.memoryUsage();
     const heapUsedThreshold = (actuator.heapRatio / 100) * heapTotal;
     return this.memory.checkHeap('memory_heap', heapUsedThreshold).then(result => {
-      Object.assign(result['memory_heap']!, { memoryUsageMem: (heapTotal / 1024 / 1024) });
+      Object.assign(result['memory_heap']!, { memoryUsageMem: heapTotal / 1024 / 1024 });
       return result;
     });
   }
-
 }
-

@@ -21,11 +21,8 @@ import { ResourceDataInterceptor } from 'database/resource/middleware/resource.d
 import { AttachmentService } from 'database/attachment/services/attachment.service';
 
 @Controller('nest/v1')
-
 export class AttachmentController {
-  constructor(
-    private readonly attachService: AttachmentService,
-  ) { }
+  constructor(private readonly attachService: AttachmentService) {}
 
   @Post('attach/getContentDisposition')
   @UseInterceptors(ResourceDataInterceptor)
@@ -34,4 +31,3 @@ export class AttachmentController {
     return response;
   }
 }
-

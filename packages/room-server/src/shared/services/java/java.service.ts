@@ -32,12 +32,16 @@ export class JavaService {
   private getHeaders() {
     return {
       ...(this.headers || {}),
-      'X-Internal-Request':'yes',
+      'X-Internal-Request': 'yes',
     };
   }
   public async post(url: string, data: any, options?: any): Promise<any> {
-    const response = await this.httpService.post(url, data, {
-      headers: this.getHeaders(), ...options }).toPromise();
+    const response = await this.httpService
+      .post(url, data, {
+        headers: this.getHeaders(),
+        ...options,
+      })
+      .toPromise();
     return response!.data;
   }
 

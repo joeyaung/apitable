@@ -20,7 +20,6 @@ import { DatasheetCascaderFieldEntity } from '../entities/datasheet.cascader.fie
 
 @EntityRepository(DatasheetCascaderFieldEntity)
 export class DatasheetCascaderFieldRepository extends Repository<DatasheetCascaderFieldEntity> {
-
   public async selectRecordData(spaceId: string, datasheetId: string, fieldId: string): Promise<DatasheetCascaderFieldEntity[]> {
     return await this.find({
       select: ['linkedRecordData', 'linkedRecordId'],
@@ -32,5 +31,4 @@ export class DatasheetCascaderFieldRepository extends Repository<DatasheetCascad
       },
     });
   }
-
 }

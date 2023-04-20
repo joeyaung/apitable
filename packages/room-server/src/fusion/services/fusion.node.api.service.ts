@@ -25,10 +25,7 @@ import { RestService } from 'shared/services/rest/rest.service';
 
 @Injectable()
 export class FusionNodeApiService {
-  constructor(
-    private readonly restService: RestService,
-    @Inject(REQUEST) private readonly request: FastifyRequest,
-  ) { }
+  constructor(private readonly restService: RestService, @Inject(REQUEST) private readonly request: FastifyRequest) {}
 
   public async getNodeList(spaceId: string, type: number, role: 'reader' | 'editor'): Promise<IAPINodeInfo[]> {
     const authHeader = { token: this.request.headers.authorization };
@@ -43,5 +40,4 @@ export class FusionNodeApiService {
       };
     });
   }
-
 }

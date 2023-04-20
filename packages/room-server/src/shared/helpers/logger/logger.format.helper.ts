@@ -30,13 +30,12 @@ function ecsTransform(
     convertErr?: boolean;
     convertReqRes?: boolean;
     format?: string | (() => string);
-  }) {
+  },
+) {
   const { convertErr = true, convertReqRes = false } = opts || {};
 
   const ecsFields: any = {
-    '@timestamp': typeof opts.format === 'function' ?
-      opts.format() :
-      fecha.format(new Date(), opts.format),
+    '@timestamp': typeof opts.format === 'function' ? opts.format() : fecha.format(new Date(), opts.format),
     'log.level': info.level,
     message: info.message,
     ecs: { version },

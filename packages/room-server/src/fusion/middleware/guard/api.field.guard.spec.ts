@@ -30,7 +30,7 @@ describe('ApiDatasheetGuard', () => {
   // let request;
   let context: any;
   let memberRepository: any;
-  beforeAll(async() => {
+  beforeAll(async () => {
     jest.setTimeout(60000);
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -48,7 +48,7 @@ describe('ApiDatasheetGuard', () => {
     guard = new ApiFieldGuard(memberRepository);
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await app.close();
   });
 
@@ -56,7 +56,7 @@ describe('ApiDatasheetGuard', () => {
     it('missing spaceId, return 400 code', () => {
       (context.switchToHttp().getRequest as jest.Mock).mockReturnValueOnce({
         params: {
-          datasheetId: 'abc'
+          datasheetId: 'abc',
         },
       });
       const error = ApiException.tipError(ApiTipConstant.api_params_instance_space_id_error);

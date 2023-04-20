@@ -29,33 +29,32 @@ import { Logger } from 'winston';
  */
 @Injectable()
 export class ComputeFieldReferenceManager {
-  constructor(
-    @InjectLogger() private readonly logger: Logger,
-    private readonly redisService: RedisService,
-  ) { }
+  constructor(@InjectLogger() private readonly logger: Logger, private readonly redisService: RedisService) {}
 
   /**
    * Create field reference by covering, original remaining part will break mutual reference
    * @returns original mapped datasheet : field set
    */
-  createReference = async(mainDstId: string, field: string, foreignDstId: string, refFieldIds: string[]): Promise<string[]> => {
+  createReference = async (mainDstId: string, field: string, foreignDstId: string, refFieldIds: string[]): Promise<string[]> => {
     this.logger.info('CreateComputeFieldReference', { mainDstId, field, refFieldIds });
     const client = this.redisService.getClient();
     const refKeySuf = util.format('%s:%s', mainDstId, field);
     // Build reference value
-    const refValues = await Promise.all(refFieldIds.map(async fieldId => {
-      const refValue = util.format('%s:%s', foreignDstId, fieldId);
-      // Maintain backward reference
-      const reRefKey = util.format(CacheKeys.DATASHEET_FIELD_RE_REF, refValue);
-      const exist = await client.sismember(reRefKey, refKeySuf);
-      // May be referenced in many places, only creation, no covering
-      if (!exist) {
-        this.logger.info(`CreateComputeFieldReference: Re ${refKeySuf} not exist in ${reRefKey} reRef`);
-        await client.sadd(reRefKey, ...[refKeySuf]);
-        await client.expire(reRefKey, REF_STORAGE_EXPIRE_TIME);
-      }
-      return refValue;
-    }));
+    const refValues = await Promise.all(
+      refFieldIds.map(async fieldId => {
+        const refValue = util.format('%s:%s', foreignDstId, fieldId);
+        // Maintain backward reference
+        const reRefKey = util.format(CacheKeys.DATASHEET_FIELD_RE_REF, refValue);
+        const exist = await client.sismember(reRefKey, refKeySuf);
+        // May be referenced in many places, only creation, no covering
+        if (!exist) {
+          this.logger.info(`CreateComputeFieldReference: Re ${refKeySuf} not exist in ${reRefKey} reRef`);
+          await client.sadd(reRefKey, ...[refKeySuf]);
+          await client.expire(reRefKey, REF_STORAGE_EXPIRE_TIME);
+        }
+        return refValue;
+      }),
+    );
     // Maintain forward reference relation. Example: LookUp field a in datasheet A references a field b in linked datasheet B, then
     // A-a and B-b forms forward reference, the former depends on the latter.
     const refKey = util.format(CacheKeys.DATASHEET_FIELD_REF, refKeySuf);
@@ -90,29 +89,31 @@ export class ComputeFieldReferenceManager {
     return await this.getRefFieldIds(members);
   };
 
-  deleteReference = async(mainDstId: string, field: string, foreignDstId: string, refFieldIds: string[]) => {
+  deleteReference = async (mainDstId: string, field: string, foreignDstId: string, refFieldIds: string[]) => {
     this.logger.info(`CreateComputeFieldReference:deleteReference mainDstId: ${mainDstId},field: ${field},Values: [${refFieldIds}]`);
     const client = this.redisService.getClient();
     // Suffix of forward reference key is the value of backward reference, namely suffix of backward reference key
     const refKeySuf = util.format('%s:%s', mainDstId, field);
     // Build reference value
-    const refValues = await Promise.all(refFieldIds.map(async fieldId => {
-      const refValue = util.format('%s:%s', foreignDstId, fieldId);
-      const reRefKey = util.format(CacheKeys.DATASHEET_FIELD_RE_REF, refValue);
-      const exist = await client.sismember(reRefKey, refKeySuf);
-      if (!exist) {
+    const refValues = await Promise.all(
+      refFieldIds.map(async fieldId => {
+        const refValue = util.format('%s:%s', foreignDstId, fieldId);
+        const reRefKey = util.format(CacheKeys.DATASHEET_FIELD_RE_REF, refValue);
+        const exist = await client.sismember(reRefKey, refKeySuf);
+        if (!exist) {
+          return refValue;
+        }
+        // Delete backward reference
+        const count = await client.scard(reRefKey);
+        if (count === 1) {
+          await client.del(reRefKey);
+        } else {
+          await client.srem(reRefKey, ...[refKeySuf]);
+          await client.expire(reRefKey, REF_STORAGE_EXPIRE_TIME);
+        }
         return refValue;
-      }
-      // Delete backward reference
-      const count = await client.scard(reRefKey);
-      if (count === 1) {
-        await client.del(reRefKey);
-      } else {
-        await client.srem(reRefKey, ...[refKeySuf]);
-        await client.expire(reRefKey, REF_STORAGE_EXPIRE_TIME);
-      }
-      return refValue;
-    }));
+      }),
+    );
     const refKey = util.format(CacheKeys.DATASHEET_FIELD_REF, refKeySuf);
     const members = await client.smembers(refKey);
     if (!members.length) {

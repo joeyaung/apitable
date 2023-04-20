@@ -29,7 +29,7 @@ describe('ApiDatasheetGuard', () => {
   // let request;
   let context: any;
   let memberRepository: any;
-  beforeAll(async() => {
+  beforeAll(async () => {
     jest.setTimeout(300000);
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -47,7 +47,7 @@ describe('ApiDatasheetGuard', () => {
     guard = new ApiDatasheetGuard(memberRepository);
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await app.close();
   });
 
@@ -76,7 +76,7 @@ describe('ApiDatasheetGuard', () => {
       (context.switchToHttp().getRequest as jest.Mock).mockReturnValueOnce({
         datasheet: 'aaa',
         user: {
-          spaceId: ['aa']
+          spaceId: ['aa'],
         },
         params: {
           datasheetId: 'aaa',

@@ -44,8 +44,9 @@ export class DatasheetFieldCascaderSnapshotService {
   public async getCascaderSnapshot(dto: CascaderSnapshotQueryDto): Promise<CascaderSnapshotVo> {
     const { datasheetId, fieldId, linkedFieldIds } = dto;
     const spaceId = await this.nodeService.getSpaceIdByNodeId(datasheetId);
-    const cascaderData: DatasheetCascaderFieldEntity[] = await this.datasheetCascaderFieldRepository.selectRecordData(spaceId, datasheetId, fieldId,);
-    if (!linkedFieldIds || linkedFieldIds.length > 100) { // Prevents DoS.
+    const cascaderData: DatasheetCascaderFieldEntity[] = await this.datasheetCascaderFieldRepository.selectRecordData(spaceId, datasheetId, fieldId);
+    if (!linkedFieldIds || linkedFieldIds.length > 100) {
+      // Prevents DoS.
       return {
         treeSelectNodes: [],
       };
@@ -82,14 +83,17 @@ export class DatasheetFieldCascaderSnapshotService {
       datasheetId,
       fieldId,
     );
-    await this.datasheetCascaderFieldRepository.manager.transaction(async() => {
-      await this.datasheetCascaderFieldRepository.update({
-        spaceId,
-        datasheetId,
-        fieldId,
-      }, {
-        isDeleted: true,
-      });
+    await this.datasheetCascaderFieldRepository.manager.transaction(async () => {
+      await this.datasheetCascaderFieldRepository.update(
+        {
+          spaceId,
+          datasheetId,
+          fieldId,
+        },
+        {
+          isDeleted: true,
+        },
+      );
       await this.datasheetCascaderFieldRepository.save(cascaderSnapshot);
     });
     return true;
@@ -184,16 +188,9 @@ export class DatasheetFieldCascaderSnapshotService {
           setNode(treeNodesMap, linkedFieldId, branchKey, node);
         }
         // ------------------------------- End --------------------------------------//
-        linkNodeToParentNode(
-          { fieldIdToParentFieldId, treeNodesMap, groupToTextToSet, treeNodes },
-          linkedFieldId,
-          linkRecordData,
-          node,
-          isNewNode,
-        );
+        linkNodeToParentNode({ fieldIdToParentFieldId, treeNodesMap, groupToTextToSet, treeNodes }, linkedFieldId, linkRecordData, node, isNewNode);
       }
     }
     return treeNodes;
   }
-
 }

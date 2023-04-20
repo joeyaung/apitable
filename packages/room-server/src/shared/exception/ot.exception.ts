@@ -23,7 +23,6 @@ import { IBaseException } from './base.exception';
  * handle changeset exception
  */
 export class OtException implements IBaseException {
-
   private static AllValues: { [name: string]: OtException } = {};
 
   // Exception type -------------------------------

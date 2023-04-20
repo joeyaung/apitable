@@ -17,9 +17,24 @@
  */
 
 import {
-  ApiTipConstant, ConfigConstant, EventAtomTypeEnums, EventRealTypeEnums, EventSourceTypeEnums, ExecuteResult, FieldType, ICollaCommandOptions,
-  IFormProps, ILocalChangeset, IMeta, IRecordCellValue, IServerDatasheetPack, OPEventNameEnums, ResourceType, Selectors, StoreActions,
-  transformOpFields
+  ApiTipConstant,
+  ConfigConstant,
+  EventAtomTypeEnums,
+  EventRealTypeEnums,
+  EventSourceTypeEnums,
+  ExecuteResult,
+  FieldType,
+  ICollaCommandOptions,
+  IFormProps,
+  ILocalChangeset,
+  IMeta,
+  IRecordCellValue,
+  IServerDatasheetPack,
+  OPEventNameEnums,
+  ResourceType,
+  Selectors,
+  StoreActions,
+  transformOpFields,
 } from '@apitable/core';
 import { RedisService } from '@apitable/nestjs-redis';
 import { Injectable } from '@nestjs/common';
@@ -59,18 +74,14 @@ export class FormService {
     private readonly datasheetChangesetSourceService: DatasheetChangesetSourceService,
     private readonly redisService: RedisService,
     private readonly eventEmitter: EventEmitter2,
-  ) { }
+  ) {}
 
   async fetchDataPack(formId: string, auth: IAuthHeader, templateId?: string): Promise<FormDataPack> {
     const beginTime = +new Date();
     this.logger.info(`Start loading form data [${formId}]`);
     // Query node info
-    const { node, fieldPermissionMap } = await this.nodeService.getNodeDetailInfo(
-      formId,
-      auth,
-      { internal: !templateId, main: true, notDst: true }
-    );
-    const {formProps, nodeRelInfo, dstId, meta} = await this.getRelDatasheetInfo(formId);
+    const { node, fieldPermissionMap } = await this.nodeService.getNodeDetailInfo(formId, auth, { internal: !templateId, main: true, notDst: true });
+    const { formProps, nodeRelInfo, dstId, meta } = await this.getRelDatasheetInfo(formId);
     // Get source datasheet permission in space
     if (!templateId) {
       const permissions = await this.nodeService.getPermissions(dstId, auth, { internal: true, main: false });
@@ -131,12 +142,12 @@ export class FormService {
 
   async addRecord(
     props: {
-      formId: string,
+      formId: string;
       shareId?: string;
       userId: string;
       recordData: IRecordCellValue;
     },
-    auth: IAuthHeader
+    auth: IAuthHeader,
   ): Promise<any> {
     const { formId, shareId, userId, recordData } = props;
     const dstId = await this.nodeService.getMainNodeId(formId);
@@ -156,12 +167,7 @@ export class FormService {
     }
   }
 
-  private async dispatchFormSubmittedEvent(props: {
-    formId: string,
-    recordId: string,
-    dstId: string,
-    interStore: any
-  }): Promise<any> {
+  private async dispatchFormSubmittedEvent(props: { formId: string; recordId: string; dstId: string; interStore: any }): Promise<any> {
     // FIXME: dispatchEvent in other place. wrap in try block to make sure execution is normal
     const { formId, recordId, dstId, interStore } = props;
     try {
@@ -171,18 +177,18 @@ export class FormService {
         recordData: thisRecord!.data,
         state: interStore.getState(),
         datasheetId: dstId,
-        recordId
+        recordId,
       });
       const eventContext = {
         // TODO: Old structure left for Qianfan, delete later
         datasheet: {
           id: dstId,
-          name: nodeRelInfo.datasheetName
+          name: nodeRelInfo.datasheetName,
         },
         record: {
           id: recordId,
           url: getRecordUrl(dstId, recordId),
-          fields: eventFields
+          fields: eventFields,
         },
         formId: formId,
         // Flattened new structure
@@ -190,13 +196,9 @@ export class FormService {
         datasheetName: nodeRelInfo.datasheetName,
         recordId,
         recordUrl: getRecordUrl(dstId, recordId),
-        ...eventFields
+        ...eventFields,
       };
-      this.logger.info(
-        'dispatchFormSubmittedEvent eventContext',
-        eventContext,
-        eventFields
-      );
+      this.logger.info('dispatchFormSubmittedEvent eventContext', eventContext, eventFields);
       this.eventEmitter.emit(OPEventNameEnums.FormSubmitted, {
         eventName: OPEventNameEnums.FormSubmitted,
         scope: ResourceType.Form,
@@ -214,12 +216,12 @@ export class FormService {
   private async addRecordAction(
     dstId: string,
     props: {
-      formId: string,
+      formId: string;
       shareId?: string;
       userId: string;
       recordData: IRecordCellValue;
     },
-    auth: IAuthHeader
+    auth: IAuthHeader,
   ): Promise<any> {
     const { formId, shareId, userId, recordData } = props;
     const meta = await this.datasheetMetaService.getMetaDataByDstId(dstId, DatasheetException.DATASHEET_NOT_EXIST);
@@ -229,8 +231,12 @@ export class FormService {
     if (nodeRelInfo.viewId && options['viewId']) {
       options['viewId'] = nodeRelInfo.viewId;
     }
-    const datasheetPack: IServerDatasheetPack =
-      await this.datasheetService.fetchSubmitFormForeignDatasheetPack(dstId, auth, fetchDataOptions, shareId);
+    const datasheetPack: IServerDatasheetPack = await this.datasheetService.fetchSubmitFormForeignDatasheetPack(
+      dstId,
+      auth,
+      fetchDataOptions,
+      shareId,
+    );
     // Form submission, handle field permissions
     if (datasheetPack.fieldPermissionMap) {
       for (const fieldPermissionInfo of Object.values(datasheetPack.fieldPermissionMap)) {
@@ -291,10 +297,9 @@ export class FormService {
           recordIds.push(...recordData[fieldId]);
           return;
         }
-        linkedRecordMap[foreignDatasheetId] =
-          Array.isArray(linkedRecordMap[foreignDatasheetId])
-            ? [...linkedRecordMap[foreignDatasheetId], ...recordData[fieldId]]
-            : recordData[fieldId];
+        linkedRecordMap[foreignDatasheetId] = Array.isArray(linkedRecordMap[foreignDatasheetId])
+          ? [...linkedRecordMap[foreignDatasheetId], ...recordData[fieldId]]
+          : recordData[fieldId];
       }
     });
     // remove duplicates

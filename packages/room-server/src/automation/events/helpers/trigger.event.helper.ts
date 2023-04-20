@@ -24,7 +24,7 @@ import {
   OperandTypeEnums,
   OperatorEnums,
   TRIGGER_INPUT_FILTER_FUNCTIONS,
-  TRIGGER_INPUT_PARSER_FUNCTIONS
+  TRIGGER_INPUT_PARSER_FUNCTIONS,
 } from '@apitable/core';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { getRecordUrl } from 'shared/helpers/env';
@@ -42,12 +42,11 @@ export type IShouldFireRobot = {
   trigger: {
     input: any;
     output: any;
-  }
+  };
 };
 
 @Injectable()
 export class TriggerEventHelper {
-
   private _triggerInputParser: InputParser<any>;
 
   private _triggerFilterInputParser: InputParser<any>;
@@ -86,13 +85,13 @@ export class TriggerEventHelper {
     if (conditionalTriggers.length === 0) return;
 
     let shouldFireRobots;
-    if(eventType === EventTypeEnums.RecordCreated) {
+    if (eventType === EventTypeEnums.RecordCreated) {
       shouldFireRobots = this.getRenderTriggers(EventTypeEnums.RecordCreated, conditionalTriggers, eventContext);
     } else {
       shouldFireRobots = this.getRenderTriggers(EventTypeEnums.RecordMatchesConditions, conditionalTriggers, eventContext);
     }
 
-    this.logger.info(`messageIds: [${ msgIds }]: Execute ${ eventType } handler. `, {
+    this.logger.info(`messageIds: [${msgIds}]: Execute ${eventType} handler. `, {
       shouldFireRobotIds: shouldFireRobots.map(robot => robot.robotId),
     });
 
@@ -103,7 +102,7 @@ export class TriggerEventHelper {
 
   public getRenderTriggers(eventType: string, conditionalTriggers: AutomationTriggerEntity[], eventContext: CommonEventContext) {
     const { datasheetId, datasheetName, recordId } = eventContext;
-    if(eventType == EventTypeEnums.RecordMatchesConditions) {
+    if (eventType == EventTypeEnums.RecordMatchesConditions) {
       return conditionalTriggers
         .filter(item => Boolean(item.input))
         .reduce((prev, item) => {
@@ -117,13 +116,13 @@ export class TriggerEventHelper {
               robotId: item.robotId,
               trigger: {
                 input: triggerInput,
-                output: triggerOutput
-              }
+                output: triggerOutput,
+              },
             });
           }
           return prev;
         }, [] as IShouldFireRobot[]);
-    } 
+    }
     return conditionalTriggers
       .filter(item => Boolean(item.input))
       .reduce((prev, item) => {
@@ -135,12 +134,11 @@ export class TriggerEventHelper {
             trigger: {
               input: triggerInput,
               output: triggerOutput,
-            }
+            },
           });
         }
         return prev;
       }, [] as IShouldFireRobot[]);
-    
   }
 
   public getTriggerOutput(datasheetId: string, datasheetName: string, recordId: string, eventContext: CommonEventContext) {
@@ -148,23 +146,23 @@ export class TriggerEventHelper {
       // the old structure: left for Qianfan, should delete later
       datasheet: {
         id: datasheetId,
-        name: datasheetName
+        name: datasheetName,
       },
       record: {
         id: recordId,
         url: getRecordUrl(datasheetId, recordId),
-        fields: eventContext.eventFields
+        fields: eventContext.eventFields,
       },
       // the new structure below: flat data structure
       datasheetId,
       datasheetName,
       recordId,
       recordUrl: getRecordUrl(datasheetId, recordId),
-      ...eventContext.eventFields
+      ...eventContext.eventFields,
     };
   }
 
-  private _getConditionalTriggers(triggers: AutomationTriggerEntity[] | undefined, triggerTypeId: string | undefined): AutomationTriggerEntity[]{
+  private _getConditionalTriggers(triggers: AutomationTriggerEntity[] | undefined, triggerTypeId: string | undefined): AutomationTriggerEntity[] {
     if (!triggers) {
       return [];
     }
@@ -201,5 +199,4 @@ export class TriggerEventHelper {
     // triggerInput.filter is also an expression.
     return isIntersect && this._triggerFilterInputParser.expressionParser.exec(filter, eventContext);
   }
-
 }

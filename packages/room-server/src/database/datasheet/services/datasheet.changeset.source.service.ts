@@ -25,14 +25,12 @@ import { DatasheetChangesetSourceRepository } from '../../datasheet/repositories
 
 @Injectable()
 export class DatasheetChangesetSourceService {
-  constructor(
-    private readonly changesetSourceRepository: DatasheetChangesetSourceRepository,
-  ) {}
+  constructor(private readonly changesetSourceRepository: DatasheetChangesetSourceRepository) {}
 
   /**
    * Batch create source info for changesets
-   * 
-   * @param changesets changesets from server 
+   *
+   * @param changesets changesets from server
    * @param sourceType changeset source
    * @return
    * @author Zoe Zheng

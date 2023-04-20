@@ -17,8 +17,17 @@
  */
 
 import {
-  CollectType, DateFormat, FieldType, IAutoNumberField, ICreatedByField, ICreatedTimeField, IFormulaField, ILastModifiedByField,
-  ILastModifiedTimeField, ILookUpField, TimeFormat
+  CollectType,
+  DateFormat,
+  FieldType,
+  IAutoNumberField,
+  ICreatedByField,
+  ICreatedTimeField,
+  IFormulaField,
+  ILastModifiedByField,
+  ILastModifiedTimeField,
+  ILookUpField,
+  TimeFormat,
 } from '@apitable/core';
 import { AutoNumberField } from 'fusion/field/auto.number.field';
 import { CreatedByField } from 'fusion/field/created.by.field';

@@ -42,7 +42,7 @@ export class CommandOptionsService {
     return {
       cmd: CollaCommandName.SetRecords,
       datasheetId: dstId,
-      data: fieldData
+      data: fieldData,
     };
   }
 

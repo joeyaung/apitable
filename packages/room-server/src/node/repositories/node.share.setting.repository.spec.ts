@@ -28,7 +28,7 @@ describe('Test NodeShareSettingRepository', () => {
   let repository: NodeShareSettingRepository;
   let entity: NodeShareSettingEntity;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({ isGlobal: true }),
@@ -41,7 +41,7 @@ describe('Test NodeShareSettingRepository', () => {
     repository = module.get<NodeShareSettingRepository>(NodeShareSettingRepository);
   });
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     const nodeShareSetting: DeepPartial<NodeShareSettingEntity> = {
       id: '2023',
       nodeId: 'datasheetId',
@@ -53,20 +53,20 @@ describe('Test NodeShareSettingRepository', () => {
     entity = await repository.save(record);
   });
 
-  afterEach(async() => {
+  afterEach(async () => {
     await repository.delete(entity.id);
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await repository.manager.connection.close();
   });
 
-  it('should be return share setting by share id', async() => {
+  it('should be return share setting by share id', async () => {
     const shareSetting = await repository.selectByShareId('shareId');
     expect(shareSetting?.nodeId).toEqual('datasheetId');
   });
 
-  it('should be return share setting by node id', async() => {
+  it('should be return share setting by node id', async () => {
     const shareSetting = await repository.selectByNodeId('datasheetId');
     expect(shareSetting?.shareId).toEqual('shareId');
   });

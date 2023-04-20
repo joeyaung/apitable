@@ -21,7 +21,6 @@ import { EntityRepository, Repository } from 'typeorm';
 
 @EntityRepository(AutomationRunHistoryEntity)
 export class AutomationRunHistoryRepository extends Repository<AutomationRunHistoryEntity> {
-
   getRunHistoryByRobotId(robotId: string, skip = 0, take = 10) {
     return this.find({
       select: ['taskId', 'robotId', 'createdAt', 'status'],
@@ -32,7 +31,7 @@ export class AutomationRunHistoryRepository extends Repository<AutomationRunHist
         createdAt: 'DESC',
       },
       skip,
-      take
+      take,
     });
   }
 
@@ -43,5 +42,4 @@ export class AutomationRunHistoryRepository extends Repository<AutomationRunHist
       },
     });
   }
-
 }

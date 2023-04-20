@@ -27,7 +27,7 @@ describe('ApiCacheInterceptor', () => {
   let cacheManager: any;
   let reflector: any;
   let context: any;
-  beforeAll(async() => {
+  beforeAll(async () => {
     jest.setTimeout(60000);
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -42,7 +42,7 @@ describe('ApiCacheInterceptor', () => {
       getRequest: jest.fn().mockReturnThis(),
     };
   });
-  afterAll(async() => {
+  afterAll(async () => {
     await app.close();
   });
 
@@ -82,7 +82,7 @@ describe('ApiCacheInterceptor', () => {
       jest.mock('app.environment', () => mockTrue);
       (context.switchToHttp().getRequest as jest.Mock).mockReturnValue({
         method: 'GET',
-        headers: {}
+        headers: {},
       });
       const result = interceptor.isRequestCacheable(context);
       expect(result).toEqual(false);
@@ -94,8 +94,8 @@ describe('ApiCacheInterceptor', () => {
       (context.switchToHttp().getRequest as jest.Mock).mockReturnValue({
         method: 'GET',
         headers: {
-          'x-max-age': 10
-        }
+          'x-max-age': 10,
+        },
       });
       const result = interceptor.isRequestCacheable(context);
       expect(result).toEqual(false);

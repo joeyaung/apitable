@@ -119,7 +119,7 @@ export class GrpcSocketService implements OnApplicationBootstrap, OnApplicationS
       // Filter exception that isn't necessary to be reported.
       message.cookie = undefined;
       message.token = undefined;
-      Sentry.captureException(e, { extra: { message }});
+      Sentry.captureException(e, { extra: { message } });
     }
     return ApiResponse.error(errMsg, statusCode);
   }
@@ -284,7 +284,7 @@ export class GrpcSocketService implements OnApplicationBootstrap, OnApplicationS
     const ipAddress = getIPAddress();
     const data: IPublishRoomAddressMessage = {
       address: `${ipAddress}:${BootstrapConstants.ROOM_GRPC_PORT}:${BootstrapConstants.SERVER_PORT}`,
-      action
+      action,
     };
     const message = JSON.stringify(data);
     try {
@@ -295,20 +295,23 @@ export class GrpcSocketService implements OnApplicationBootstrap, OnApplicationS
         this.logger.warn({
           message: "socket service isn't started",
           channel: RedisConstants.ROOM_POOL_CHANNEL,
-          number
+          number,
         });
       } else {
-        this.logger.info(`Room Client(grpc) [${ipAddress}:${BootstrapConstants.ROOM_GRPC_PORT}] publish succeeded`,
-          { action: data.action, channel: RedisConstants.ROOM_POOL_CHANNEL }
-        );
+        this.logger.info(`Room Client(grpc) [${ipAddress}:${BootstrapConstants.ROOM_GRPC_PORT}] publish succeeded`, {
+          action: data.action,
+          channel: RedisConstants.ROOM_POOL_CHANNEL,
+        });
       }
       // Disconnect manually
       redis.disconnect();
       return number;
     } catch (e) {
-      this.logger.info(`Room Client(grpc) [${ipAddress}:${BootstrapConstants.ROOM_GRPC_PORT}] publish failed`,
-        { e: (e as Error).message, stack: (e as Error)?.stack, message }
-      );
+      this.logger.info(`Room Client(grpc) [${ipAddress}:${BootstrapConstants.ROOM_GRPC_PORT}] publish failed`, {
+        e: (e as Error).message,
+        stack: (e as Error)?.stack,
+        message,
+      });
       throw e;
     }
   }

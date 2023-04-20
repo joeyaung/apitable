@@ -24,7 +24,7 @@ import { CpuHealthIndicator } from './cpu.health.indicator';
 
 @Module({
   imports: [TerminusModule],
-  providers: [RedisHealthIndicator,CpuHealthIndicator],
+  providers: [RedisHealthIndicator, CpuHealthIndicator],
   controllers: [ActuatorController],
 })
 export class ActuatorModule {}

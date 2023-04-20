@@ -26,12 +26,7 @@ import { NodeRateLimiterMiddleware } from './node.rate.limiter.middleware';
  */
 @Module({
   imports: [],
-  providers: [
-    NodeRateLimiterMiddleware,
-  ],
-  exports: [
-    NodeRateLimiterMiddleware,
-  ]
-
+  providers: [NodeRateLimiterMiddleware],
+  exports: [NodeRateLimiterMiddleware],
 })
 export class MiddlewareModule {}

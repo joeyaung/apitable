@@ -20,16 +20,16 @@ import { IJsonSchema } from '@apitable/core';
 import { IUiSchema } from '../actions/interface/base.action';
 
 export interface ActionTypeDetailVo {
-  actionTypeId: string,
-  name: string,
-  description: string,
-  endpoint: string,
-  inputJsonSchema: { schema: IJsonSchema, uiSchema: IUiSchema },
-  outputJsonSchema: IJsonSchema,
+  actionTypeId: string;
+  name: string;
+  description: string;
+  endpoint: string;
+  inputJsonSchema: { schema: IJsonSchema; uiSchema: IUiSchema };
+  outputJsonSchema: IJsonSchema;
   service: {
-    serviceId: string,
-    name: string,
-    logo: string,
-    slug: string
-  }
+    serviceId: string;
+    name: string;
+    logo: string;
+    slug: string;
+  };
 }

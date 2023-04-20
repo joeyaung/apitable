@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export interface IResourceInfo { 
-  nodeId?: string,
-  resourceRevision?: number, 
+export interface IResourceInfo {
+  nodeId?: string;
+  resourceRevision?: number;
 }

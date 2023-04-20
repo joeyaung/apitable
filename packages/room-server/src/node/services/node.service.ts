@@ -43,8 +43,7 @@ export class NodeService {
     private readonly nodeRepository: NodeRepository,
     private readonly nodeRelRepository: NodeRelRepository,
     private readonly resourceMetaService: MetaService,
-  ) {
-  }
+  ) {}
 
   async checkNodeIfExist(nodeId: string, exception?: IBaseException) {
     const count = await this.nodeRepository.selectCountByNodeId(nodeId);

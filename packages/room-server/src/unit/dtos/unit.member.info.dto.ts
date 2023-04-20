@@ -25,4 +25,3 @@ export class UnitMemberInfoDto {
   isDeleted!: boolean;
   isSocialNameModified?: number;
 }
-

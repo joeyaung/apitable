@@ -25,12 +25,12 @@ interface IRuLiuMsgRequest {
   content: string;
   webhookUrl: string;
   title?: string;
-  baseUrl?: string; 
+  baseUrl?: string;
 }
 
 interface IRuLiuMsgResponse {
-  errmsg: string,
-  errcode: number
+  errmsg: string;
+  errcode: number;
 }
 
 export async function sendRuLiuMsg(request: IRuLiuMsgRequest): Promise<IActionResponse<any>> {
@@ -40,9 +40,9 @@ export async function sendRuLiuMsg(request: IRuLiuMsgRequest): Promise<IActionRe
     case 'text':
       data = {
         text: {
-          content: content
+          content: content,
         },
-        msgtype: 'text'
+        msgtype: 'text',
       };
       break;
     case 'markdown':
@@ -50,8 +50,8 @@ export async function sendRuLiuMsg(request: IRuLiuMsgRequest): Promise<IActionRe
         msgtype: 'markdown',
         markdown: {
           title: title,
-          text: content
-        }
+          text: content,
+        },
       };
       break;
   }
@@ -61,7 +61,7 @@ export async function sendRuLiuMsg(request: IRuLiuMsgRequest): Promise<IActionRe
       body: JSON.stringify(data),
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
       },
     });
     const resp: IRuLiuMsgResponse = await res.json();
@@ -70,30 +70,34 @@ export async function sendRuLiuMsg(request: IRuLiuMsgRequest): Promise<IActionRe
         success: true,
         code: ResponseStatusCodeEnums.Success,
         data: {
-          data: resp
-        }
+          data: resp,
+        },
       };
     }
     return {
       success: false,
       code: ResponseStatusCodeEnums.ClientError,
       data: {
-        errors: [{
-          message: resp.errmsg
-        }]
-      }
+        errors: [
+          {
+            message: resp.errmsg,
+          },
+        ],
+      },
     };
   } catch (error: any) {
     // network error
     const res: IErrorResponse = {
-      errors: [{
-        message: error.message
-      }]
+      errors: [
+        {
+          message: error.message,
+        },
+      ],
     };
     return {
       success: false,
       data: res,
-      code: ResponseStatusCodeEnums.ServerError
+      code: ResponseStatusCodeEnums.ServerError,
     };
   }
 }

@@ -20,7 +20,6 @@
  * Broadcast message types
  */
 export enum BroadcastTypes {
-
   /**
    * Other users in the room have operated changeset
    * Because it is the server that takes the initiative to push it to him as opposed to the client, it starts with `Server`
@@ -65,5 +64,5 @@ export enum BroadcastTypes {
   /**
    * Field configuration property changes
    */
-   FIELD_PERMISSION_SETTING_CHANGE = 'FIELD_PERMISSION_SETTING_CHANGE',
+  FIELD_PERMISSION_SETTING_CHANGE = 'FIELD_PERMISSION_SETTING_CHANGE',
 }

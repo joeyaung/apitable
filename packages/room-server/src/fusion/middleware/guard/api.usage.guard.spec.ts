@@ -33,7 +33,7 @@ describe('ApiUsageGuard', () => {
   let logger: Logger;
   let restService: RestService;
   let context: any;
-  beforeAll(async() => {
+  beforeAll(async () => {
     jest.setTimeout(60000);
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -49,7 +49,7 @@ describe('ApiUsageGuard', () => {
     guard = new ApiUsageGuard(logger, restService);
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await app.close();
   });
 
@@ -65,27 +65,23 @@ describe('ApiUsageGuard', () => {
       });
     });
     it('usage not isAllowOverLimit throws an error', () => {
-      jest.spyOn(restService, 'getApiUsage').mockImplementationOnce(
-        (): any => {
-          return {
-            data: {
-              isAllowOverLimit: false,
-              maxApiUsageCount: 2,
-              apiUsageUsedCount: 4
-            }
-          };
-        },
-      );
+      jest.spyOn(restService, 'getApiUsage').mockImplementationOnce((): any => {
+        return {
+          data: {
+            isAllowOverLimit: false,
+            maxApiUsageCount: 2,
+            apiUsageUsedCount: 4,
+          },
+        };
+      });
       return guard.canActivate(context).catch(e => {
         return expect(e).toStrictEqual(ApiException.tipError(ApiTipConstant.api_forbidden_because_of_usage));
       });
     });
     it('java api not response throws an error', () => {
-      jest.spyOn(restService, 'getApiUsage').mockImplementationOnce(
-        (): any => {
-          return null;
-        },
-      );
+      jest.spyOn(restService, 'getApiUsage').mockImplementationOnce((): any => {
+        return null;
+      });
       return guard.canActivate(context).catch(e => {
         return expect(e).toStrictEqual(ApiException.tipError(ApiTipConstant.api_forbidden));
       });

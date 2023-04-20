@@ -24,11 +24,7 @@ import { merge } from 'lodash';
 export function SpanAddTag(attributes: Attributes[]): MethodDecorator {
   const logger = new Logger('SpanAddTagDecorator');
 
-  return (
-    _target: object,
-    _key: string | symbol,
-    descriptor: TypedPropertyDescriptor<any>,
-  ) => {
+  return (_target: object, _key: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
     const _this = descriptor.value;
 
     descriptor.value = function(...args: any[]) {

@@ -12050,6 +12050,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/classnames@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "@types/classnames@npm:2.3.1"
+  dependencies:
+    classnames: "*"
+  checksum: 09a17ea08fcb83380921efdfdac94cfa162f87025cae0bf6f4ba508c2fa5f436459ce7612905a3f968fdddb68c03b8e6ff08e762ed2d0c110c5c4fceb244dc55
+  languageName: node
+  linkType: hard
+
 "@types/cli-color@npm:^2.0.0":
   version: 2.0.0
   resolution: "@types/cli-color@npm:2.0.0"
@@ -17960,6 +17969,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"canvas@npm:^2.11.2":
+  version: 2.11.2
+  resolution: "canvas@npm:2.11.2"
+  dependencies:
+    "@mapbox/node-pre-gyp": ^1.0.0
+    nan: ^2.17.0
+    node-gyp: latest
+    simple-get: ^3.0.3
+  checksum: 61e554aef80022841dc836964534082ec21435928498032562089dfb7736215f039c7d99ee546b0cf10780232d9bf310950f8b4d489dc394e0fb6f6adfc97994
+  languageName: node
+  linkType: hard
+
 "capture-exit@npm:^2.0.0":
   version: 2.0.0
   resolution: "capture-exit@npm:2.0.0"
@@ -18454,17 +18475,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"classnames@npm:*, classnames@npm:^2.3.1":
+  version: 2.3.2
+  resolution: "classnames@npm:2.3.2"
+  checksum: 2c62199789618d95545c872787137262e741f9db13328e216b093eea91c85ef2bfb152c1f9e63027204e2559a006a92eb74147d46c800a9f96297ae1d9f96f4e
+  languageName: node
+  linkType: hard
+
 "classnames@npm:2.2.6, classnames@npm:2.x, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.5, classnames@npm:^2.2.6":
   version: 2.2.6
   resolution: "classnames@npm:2.2.6"
   checksum: 09a4fda780158aa8399079898eabeeca0c48c28641d9e4de140db7412e5e346843039ded1af0152f755afc2cc246ff8c3d6f227bf0dcb004e070b7fa14ec54cc
-  languageName: node
-  linkType: hard
-
-"classnames@npm:^2.3.1":
-  version: 2.3.2
-  resolution: "classnames@npm:2.3.2"
-  checksum: 2c62199789618d95545c872787137262e741f9db13328e216b093eea91c85ef2bfb152c1f9e63027204e2559a006a92eb74147d46c800a9f96297ae1d9f96f4e
   languageName: node
   linkType: hard
 
@@ -34495,6 +34516,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"nan@npm:^2.17.0":
+  version: 2.17.0
+  resolution: "nan@npm:2.17.0"
+  dependencies:
+    node-gyp: latest
+  checksum: ec609aeaf7e68b76592a3ba96b372aa7f5df5b056c1e37410b0f1deefbab5a57a922061e2c5b369bae9c7c6b5e6eecf4ad2dac8833a1a7d3a751e0a7c7f849ed
+  languageName: node
+  linkType: hard
+
 "nanoassert@npm:^1.1.0":
   version: 1.1.0
   resolution: "nanoassert@npm:1.1.0"
@@ -42105,6 +42135,7 @@ resolve@^2.0.0-next.3:
     "@commitlint/cli": 8.1.0
     "@commitlint/config-conventional": 8.1.0
     "@microsoft/eslint-formatter-sarif": ^3.0.0
+    "@types/classnames": ^2.3.1
     "@types/dot-object": ^2.1.2
     "@types/lru-cache": ^5.1.0
     "@types/node": 12.7.3
@@ -42112,6 +42143,7 @@ resolve@^2.0.0-next.3:
     "@typescript-eslint/parser": ^5.42.0
     apitable: latest
     babel-eslint: 10.1.0
+    canvas: ^2.11.2
     chalk: ^4.0.0
     concurrently: ^7.2.2
     dot-object: ^2.1.2

@@ -46,8 +46,7 @@ export class RobotRobotService {
     private readonly automationTriggerTypeRepository: AutomationTriggerTypeRepository,
     private readonly automationActionRepository: AutomationActionRepository,
     private readonly automationActionTypeRepository: AutomationActionTypeRepository,
-  ) {
-  }
+  ) {}
 
   /**
    * Get the resource's robots info.
@@ -67,7 +66,7 @@ export class RobotRobotService {
   }
 
   public async getRobotBaseInfoByIds(robotIds: string[]): Promise<RobotBaseInfoVo[]> {
-    const robotBaseInfoByIds: {[key: string]: RobotBaseInfoVo} = {};
+    const robotBaseInfoByIds: { [key: string]: RobotBaseInfoVo } = {};
 
     // 1. Get the robot's base info.
     const robots = await this.automationRobotRepository.selectRobotBaseInfoDtoByRobotIds(robotIds);
@@ -221,8 +220,7 @@ export class RobotRobotService {
     });
   }
 
-  private getRobotSortActionList(actions: RobotActionBaseInfoDto[]): RobotActionBaseInfoDto[]{
-
+  private getRobotSortActionList(actions: RobotActionBaseInfoDto[]): RobotActionBaseInfoDto[] {
     const actionIdToActionMap = RobotRobotService.getActionIdToActionMap(actions);
 
     this.actionAddNextActionId(actionIdToActionMap);
@@ -244,7 +242,7 @@ export class RobotRobotService {
    * @return  {[actionTypeId: string]: IActionType}
    * @private
    */
-  private async getActionTypeIdToActionTypeMap(actions: RobotActionInfoDto[]): Promise<{[key: string]: IActionType}> {
+  private async getActionTypeIdToActionTypeMap(actions: RobotActionInfoDto[]): Promise<{ [key: string]: IActionType }> {
     const actionTypeIds = new Set<string>();
     // Get the unique action type ids.
     actions.forEach(action => actionTypeIds.add(action.actionTypeId!));

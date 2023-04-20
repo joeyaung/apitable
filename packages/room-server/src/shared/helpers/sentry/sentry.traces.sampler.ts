@@ -28,10 +28,12 @@ export class SentryTraces {
 
   constructor(defaultSampleRate: number) {
     // initialize rules
-    this._nameSamplerConfig = [{
-      name: /^GET \/actuator\/health$/,
-      rate: 0
-    }];
+    this._nameSamplerConfig = [
+      {
+        name: /^GET \/actuator\/health$/,
+        rate: 0,
+      },
+    ];
     this._defaultSampleRate = defaultSampleRate;
   }
 
@@ -63,9 +65,9 @@ export class SentryTraces {
 }
 
 interface Sampler {
-  rate: number | boolean
+  rate: number | boolean;
 }
 
 interface TransactionNameSampler extends Sampler {
-  name: string | RegExp
+  name: string | RegExp;
 }

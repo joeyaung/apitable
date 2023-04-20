@@ -22,17 +22,17 @@ import { UnitTeamRepository } from '../repositories/unit.team.repository';
 
 /**
  * unitTeam related operations
- * 
+ *
  * @author Zoe zheng
  * @date 2020/7/30 6:31 PM
  */
 @Injectable()
 export class UnitTeamService {
-  constructor(private readonly teamRepo: UnitTeamRepository) { }
+  constructor(private readonly teamRepo: UnitTeamRepository) {}
 
   /**
    * Get team base info by team ids
-   * 
+   *
    * @param teamIds
    * @return IUnitTeamBaseInfoMap
    * @author Zoe Zheng

@@ -75,7 +75,7 @@ export class ResourceMetaRepository extends Repository<ResourceMetaEntity> {
       where: {
         resourceId: In(resourceIds),
         isDeleted: 0,
-      }
+      },
     });
   }
 

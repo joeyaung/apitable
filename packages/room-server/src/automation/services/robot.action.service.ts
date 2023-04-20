@@ -20,10 +20,7 @@ import { AutomationActionRepository } from '../repositories/automation.action.re
 
 @Injectable()
 export class RobotActionService {
-
-  constructor(
-    private readonly automationActionRepository: AutomationActionRepository
-  ) { }
+  constructor(private readonly automationActionRepository: AutomationActionRepository) {}
 
   /**
    * Finds the previous and the next node of the current node.
@@ -39,7 +36,7 @@ export class RobotActionService {
     const robotId = robotRel.robotId;
     // the prevActionId may be null
     const prevActionId = robotRel.prevActionId;
-    await this.automationActionRepository.manager.transaction(async() => {
+    await this.automationActionRepository.manager.transaction(async () => {
       // Find the action whose prevActionId equals to actionId.
       // If the action exist, set the action's prevActionId as prevActionId.
       await this.automationActionRepository.updateRobotPrevActionIdByOldPrevActionId(userId, robotId, prevActionId, actionId);
@@ -48,5 +45,4 @@ export class RobotActionService {
     });
     return true;
   }
-
 }

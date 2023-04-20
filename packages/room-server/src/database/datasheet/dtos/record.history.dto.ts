@@ -32,20 +32,19 @@ export class RecordHistoryDto {
 
   @ApiProperty({
     type: [CommentDto],
-    description: 'comment involved units\'s list',
+    description: "comment involved units's list",
   })
   units!: UnitInfoDto[];
 
   @ApiProperty({
     type: [CommentEmojiDto],
-    description: 'comment\'s emojis',
+    description: "comment's emojis",
   })
   emojis!: CommentEmojiDto;
 
   @ApiProperty({
     type: [CommentReplyDto],
-    description: 'comment\'s quote information',
+    description: "comment's quote information",
   })
   commentReplyMap!: CommentReplyDto;
 }
-

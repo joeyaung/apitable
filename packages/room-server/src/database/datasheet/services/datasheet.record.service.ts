@@ -161,7 +161,7 @@ export class DatasheetRecordService {
       query.maxRevision && revisions.includes(query.maxRevision.toString()) ? revisions.indexOf(query.maxRevision.toString()) : revisions.length;
     const canLoopRevisions = query.maxRevision ? revisions.slice(0, maxRevisionIndex).reverse() : revisions.reverse();
     if (!canLoopRevisions.length) {
-      return { changesets, units, emojis, commentReplyMap: {}};
+      return { changesets, units, emojis, commentReplyMap: {} };
     }
     const doublePageSize = query.pageSize * 2;
     const maxTimes = Math.ceil(canLoopRevisions.length / doublePageSize);

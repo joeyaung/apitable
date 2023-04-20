@@ -162,7 +162,7 @@ export class OtService {
    *
    * @param nodeId node ID.
    */
-  private getNodeRole = async(
+  private getNodeRole = async (
     nodeId: string,
     auth: IAuthHeader,
     shareId?: string,
@@ -270,7 +270,7 @@ export class OtService {
         `room:[${message.roomId}] ====> parseChanges Finished, duration: ${parseEndTime - beginTime}ms. General transaction start......`,
       );
       // ======== multiple-resource operation transaction BEGIN ========
-      await getManager().transaction(async(manager: EntityManager) => {
+      await getManager().transaction(async (manager: EntityManager) => {
         for (const { transaction, effectMap, commonData, resultSet } of transactions) {
           await transaction(manager, effectMap, commonData, resultSet);
           let remoteChangeset = effectMap.get(EffectConstantName.RemoteChangeset);

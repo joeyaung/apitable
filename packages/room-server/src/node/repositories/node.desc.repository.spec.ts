@@ -28,7 +28,7 @@ describe('Test NodeDescRepository', () => {
   let repository: NodeDescRepository;
   let entity: NodeDescEntity;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({ isGlobal: true }),
@@ -41,7 +41,7 @@ describe('Test NodeDescRepository', () => {
     repository = module.get<NodeDescRepository>(NodeDescRepository);
   });
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     const nodeDesc: DeepPartial<NodeDescEntity> = {
       id: '2023',
       nodeId: 'nodeId',
@@ -51,15 +51,15 @@ describe('Test NodeDescRepository', () => {
     entity = await repository.save(record);
   });
 
-  afterEach(async() => {
+  afterEach(async () => {
     await repository.delete(entity.id);
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await repository.manager.connection.close();
   });
 
-  it('should be return description', async() => {
+  it('should be return description', async () => {
     const description = await repository.selectDescriptionByNodeId('nodeId');
     expect(description?.description).toEqual(entity.description);
   });

@@ -36,7 +36,6 @@ import { DatasheetService } from 'database/datasheet/services/datasheet.service'
  */
 @Injectable()
 export class RoomResourceRelService {
-
   constructor(
     @InjectLogger() private readonly logger: Logger,
     private readonly redisService: RedisService,
@@ -46,7 +45,7 @@ export class RoomResourceRelService {
     private readonly datasheetService: DatasheetService,
     private readonly resourceMetaRepository: ResourceMetaRepository,
     private readonly widgetService: WidgetService,
-  ) { }
+  ) {}
 
   async hasResource(roomId: string): Promise<boolean> {
     // Create or update Room - Resource two-way association
@@ -67,8 +66,7 @@ export class RoomResourceRelService {
         dstIds.forEach(id => allEffectResourceIds.add(id));
         continue;
       }
-      roomIds.filter(id => id.startsWith(ResourceIdPrefix.Datasheet))
-        .forEach(id => allEffectResourceIds.add(id));
+      roomIds.filter(id => id.startsWith(ResourceIdPrefix.Datasheet)).forEach(id => allEffectResourceIds.add(id));
     }
     return Array.from(allEffectResourceIds);
   }
@@ -245,7 +243,8 @@ export class RoomResourceRelService {
     const meta = await this.datasheetMetaService.getMetaDataByDstId(dstId);
     // Filter loading linked datasheet
     const foreignDatasheetIdToFiledIdsMap = new Map<string, string[]>();
-    Object.values(meta.fieldMap).filter(field => field.type === FieldType.Link)
+    Object.values(meta.fieldMap)
+      .filter(field => field.type === FieldType.Link)
       .forEach(field => {
         const { foreignDatasheetId, brotherFieldId } = field.property;
         // Filter out self linking
@@ -272,8 +271,9 @@ export class RoomResourceRelService {
       const foreignDatasheetMeta = await this.datasheetMetaService.getMetaDataByDstId(foreignDatasheetId);
 
       // Check if there are other linked datasheets
-      const field = Object.values(foreignDatasheetMeta.fieldMap).find(field => field.type === FieldType.Link
-        && !dstIds.includes(field.property.foreignDatasheetId));
+      const field = Object.values(foreignDatasheetMeta.fieldMap).find(
+        field => field.type === FieldType.Link && !dstIds.includes(field.property.foreignDatasheetId),
+      );
       if (!field) {
         continue;
       }
@@ -300,7 +300,8 @@ export class RoomResourceRelService {
           // thus the field is influenced.
           const inter = intersection<string>(formulaRefFieldIds, effectFieldIds);
           return inter.length > 0 ? field.id : null;
-        }).filter(Boolean) as string[];
+        })
+        .filter(Boolean) as string[];
       formulaFieldIds.length && effectFieldIds.push(...formulaFieldIds);
 
       // Read field inverse reference relation, trace influenced linked datasheet upward

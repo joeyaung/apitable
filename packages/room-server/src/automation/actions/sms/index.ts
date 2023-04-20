@@ -24,8 +24,8 @@ import { ResponseStatusCodeEnums } from '../enum/response.status.code.enums';
 import { IActionResponse, IErrorResponse } from '../interface/action.response';
 
 interface MailServer {
-  domain: string,
-  port: string,
+  domain: string;
+  port: string;
 }
 
 interface IMailMessageRequest {
@@ -48,14 +48,14 @@ const jsdomWindow = new JSDOM('').window;
 const purify = DOMPurify(jsdomWindow as any);
 
 export async function sendMail(request: IMailMessageRequest): Promise<IActionResponse<IMailMessageResponse>> {
-  const {mailServer, server, port, account, password, to, subject, message, template} = request;
+  const { mailServer, server, port, account, password, to, subject, message, template } = request;
   const transporter = nodemailer.createTransport({
     host: mailServer?.domain || server,
     port: mailServer ? Number(mailServer.port) : Number(port),
     auth: {
       user: account,
       pass: password,
-    }
+    },
   });
   transporter.use('compile', (mail, callback) => {
     if (mail.data.text) {

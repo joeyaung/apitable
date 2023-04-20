@@ -41,15 +41,15 @@ import { RobotEventModule } from 'database/robot/robot.event.module';
 
 @Module({
   imports: [
-    forwardRef(()=>GrpcModule),
-    forwardRef(()=>NodeModule),
-    DatasheetModule, 
-    forwardRef(()=>ResourceModule), 
-    WidgetModule, 
-    forwardRef(()=>FormModule), 
-    MirrorModule, 
+    forwardRef(() => GrpcModule),
+    forwardRef(() => NodeModule),
+    DatasheetModule,
+    forwardRef(() => ResourceModule),
+    WidgetModule,
+    forwardRef(() => FormModule),
+    MirrorModule,
     RobotEventModule,
-    forwardRef(()=>DashboardModule), 
+    forwardRef(() => DashboardModule),
     UserModule,
     AlarmDynamicModule.forRoot(),
     SubscriptionDynamicModule.forRoot(),
@@ -58,23 +58,7 @@ import { RobotEventModule } from 'database/robot/robot.event.module';
       DatasheetWidgetRepository,
     ]),
   ],
-  providers: [
-    OtService,
-    DatasheetOtService,
-    DashboardOtService,
-    MirrorOtService,
-    FormOtService,
-    WidgetOtService,
-    ResourceChangeHandler,
-  ],
-  exports: [
-    OtService,
-    DatasheetOtService,
-    DashboardOtService,
-    MirrorOtService,
-    FormOtService,
-    WidgetOtService,
-    ResourceChangeHandler,
-  ]
+  providers: [OtService, DatasheetOtService, DashboardOtService, MirrorOtService, FormOtService, WidgetOtService, ResourceChangeHandler],
+  exports: [OtService, DatasheetOtService, DashboardOtService, MirrorOtService, FormOtService, WidgetOtService, ResourceChangeHandler],
 })
 export class OtModule {}

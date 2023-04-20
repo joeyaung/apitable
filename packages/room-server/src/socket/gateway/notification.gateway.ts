@@ -29,16 +29,12 @@ import { NotificationRo } from 'socket/ros/notification/notification.ro';
 import { WatchSpaceRo } from 'socket/ros/notification/watch-space.ro';
 import { NotificationService } from 'socket/services/notification/notification.service';
 
-@WebSocketGateway(
-  GatewayConstants.NOTIFICATION_PORT,
-  {
-    path: GatewayConstants.NOTIFICATION_PATH,
-    pingTimeout: GatewayConstants.PING_TIMEOUT
-  })
+@WebSocketGateway(GatewayConstants.NOTIFICATION_PORT, {
+  path: GatewayConstants.NOTIFICATION_PATH,
+  pingTimeout: GatewayConstants.PING_TIMEOUT,
+})
 export class NotificationGateway {
-  constructor(
-    private readonly notificationService: NotificationService
-  ) {}
+  constructor(private readonly notificationService: NotificationService) {}
 
   /*
    * The Server object of the current namespace socket.io will be injected into the controller later

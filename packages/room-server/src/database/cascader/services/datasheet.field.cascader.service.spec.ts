@@ -33,7 +33,7 @@ describe('DatasheetFieldTreeSelectService', () => {
   let restService: RestService;
   let datasheetService: DatasheetService;
   let cascaderDataBusService: CascaderDatabusService;
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
         WinstonModule.forRootAsync({
@@ -248,21 +248,21 @@ describe('DatasheetFieldTreeSelectService', () => {
   });
 
   describe('getCascaderLinkedFields', () => {
-    it('get all permission fields - should return all fields', async() => {
+    it('get all permission fields - should return all fields', async () => {
       const datasheet = await cascaderDataBusService.getDatasheet('datasheetId');
       const view = await cascaderDataBusService.getView(datasheet!, { auth: { token: 'token' }, viewId: 'viewId' });
       const linkedFields = await datasheetFieldCascaderService.getCascaderLinkedFields(view!.view);
       expect(linkedFields.length).toEqual(3);
     });
 
-    it('have unreadable field--should remove unreadable fields', async() => {
+    it('have unreadable field--should remove unreadable fields', async () => {
       const datasheet = await cascaderDataBusService.getDatasheet('datasheetId');
       const view = await cascaderDataBusService.getView(datasheet!, { auth: { token: 'unreadableToken' }, viewId: 'viewId' });
       const linkedFields = await datasheetFieldCascaderService.getCascaderLinkedFields(view!.view);
       expect(linkedFields.length).toEqual(0);
     });
 
-    it('without field  permission--should return all fields', async() => {
+    it('without field  permission--should return all fields', async () => {
       const datasheet = await cascaderDataBusService.getDatasheet('datasheetId');
       const view = await cascaderDataBusService.getView(datasheet!, { auth: { token: 'normalToken' }, viewId: 'viewId' });
       const linkedFields = await datasheetFieldCascaderService.getCascaderLinkedFields(view!.view);
@@ -271,7 +271,7 @@ describe('DatasheetFieldTreeSelectService', () => {
   });
 
   describe('getCascaderLinkedRecords', () => {
-    it('should return cascader list', async() => {
+    it('should return cascader list', async () => {
       const datasheet = await cascaderDataBusService.getDatasheet('datasheetId');
       const cascaderSourceDataView = await cascaderDataBusService.getView(datasheet!, { auth: { token: 'token' }, viewId: 'viewId' });
       const fieldIds: string[] = ['fldA', 'fldB', 'fldC'];

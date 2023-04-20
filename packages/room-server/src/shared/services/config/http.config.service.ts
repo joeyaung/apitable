@@ -20,11 +20,10 @@ import { HttpModuleOptionsFactory, Injectable, HttpModuleOptions } from '@nestjs
 
 /**
  * Http configuration service
- * 
+ *
  */
 @Injectable()
 export class HttpConfigService implements HttpModuleOptionsFactory {
-
   createHttpOptions(): HttpModuleOptions {
     const baseURL = process.env.BACKEND_BASE_URL;
     return {

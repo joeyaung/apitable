@@ -33,7 +33,7 @@ describe('Test', () => {
   let userService: UserService;
   let configService: EnvConfigService;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       providers: [
         UnitService,
@@ -62,7 +62,7 @@ describe('Test', () => {
           useValue: {
             selectUserBaseInfoByIds: jest.fn(),
           },
-        }
+        },
       ],
     }).compile();
     unitRepository = module.get<UnitRepository>(UnitRepository);
@@ -74,53 +74,49 @@ describe('Test', () => {
   });
 
   beforeEach(() => {
-    jest.spyOn(unitRepository, 'selectUnitMembersByIdsIncludeDeleted')
-      .mockResolvedValue([{ id: '2023',unitRefId: 2023, unitType: 3 }]);
-    jest.spyOn(unitMemberService, 'getMembersBaseInfo')
-      .mockResolvedValue({
-        2023: {
-          uuid: '2023',
-          userId: '2023',
-          name: 'memberName',
-          type: MemberType.Member,
-          avatar: 'avatar',
-          nickName: 'nikeName',
-          avatarColor: 0,
-          isActive: true,
-          isDeleted: false,
-          isNickNameModified: false,
-          isMemberNameModified: false,
-        }
-      });
-    jest.spyOn(unitTeamService, 'getTeamsByIdsIncludeDeleted')
-      .mockResolvedValue({});
-    jest.spyOn(configService, 'getRoomConfig')
-      .mockReturnValue({
-        host: 'host',
-        bucket: 'bucket',
-      });
-    jest.spyOn(userService, 'selectUserBaseInfoByIds')
-      .mockResolvedValue([{
+    jest.spyOn(unitRepository, 'selectUnitMembersByIdsIncludeDeleted').mockResolvedValue([{ id: '2023', unitRefId: 2023, unitType: 3 }]);
+    jest.spyOn(unitMemberService, 'getMembersBaseInfo').mockResolvedValue({
+      2023: {
+        uuid: '2023',
+        userId: '2023',
+        name: 'memberName',
+        type: MemberType.Member,
+        avatar: 'avatar',
+        nickName: 'nikeName',
+        avatarColor: 0,
+        isActive: true,
+        isDeleted: false,
+        isNickNameModified: false,
+        isMemberNameModified: false,
+      },
+    });
+    jest.spyOn(unitTeamService, 'getTeamsByIdsIncludeDeleted').mockResolvedValue({});
+    jest.spyOn(configService, 'getRoomConfig').mockReturnValue({
+      host: 'host',
+      bucket: 'bucket',
+    });
+    jest.spyOn(userService, 'selectUserBaseInfoByIds').mockResolvedValue([
+      {
         id: '2023',
         uuid: '2023',
         avatar: 'avatar',
         nikeName: 'nickName',
         color: 0,
         isSocialNameModified: 0,
-      }]);
-    jest.spyOn(unitMemberService, 'getMembersBaseInfoBySpaceIdAndUserIds')
-      .mockResolvedValue({
-        2023: {
-          memberId: '2023',
-          memberName: 'memberName',
-          isActive: true,
-          isDeleted: false,
-          isMemberNameModified: false,
-          unitId: '2023',
-        }
-      });
-    jest.spyOn(unitRepository, 'selectUnitInfosBySpaceIdAndUnitIds')
-      .mockResolvedValue([{
+      },
+    ]);
+    jest.spyOn(unitMemberService, 'getMembersBaseInfoBySpaceIdAndUserIds').mockResolvedValue({
+      2023: {
+        memberId: '2023',
+        memberName: 'memberName',
+        isActive: true,
+        isDeleted: false,
+        isMemberNameModified: false,
+        unitId: '2023',
+      },
+    });
+    jest.spyOn(unitRepository, 'selectUnitInfosBySpaceIdAndUnitIds').mockResolvedValue([
+      {
         unitId: '2023',
         type: 3,
         isDeleted: false,
@@ -132,10 +128,11 @@ describe('Test', () => {
         isActive: true,
         userId: '2023',
         uuid: '2023',
-      }]);
+      },
+    ]);
   });
 
-  it('should be return unit info', async() => {
+  it('should be return unit info', async () => {
     const unitBaseInfoDtos = await service.getUnitMemberInfoByIds(['2023']);
     expect(unitBaseInfoDtos.length).toEqual(1);
     expect(unitBaseInfoDtos[0]?.avatar).toEqual('host/avatar');
@@ -152,7 +149,7 @@ describe('Test', () => {
     expect(unitBaseInfoDtos[0]?.uuid).toEqual('2023');
   });
 
-  it('should be return unit member info by user ids', async() => {
+  it('should be return unit member info by user ids', async () => {
     const userIdToUnitMember = await service.getUnitMemberInfoByUserIds('spaceId', ['2023']);
     expect(userIdToUnitMember.get('2023')).toBeDefined();
     expect(userIdToUnitMember.get('2023')?.userId).toEqual('2023');
@@ -167,7 +164,7 @@ describe('Test', () => {
     expect(userIdToUnitMember.get('2023')?.isDeleted).toBeFalsy();
   });
 
-  it('should be return unit info by space id and unit id', async() => {
+  it('should be return unit info by space id and unit id', async () => {
     const unitInfos = await service.getUnitInfo('spaceId', ['2023']);
     expect(unitInfos.length).toEqual(1);
     expect(unitInfos[0]?.uuid).toEqual('2023');

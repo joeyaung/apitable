@@ -25,11 +25,7 @@ import { AutomationServiceCreateRo } from '../ros/service.create.ro';
 
 @Injectable()
 export class RobotServiceService {
-
-  constructor(
-    private readonly automationServiceRepository: AutomationServiceRepository,
-  ) {
-  }
+  constructor(private readonly automationServiceRepository: AutomationServiceRepository) {}
 
   async createService(props: AutomationServiceCreateRo, user: IUserBaseInfo) {
     const { slug, name, logo, baseUrl } = props;
@@ -46,9 +42,12 @@ export class RobotServiceService {
   }
 
   async updateService(serviceId: string, data: AutomationServiceUpdateRo, user: IUserBaseInfo) {
-    return await this.automationServiceRepository.update({ serviceId }, {
-      ...data,
-      updatedBy: user.userId,
-    });
+    return await this.automationServiceRepository.update(
+      { serviceId },
+      {
+        ...data,
+        updatedBy: user.userId,
+      },
+    );
   }
 }

@@ -24,7 +24,6 @@ import { DEFAULT_X_MAX_AGE } from '../common';
 
 @Injectable()
 export class CacheConfigService implements CacheOptionsFactory {
-
   createCacheOptions(): Promise<CacheModuleOptions> | CacheModuleOptions {
     const s3Options = this.getS3Options();
     if (s3Options != null) {
@@ -60,7 +59,7 @@ export class CacheConfigService implements CacheOptionsFactory {
         ttl: DEFAULT_X_MAX_AGE,
         store: new S3StoreFactory(),
         region,
-        bucket
+        bucket,
       };
     }
     return null;
@@ -85,7 +84,11 @@ export class CacheConfigService implements CacheOptionsFactory {
           ttl: DEFAULT_X_MAX_AGE,
           store: new MinioStoreFactory(),
           bucket,
-          endPoint, port, useSSL, accessKey, secretKey
+          endPoint,
+          port,
+          useSSL,
+          accessKey,
+          secretKey,
         };
       }
     }

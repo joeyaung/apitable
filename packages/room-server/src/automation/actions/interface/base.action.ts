@@ -31,7 +31,6 @@ export type IUiSchema = {
 };
 
 export interface IBaseAction {
-
   endpoint(input: any): Promise<IActionResponse<any>>;
 
   getInputSchema(): IJsonSchema;

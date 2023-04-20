@@ -36,11 +36,7 @@ import { ApiTipConstant } from '@apitable/core';
  */
 @Injectable()
 export class NodeRateLimiterMiddleware implements NestMiddleware {
-  constructor(
-    private readonly redisService: RedisService,
-    private readonly envConfigService: EnvConfigService,
-    private readonly i18n: I18nService) {
-  }
+  constructor(private readonly redisService: RedisService, private readonly envConfigService: EnvConfigService, private readonly i18n: I18nService) {}
 
   use(req: any, res: any, next: () => void): any {
     // use redis for distributed system
@@ -64,7 +60,7 @@ export class NodeRateLimiterMiddleware implements NestMiddleware {
       .then(() => {
         next();
       })
-      .catch(async() => {
+      .catch(async () => {
         const err = ApiException.tipError(ApiTipConstant.api_frequently_error);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = err.getTip().statusCode;

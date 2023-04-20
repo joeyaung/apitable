@@ -23,13 +23,12 @@ import { ServiceBaseUrlDto, ServiceInfoDto } from '../dtos/service.dto';
 
 @EntityRepository(AutomationServiceEntity)
 export class AutomationServiceRepository extends Repository<AutomationServiceEntity> {
-
   public async countOfficialServiceByServiceId(serviceId: string): Promise<number> {
     return await this.count({
       where: {
         serviceId: serviceId,
         slug: OFFICIAL_SERVICE_SLUG,
-      }
+      },
     });
   }
 
@@ -38,7 +37,7 @@ export class AutomationServiceRepository extends Repository<AutomationServiceEnt
       where: {
         serviceId: serviceId,
         slug: slug,
-      }
+      },
     });
   }
 
@@ -47,7 +46,7 @@ export class AutomationServiceRepository extends Repository<AutomationServiceEnt
       select: ['serviceId', 'baseUrl'],
       where: {
         serviceId: In(serviceIds),
-      }
+      },
     });
   }
 
@@ -57,8 +56,7 @@ export class AutomationServiceRepository extends Repository<AutomationServiceEnt
       where: {
         serviceId: In(serviceIds),
         isDeleted: false,
-      }
+      },
     });
   }
-
 }

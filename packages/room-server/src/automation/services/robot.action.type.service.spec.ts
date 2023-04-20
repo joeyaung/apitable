@@ -29,7 +29,7 @@ describe('RobotActionTypeServiceTest', () => {
   let automationServiceRepository: AutomationServiceRepository;
   let service: RobotActionTypeService;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       providers: [AutomationActionTypeRepository, AutomationServiceRepository, RobotActionTypeService],
     }).compile();
@@ -48,21 +48,23 @@ describe('RobotActionTypeServiceTest', () => {
     expect(service).toBeDefined();
   });
 
-  it('get action type should be return webhook', async() => {
-    jest.spyOn(automationActionTypeRepository, 'find').mockResolvedValue([{
-      id: 'id',
-      serviceId: 'serviceId',
-      actionTypeId: 'actionTypeId',
-      name: 'name',
-      description: 'description',
-      endpoint: 'endpoint',
-      i18n: { en: {}},
-    } as AutomationActionTypeEntity]);
+  it('get action type should be return webhook', async () => {
+    jest.spyOn(automationActionTypeRepository, 'find').mockResolvedValue([
+      {
+        id: 'id',
+        serviceId: 'serviceId',
+        actionTypeId: 'actionTypeId',
+        name: 'name',
+        description: 'description',
+        endpoint: 'endpoint',
+        i18n: { en: {} },
+      } as AutomationActionTypeEntity,
+    ]);
     jest.spyOn(automationServiceRepository, 'findOne').mockResolvedValue({
       id: 'id',
       serviceId: 'serviceId',
       slug: 'slug',
-      i18n: { en: {}},
+      i18n: { en: {} },
     } as AutomationServiceEntity);
     const detailVos = await service.getActionType('en');
     expect(detailVos).toBeDefined();

@@ -22,22 +22,22 @@ import { UnitBaseInfoDto } from '../dtos/unit.base.info.dto';
 
 /**
  * Operations on table `unit`
- * 
+ *
  * @author Zoe zheng
  * @date 2020/7/30 4:09 PM
  */
 @EntityRepository(UnitEntity)
 export class UnitRepository extends Repository<UnitEntity> {
   public async selectUnitMembersByIdsIncludeDeleted(unitIds: string[]): Promise<UnitBaseInfoDto[]> {
-    return await this.find({ select: ['id', 'unitType', 'unitRefId'], where: { id: In(unitIds) }});
+    return await this.find({ select: ['id', 'unitType', 'unitRefId'], where: { id: In(unitIds) } });
   }
 
   selectCountByIdAndSpaceId(id: string, spaceId: string): Promise<number> {
-    return this.count({ where: { id, spaceId, isDeleted: false }});
+    return this.count({ where: { id, spaceId, isDeleted: false } });
   }
 
   selectIdByRefIdAndSpaceId(refId: string, spaceId: string): Promise<{ id: string } | undefined> {
-    return this.findOne({ select: ['id'], where: { unitRefId: refId, spaceId, isDeleted: false }});
+    return this.findOne({ select: ['id'], where: { unitRefId: refId, spaceId, isDeleted: false } });
   }
 
   public async selectUnitInfosBySpaceIdAndUnitIds(spaceId: string, unitIds: string[]) {

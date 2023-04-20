@@ -24,9 +24,7 @@ import { WidgetRepository } from '../repositories/widget.repository';
 
 @Injectable()
 export class WidgetService {
-  constructor(
-    private readonly widgetRepository: WidgetRepository,
-  ) { }
+  constructor(private readonly widgetRepository: WidgetRepository) {}
 
   async getNodeIdByWidgetId(widgetId: string): Promise<string> {
     const rawData = await this.widgetRepository.selectNodeIdByWidgetId(widgetId);
@@ -57,4 +55,3 @@ export class WidgetService {
     return await this.widgetRepository.getRevisionByWdtIds(widgetIds);
   }
 }
-

@@ -102,7 +102,7 @@ export class NodeEntity extends BaseEntity {
   @Column('json', {
     name: 'extra',
     nullable: true,
-    comment: 'other information'
+    comment: 'other information',
   })
   extra?: IFormProps;
 

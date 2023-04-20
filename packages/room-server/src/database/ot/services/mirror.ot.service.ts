@@ -36,7 +36,7 @@ export class MirrorOtService {
     @InjectLogger() private readonly logger: Logger,
     private readonly widgetService: WidgetService,
     private readonly resourceMetaService: MetaService,
-  ) { }
+  ) {}
 
   createResultSet() {
     return {
@@ -47,7 +47,6 @@ export class MirrorOtService {
   }
 
   analyseOperates(operations: IOperation[], permission: NodePermission, resultSet: { [key: string]: any }) {
-
     operations.map(item => {
       item.actions.forEach(action => {
         if (action.p[0] === 'widgetPanels') {
@@ -102,13 +101,7 @@ export class MirrorOtService {
     resultSet.deleteWidgetIds.push(...ids);
   }
 
-  transaction = async(
-    manager: EntityManager,
-    effectMap: Map<string, any>,
-    commonData: ICommonData,
-    resultSet: { [key: string]: any }
-  ) => {
-
+  transaction = async (manager: EntityManager, effectMap: Map<string, any>, commonData: ICommonData, resultSet: { [key: string]: any }) => {
     await this.handleAddWidget(manager, commonData, resultSet);
 
     await this.handleDeleteWidget(manager, resultSet);
@@ -124,7 +117,7 @@ export class MirrorOtService {
 
   async handleAddWidget(manager: EntityManager, commonData: ICommonData, resultSet: { [key: string]: any }) {
     if (this.logger.isDebugEnabled()) {
-      this.logger.debug('[Start updating widget\'s add state]');
+      this.logger.debug("[Start updating widget's add state]");
     }
     if (!resultSet.addWidgetIds.length) {
       return;
@@ -136,7 +129,8 @@ export class MirrorOtService {
     this.logger.info('[ ======> Start batch adding widgets]');
     for (const widgetId of resultSet.addWidgetIds) {
       if (deleteWidgetIds.includes(widgetId)) {
-        await manager.createQueryBuilder()
+        await manager
+          .createQueryBuilder()
           .update(WidgetEntity)
           .set({ isDeleted: false })
           .where('widget_id=:widgetId', { widgetId: widgetId })
@@ -148,14 +142,15 @@ export class MirrorOtService {
 
   async handleDeleteWidget(manager: EntityManager, resultSet: { [key: string]: any }) {
     if (this.logger.isDebugEnabled()) {
-      this.logger.debug('[Start updating widget\'s delete state]');
+      this.logger.debug("[Start updating widget's delete state]");
     }
 
     if (!resultSet.deleteWidgetIds.length) {
       return;
     }
     this.logger.info('[ ======> Start batch deleting widgets]');
-    await manager.createQueryBuilder()
+    await manager
+      .createQueryBuilder()
       .update(WidgetEntity)
       .set({ isDeleted: true })
       .where('widget_id IN(:...widgetIds)', { widgetIds: resultSet.deleteWidgetIds })
@@ -195,18 +190,21 @@ export class MirrorOtService {
     const beginTime = +new Date();
     this.logger.info(`[${remoteChangeset.resourceId}] ====> Start storing changeset......`);
     const { userId } = commonData;
-    await manager.createQueryBuilder()
+    await manager
+      .createQueryBuilder()
       .insert()
       .into(ResourceChangesetEntity)
-      .values([{
-        id: IdWorker.nextId().toString(),
-        messageId: remoteChangeset.messageId,
-        resourceId: remoteChangeset.resourceId,
-        resourceType: remoteChangeset.resourceType,
-        operations: remoteChangeset.operations,
-        revision: remoteChangeset.revision,
-        createdBy: userId,
-      }])
+      .values([
+        {
+          id: IdWorker.nextId().toString(),
+          messageId: remoteChangeset.messageId,
+          resourceId: remoteChangeset.resourceId,
+          resourceType: remoteChangeset.resourceType,
+          operations: remoteChangeset.operations,
+          revision: remoteChangeset.revision,
+          createdBy: userId,
+        },
+      ])
       .updateEntity(false)
       .execute();
     const endTime = +new Date();

@@ -28,7 +28,7 @@ describe('Test NodeRelRepository', () => {
   let repository: NodeRelRepository;
   let entity: NodeRelEntity;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({ isGlobal: true }),
@@ -41,7 +41,7 @@ describe('Test NodeRelRepository', () => {
     repository = module.get<NodeRelRepository>(NodeRelRepository);
   });
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     const nodeRel: DeepPartial<NodeRelEntity> = {
       id: '2023',
       mainNodeId: 'mainNodeId',
@@ -51,30 +51,30 @@ describe('Test NodeRelRepository', () => {
     entity = await repository.save(record);
   });
 
-  afterEach(async() => {
+  afterEach(async () => {
     await repository.delete(entity.id);
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await repository.manager.connection.close();
   });
 
-  it('should be return main node id', async() => {
+  it('should be return main node id', async () => {
     const mainNodeId = await repository.selectMainNodeIdByRelNodeId('nodeId');
     expect(mainNodeId?.mainNodeId).toEqual('mainNodeId');
   });
 
-  it('should be return undefined main node id', async() => {
+  it('should be return undefined main node id', async () => {
     const mainNodeId = await repository.selectMainNodeIdByRelNodeId('');
     expect(mainNodeId).toBeUndefined();
   });
 
-  it('should be return rel node by main node id', async() => {
+  it('should be return rel node by main node id', async () => {
     const relNode = await repository.selectRelNodeIdByMainNodeId('mainNodeId');
     expect(relNode.length).toEqual(0);
   });
 
-  it('should be return undefined rel node by rel node id', async() => {
+  it('should be return undefined rel node by rel node id', async () => {
     const relNode = await repository.selectNodeRelInfo('nodeId');
     expect(relNode).toBeUndefined();
   });

@@ -22,7 +22,6 @@ import { EntityRepository, Repository } from 'typeorm';
 
 @EntityRepository(NodeRelEntity)
 export class NodeRelRepository extends Repository<NodeRelEntity> {
-
   public async selectMainNodeIdByRelNodeId(relNodeId: string): Promise<{ mainNodeId: string } | undefined> {
     return await this.findOne({
       select: ['mainNodeId'],

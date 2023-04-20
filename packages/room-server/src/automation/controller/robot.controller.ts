@@ -34,7 +34,7 @@ export class RobotController {
     private readonly automationService: AutomationService,
     private readonly robotService: RobotRobotService,
     private readonly userService: UserService,
-  ) { }
+  ) {}
 
   @Get(['/'])
   getRobotListByResourceId(@Query('resourceId') resourceId: string) {
@@ -49,7 +49,7 @@ export class RobotController {
   }
 
   @Get(['/:robotId'])
-  getDatePack(@Param('robotId') robotId: string,) {
+  getDatePack(@Param('robotId') robotId: string) {
     return this.robotService.getRobotDetailById(robotId);
   }
 
@@ -60,11 +60,7 @@ export class RobotController {
   }
 
   @Patch(['/:robotId'])
-  async updateRobot(
-    @Param('robotId') robotId: string,
-    @Body() robot: { name?: string, description?: string },
-    @Headers('cookie') cookie: string
-  ) {
+  async updateRobot(@Param('robotId') robotId: string, @Body() robot: { name?: string; description?: string }, @Headers('cookie') cookie: string) {
     const { userId } = await this.userService.getMe({ cookie });
     const { name, description } = robot;
     if (name) {

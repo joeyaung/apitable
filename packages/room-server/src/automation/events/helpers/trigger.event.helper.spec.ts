@@ -123,7 +123,7 @@ describe('TriggerEventHelper', () => {
     };
   };
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
         WinstonModule.forRootAsync({
@@ -169,10 +169,7 @@ describe('TriggerEventHelper', () => {
 
   it('given record created context when handle record created trigger then should no be throw', () => {
     expect(() => {
-      triggerEventHelper.recordCreatedTriggerHandler(
-        getCommonEventContext(),
-        getDatasheetInfoInputMetaContext(EventTypeEnums.RecordCreated)
-      );
+      triggerEventHelper.recordCreatedTriggerHandler(getCommonEventContext(), getDatasheetInfoInputMetaContext(EventTypeEnums.RecordCreated));
     }).not.toThrow();
   });
 
@@ -187,20 +184,19 @@ describe('TriggerEventHelper', () => {
 
   it('given match condition context when handle record match conditions trigger then should no be throw', () => {
     expect(() => {
-      triggerEventHelper
-        .recordMatchConditionsTriggerHandler(
-          getCommonEventContext(
-            ['fieldId'],
-            {
-              fieldId: [{ text: 'value' }],
-            },
-            getCommonState(),
-          ),
-          getCommonMetaContext(
-            { [`${EventTypeEnums.RecordMatchesConditions}@${OFFICIAL_SERVICE_SLUG}`]: 'triggerTypeId' },
-            getRecordMatchConditionalTriggers()[0]!.input,
-          ),
-        );
+      triggerEventHelper.recordMatchConditionsTriggerHandler(
+        getCommonEventContext(
+          ['fieldId'],
+          {
+            fieldId: [{ text: 'value' }],
+          },
+          getCommonState(),
+        ),
+        getCommonMetaContext(
+          { [`${EventTypeEnums.RecordMatchesConditions}@${OFFICIAL_SERVICE_SLUG}`]: 'triggerTypeId' },
+          getRecordMatchConditionalTriggers()[0]!.input,
+        ),
+      );
     }).not.toThrow();
   });
 

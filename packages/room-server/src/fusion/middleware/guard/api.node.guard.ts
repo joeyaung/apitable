@@ -28,7 +28,6 @@ import { ApiException } from '../../../shared/exception';
  */
 @Injectable()
 export class ApiNodeGuard implements CanActivate {
-
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
     const nodeInfo = request[NODE_INFO];

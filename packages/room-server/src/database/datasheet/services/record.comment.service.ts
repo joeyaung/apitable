@@ -31,11 +31,7 @@ import { CommentListVo } from '../vos/comment.list.vo';
 
 @Injectable()
 export class RecordCommentService {
-  constructor(
-    private readonly repo: RecordCommentRepository,
-    private readonly unitService: UnitService,
-    private readonly javaService: JavaService,
-  ) {}
+  constructor(private readonly repo: RecordCommentRepository, private readonly unitService: UnitService, private readonly javaService: JavaService) {}
 
   async getCommentEntity(dstId: string, recordId: string) {
     return await this.repo.selectCommentsByDstIdAndRecordId(dstId, recordId);
@@ -243,5 +239,4 @@ export class RecordCommentService {
     }
     return acc;
   }
-
 }

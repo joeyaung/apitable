@@ -25,18 +25,15 @@ import { TriggerEventHelper } from '../helpers/trigger.event.helper';
 
 @Injectable()
 export class RecordCreatedListener {
-
   private readonly options: IEventListenerOptions;
 
-  constructor(
-    private readonly triggerEventHelper: TriggerEventHelper,
-  ) {
+  constructor(private readonly triggerEventHelper: TriggerEventHelper) {
     this.options = defaultEventListenerOptions;
   }
 
   @OnEvent(OPEventNameEnums.RecordCreated)
   public handleRecordCreatedEvent(event: RecordCreatedEvent) {
-    if(!isHandleEvent(event, event.beforeApply, this.options)) {
+    if (!isHandleEvent(event, event.beforeApply, this.options)) {
       return;
     }
 
@@ -45,5 +42,4 @@ export class RecordCreatedListener {
     // record created
     this.triggerEventHelper.recordCreatedTriggerHandler(event.context, event.metaContext);
   }
-
 }

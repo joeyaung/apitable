@@ -40,7 +40,7 @@ export class RecordHistoryQueryRo {
   })
   @IsOptional()
   @Type(() => Number)
-  @Max(730, { message: ApiTipConstant.api_params_max_error, context: { value: 730 }})
+  @Max(730, { message: ApiTipConstant.api_params_max_error, context: { value: 730 } })
   limitDays = 14;
 
   @ApiPropertyOptional({
@@ -51,8 +51,8 @@ export class RecordHistoryQueryRo {
   })
   @Type(() => Number)
   @IsOptional()
-  @Min(1, { message: ApiTipConstant.api_params_min_error, context: {}})
-  @Max(100, { message: ApiTipConstant.api_params_max_error, context: { value: 100 }})
+  @Min(1, { message: ApiTipConstant.api_params_min_error, context: {} })
+  @Max(100, { message: ApiTipConstant.api_params_max_error, context: { value: 100 } })
   pageSize = 10;
 
   @ApiPropertyOptional({
@@ -65,6 +65,6 @@ export class RecordHistoryQueryRo {
   // For parameter validation
   @Type(() => Number)
   @IsOptional()
-  @Min(1, { message: ApiTipConstant.api_params_min_error, context: {}})
+  @Min(1, { message: ApiTipConstant.api_params_min_error, context: {} })
   maxRevision?: string;
 }

@@ -22,7 +22,7 @@ import Enum from './enum';
 export {
   APIMetaViewType as ViewTypeTextEnum,
   APIMetaFieldPermissionLevel as FieldPermissionEnum,
-  APIMetaFieldType as FieldTypeTextEnum
+  APIMetaFieldType as FieldTypeTextEnum,
 } from '@apitable/core';
 
 export const FieldTypeEnum = new Enum([

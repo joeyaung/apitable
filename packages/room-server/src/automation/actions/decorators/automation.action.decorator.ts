@@ -30,25 +30,25 @@ interface IAutomationActionOption {
 }
 
 interface IActionTypeMeta {
-  actionTypeId: string,
-  name: string,
-  description: string,
-  endpoint: string,
-  inputJsonSchema: { schema: IJsonSchema, uiSchema: IUiSchema },
-  outputJsonSchema: IJsonSchema,
+  actionTypeId: string;
+  name: string;
+  description: string;
+  endpoint: string;
+  inputJsonSchema: { schema: IJsonSchema; uiSchema: IUiSchema };
+  outputJsonSchema: IJsonSchema;
   service: {
-    serviceId: string,
-    name: string,
-    logo: string,
-    slug: string
-  }
+    serviceId: string;
+    name: string;
+    logo: string;
+    slug: string;
+  };
 }
 
 // caat = custom automation action type
 export const customActionNamePrefix = 'caat';
 
 export function AutomationAction(name: string, option?: IAutomationActionOption): ClassDecorator {
-  return (target) => {
+  return target => {
     const nameHash = Md5.hashStr(name);
     const connectorActionTypeId = `${customActionNamePrefix}${nameHash}`;
     if (!customActionMap.has(nameHash)) {
@@ -57,7 +57,7 @@ export function AutomationAction(name: string, option?: IAutomationActionOption)
         inputJSONSchema: { schema: target.prototype.getInputSchema(), uiSchema: target.prototype.getUISchema() },
         outputJSONSchema: target.prototype.getOutputSchema(),
         endpoint: 'endpoint',
-        baseUrl: `action://${nameHash}`
+        baseUrl: `action://${nameHash}`,
       });
       customActionTypeMetas.set(connectorActionTypeId, {
         actionTypeId: connectorActionTypeId,
@@ -70,8 +70,8 @@ export function AutomationAction(name: string, option?: IAutomationActionOption)
           serviceId: `asv${nameHash}`,
           name: name,
           logo: option?.logo ? option.logo : 'space/2022/01/18/136999e8a2284067842f96b3f9b33e5b',
-          slug: nameHash
-        }
+          slug: nameHash,
+        },
       });
       const instance = new target.prototype.constructor();
       customActionMap.set(nameHash, instance);

@@ -105,5 +105,4 @@ export class UnitInfoDto implements IUserValue {
     description: 'if nick name was modified ever by wecom member',
   })
   isMemberNameModified!: boolean;
-
 }

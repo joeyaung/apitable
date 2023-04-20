@@ -19,7 +19,6 @@ import { RobotActionBaseInfoDto } from '../dtos/action.dto';
 import { TriggerTriggerTypeRelDto } from '../dtos/trigger.dto';
 
 export class RobotBaseInfoVo {
-
   robotId!: string;
 
   isActive!: boolean;
@@ -32,5 +31,4 @@ export class RobotBaseInfoVo {
    * the robot's node contain trigger and actions.
    */
   nodes!: (TriggerTriggerTypeRelDto | RobotActionBaseInfoDto)[];
-
 }

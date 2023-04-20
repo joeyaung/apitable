@@ -26,11 +26,10 @@ import { RedisService } from './redis.service';
 describe.skip('RedisService', () => {
   let service: RedisService;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [RedisService, ...redisProviders],
-    })
-      .compile();
+    }).compile();
 
     service = module.get<RedisService>(RedisService);
   });
@@ -39,17 +38,17 @@ describe.skip('RedisService', () => {
     expect(service).toBeDefined();
   });
 
-  it('Redis Set Value', async() => {
+  it('Redis Set Value', async () => {
     const result = await service.saveValue('jest:redis:set', '123456', 30);
     expect(result).toBe(void 0);
   });
 
-  it('Redis Get Value', async() => {
+  it('Redis Get Value', async () => {
     const data: string | null = await service.getValue('jest:redis:set');
     expect(data).toEqual('123456');
   });
 
-  it('Redis Save Socket', async() => {
+  it('Redis Save Socket', async () => {
     const userId = '1';
 
     await removeSocket(userId);
@@ -58,7 +57,7 @@ describe.skip('RedisService', () => {
     expect(result).toEqual(1);
   });
 
-  it('Redis Get Sockets', async() => {
+  it('Redis Get Sockets', async () => {
     const result: Record<string, string> = await service.getSockets('jest:redis:' + SocketConstants.NEST_SERVER_PREFIX);
 
     expect(result).toMatchObject({
@@ -66,7 +65,7 @@ describe.skip('RedisService', () => {
     });
   });
 
-  it('Redis Remove Socket', async() => {
+  it('Redis Remove Socket', async () => {
     const userId = '1';
     await removeSocket(userId);
   });

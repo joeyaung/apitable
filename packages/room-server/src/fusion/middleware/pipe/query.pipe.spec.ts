@@ -27,7 +27,7 @@ import { OrderEnum } from 'shared/enums';
 
 describe('QueryPipe', () => {
   let app: NestFastifyApplication;
-  beforeAll(async() => {
+  beforeAll(async () => {
     jest.setTimeout(60000);
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule, HttpModule],
@@ -36,7 +36,7 @@ describe('QueryPipe', () => {
     await app.init();
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await app.close();
   });
 
@@ -139,5 +139,4 @@ describe('QueryPipe', () => {
       }).toThrow(error);
     });
   });
-
 });

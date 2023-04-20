@@ -22,11 +22,7 @@ import { UserRepository } from './repositories/user.repository';
 import { UserService } from './services/user.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      UserRepository,
-    ]),
-  ],
+  imports: [TypeOrmModule.forFeature([UserRepository])],
   providers: [UserService],
   controllers: [],
   exports: [UserService],

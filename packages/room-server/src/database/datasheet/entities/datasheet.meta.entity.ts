@@ -25,7 +25,6 @@ import { Column, Entity } from 'typeorm';
  */
 @Entity('datasheet_meta')
 export class DatasheetMetaEntity extends BaseEntity {
-
   @Column({
     name: 'dst_id',
     nullable: true,

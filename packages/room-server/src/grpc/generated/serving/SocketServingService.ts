@@ -17,11 +17,11 @@
  */
 
 /* eslint-disable */
-import { Metadata } from "@grpc/grpc-js";
-import { Observable } from "rxjs";
-import { BasicResult, ServerRoomChangeRo } from "../common/Core";
+import { Metadata } from '@grpc/grpc-js';
+import { Observable } from 'rxjs';
+import { BasicResult, ServerRoomChangeRo } from '../common/Core';
 
-export const protobufPackage = "grpc.serving";
+export const protobufPackage = 'grpc.serving';
 
 /**
  * socket-server provided service

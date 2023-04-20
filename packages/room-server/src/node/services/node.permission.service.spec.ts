@@ -32,7 +32,7 @@ describe('Test NodePermissionService', () => {
   let userService: UserService;
   let nodeShareSettingService: NodeShareSettingService;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
         WinstonModule.forRootAsync({
@@ -122,63 +122,63 @@ describe('Test NodePermissionService', () => {
     });
   });
 
-  it('should be return node permission on-space form', async() => {
+  it('should be return node permission on-space form', async () => {
     const nodePermission = await service.getNodePermission('', {}, { internal: true, form: true });
     expect(nodePermission.hasRole).toEqual(true);
   });
 
-  it('should be return node permission on-space table', async() => {
+  it('should be return node permission on-space table', async () => {
     const nodePermission = await service.getNodePermission('1', {}, { internal: true });
     expect(nodePermission.hasRole).toEqual(true);
   });
 
-  it('should be return node permission on-space main table', async() => {
+  it('should be return node permission on-space main table', async () => {
     const nodePermission = await service.getNodePermission('1', {}, { internal: true, main: true });
     expect(nodePermission.hasRole).toEqual(true);
   });
 
-  it('should be throw ACCESS_DENIED on-space main table  no node permission ', async() => {
-    await expect(async() => {
+  it('should be throw ACCESS_DENIED on-space main table  no node permission ', async () => {
+    await expect(async () => {
       await service.getNodePermission('0', {}, { internal: true, main: true });
     }).rejects.toThrow(PermissionException.ACCESS_DENIED.message);
   });
 
-  it('should be return node permission off-space template', async() => {
+  it('should be return node permission off-space template', async () => {
     const nodePermission = await service.getNodePermission('1', {}, { internal: false });
     expect(nodePermission.hasRole).toEqual(true);
   });
 
-  it('should be return node permission off-space main share datasheet not login in', async() => {
+  it('should be return node permission off-space main share datasheet not login in', async () => {
     const nodePermission = await service.getNodePermission('1', { cookie: 'false' }, { internal: false, shareId: '1', main: true });
     expect(nodePermission.hasRole).toEqual(true);
   });
 
-  it('should be return node permission off-space share datasheet not login in', async() => {
+  it('should be return node permission off-space share datasheet not login in', async () => {
     const nodePermission = await service.getNodePermission('1', { cookie: 'false' }, { internal: false, shareId: '1' });
     expect(nodePermission.hasRole).toEqual(true);
   });
 
-  it('should be return node permission off-space share datasheet login in', async() => {
+  it('should be return node permission off-space share datasheet login in', async () => {
     const nodePermission = await service.getNodeRole('1', { cookie: 'true' }, '0');
     expect(nodePermission.hasRole).toEqual(false);
   });
 
-  it('should be return share node permission off-space share datasheet login in', async() => {
+  it('should be return share node permission off-space share datasheet login in', async () => {
     const nodePermission = await service.getNodeRole('2', { cookie: 'true' }, '2');
     expect(nodePermission.hasRole).toEqual(true);
   });
 
-  it('should be return false node permission off-space datasheet login in', async() => {
+  it('should be return false node permission off-space datasheet login in', async () => {
     const nodePermission = await service.getNodeRole('3', { cookie: 'true' }, '3');
     expect(nodePermission.hasRole).toEqual(false);
   });
 
-  it('should be return true node permission off-space embed datasheet login in', async() => {
+  it('should be return true node permission off-space embed datasheet login in', async () => {
     const nodePermission = await service.getNodeRole('-1', { cookie: 'true' }, 'emb1');
     expect(nodePermission.hasRole).toEqual(true);
   });
 
-  it('should be return false node permission off-space embed datasheet login in', async() => {
+  it('should be return false node permission off-space embed datasheet login in', async () => {
     const nodePermission = await service.getNodeRole('-1', { cookie: 'true' }, 'emb2');
     expect(nodePermission.hasRole).toEqual(false);
   });

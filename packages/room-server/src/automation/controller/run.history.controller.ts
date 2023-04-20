@@ -21,9 +21,7 @@ import { AutomationRunHistoryRepository } from '../repositories/automation.run.h
 
 @Controller('nest/v1/robots/run-history')
 export class RobotRunHistoryController {
-  constructor(
-    private readonly automationRunHistoryRepository: AutomationRunHistoryRepository,
-  ) { }
+  constructor(private readonly automationRunHistoryRepository: AutomationRunHistoryRepository) {}
 
   @Get('/')
   getRunHistory(@Query('robotId') robotId: string, @Query('page') page = 1, @Query('size') size = 20) {

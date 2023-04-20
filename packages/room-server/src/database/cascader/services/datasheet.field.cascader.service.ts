@@ -110,13 +110,7 @@ export class DatasheetFieldCascaderService {
           setNode(treeNodesMap, linkedFieldId, branchKey, node);
         }
         // ------------------------------- End --------------------------------------//
-        linkNodeToParentNode(
-          { fieldIdToParentFieldId, treeNodesMap, groupToTextToSet, treeNodes },
-          linkedFieldId,
-          linkedRecordData,
-          node,
-          isNewNode,
-        );
+        linkNodeToParentNode({ fieldIdToParentFieldId, treeNodesMap, groupToTextToSet, treeNodes }, linkedFieldId, linkedRecordData, node, isNewNode);
       }
     }
     return treeNodes;

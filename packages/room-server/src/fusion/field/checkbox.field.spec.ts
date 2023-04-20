@@ -29,7 +29,7 @@ describe('CheckBoxField', () => {
       id: 'fldpRxaCC8Mhe',
       name: 'Multi-select',
       type: FieldType.Checkbox,
-      property: { icon: 'haha' }
+      property: { icon: 'haha' },
     };
   });
 

@@ -53,8 +53,8 @@ import { CascaderModule } from './cascader/cascader.module';
   exports: [
     AssetModule,
     AttachmentModule,
-    AlarmDynamicModule.forRoot(), 
-    SubscriptionDynamicModule.forRoot(), 
+    AlarmDynamicModule.forRoot(),
+    SubscriptionDynamicModule.forRoot(),
     DashboardModule,
     DatasheetModule,
     FormModule,
@@ -64,6 +64,6 @@ import { CascaderModule } from './cascader/cascader.module';
     OtModule,
     CommandModule,
     CascaderModule,
-  ]
+  ],
 })
 export class DatabaseModule {}

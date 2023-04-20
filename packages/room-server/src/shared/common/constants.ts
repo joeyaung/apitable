@@ -27,7 +27,7 @@ export enum CacheKeys {
   DATASHEET_FIELD_RE_REF = 'apitable:nest:fieldReRef:%s',
   DATASHEET_REVISION_CACHE = 'apitable:nest:datasheetCacheRevision:%s',
   DATASHEET_PACK_CACHE = 'apitable:nest:datasheetCache:%s',
-  DATASHEET_CASCADER_TREE = 'apitable:nest:datasheetCascaderCache:%s:%s'
+  DATASHEET_CASCADER_TREE = 'apitable:nest:datasheetCascaderCache:%s:%s',
 }
 
 // Redis expire time, units are in seconds

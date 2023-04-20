@@ -23,10 +23,7 @@ import { UserService } from 'user/services/user.service';
 
 @Injectable()
 export class DeveloperService {
-  constructor(
-    private readonly developerRepo: DeveloperRepository,
-    private readonly userService: UserService,
-  ) {}
+  constructor(private readonly developerRepo: DeveloperRepository, private readonly userService: UserService) {}
 
   /**
    * Get User base info by api key
@@ -43,5 +40,4 @@ export class DeveloperService {
     }
     return null;
   }
-
 }

@@ -30,7 +30,7 @@ import { HttpConfigService } from 'shared/services/config/http.config.service';
       useClass: HttpConfigService,
     }),
     ResourceModule,
-    forwardRef(()=>NodeModule),
+    forwardRef(() => NodeModule),
   ],
   controllers: [AttachmentController],
   providers: [AttachmentService],

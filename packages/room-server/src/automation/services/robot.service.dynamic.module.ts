@@ -25,21 +25,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AutomationServiceRepository } from '../repositories/automation.service.repository';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([AutomationActionTypeRepository, AutomationServiceRepository])
-  ],
+  imports: [TypeOrmModule.forFeature([AutomationActionTypeRepository, AutomationServiceRepository])],
   providers: [
     {
       provide: RobotActionTypeBaseService,
-      useClass: RobotActionTypeService
+      useClass: RobotActionTypeService,
     },
   ],
   exports: [
     {
       provide: RobotActionTypeBaseService,
-      useClass: RobotActionTypeService
+      useClass: RobotActionTypeService,
     },
-  ]
+  ],
 })
 export class RobotServiceDynamicModule {
   static forRoot(): DynamicModule {

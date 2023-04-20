@@ -17,9 +17,17 @@
  */
 
 import {
-  clearComputeCache, IEventInstance, IEventResourceMap,
-  IOPEvent, IReduxState, IRemoteChangeset, IServerDatasheetPack,
-  OP2Event, OPEventManager, OPEventNameEnums, ResourceType,
+  clearComputeCache,
+  IEventInstance,
+  IEventResourceMap,
+  IOPEvent,
+  IReduxState,
+  IRemoteChangeset,
+  IServerDatasheetPack,
+  OP2Event,
+  OPEventManager,
+  OPEventNameEnums,
+  ResourceType,
 } from '@apitable/core';
 import { Injectable } from '@nestjs/common';
 import { InjectLogger } from 'shared/common';
@@ -52,16 +60,16 @@ export class RobotEventService {
       OPEventNameEnums.CellUpdated,
       OPEventNameEnums.RecordCreated,
       OPEventNameEnums.RecordDeleted,
-      OPEventNameEnums.RecordUpdated
+      OPEventNameEnums.RecordUpdated,
     ];
     this.opEventManager = new OPEventManager({
       options: {
         enableVirtualEvent: true,
         enableCombEvent: true,
-        enableEventComplete: true
+        enableEventComplete: true,
       },
-      getState: (resourceMap) => this.makeState(resourceMap),
-      op2Event: new OP2Event(clientWatchedEvents)
+      getState: resourceMap => this.makeState(resourceMap),
+      op2Event: new OP2Event(clientWatchedEvents),
     });
   }
 
@@ -99,13 +107,13 @@ export class RobotEventService {
       clearComputeCache(resourceId);
     });
     const dstIdTriggersMap = await this.robotTriggerService.getTriggersGroupByResourceId(resourceIds);
-    const triggerSlugTypeIdMap = await this.robotTriggerTypeService.getServiceSlugToTriggerTypeId([
-      EventTypeEnums.RecordMatchesConditions,
-      EventTypeEnums.RecordCreated
-    ], OFFICIAL_SERVICE_SLUG);
-    this.logger.info(`messageIds: [${ msgIds }]: The official service slug ${ OFFICIAL_SERVICE_SLUG }`);
-    this.logger.info(`messageIds: [${ msgIds }]: The triggered trigger: ${ dstIdTriggersMap }`);
-    this.logger.info(`messageIds: [${ msgIds }]: The event and trigger's type map: ${ triggerSlugTypeIdMap }`);
+    const triggerSlugTypeIdMap = await this.robotTriggerTypeService.getServiceSlugToTriggerTypeId(
+      [EventTypeEnums.RecordMatchesConditions, EventTypeEnums.RecordCreated],
+      OFFICIAL_SERVICE_SLUG,
+    );
+    this.logger.info(`messageIds: [${msgIds}]: The official service slug ${OFFICIAL_SERVICE_SLUG}`);
+    this.logger.info(`messageIds: [${msgIds}]: The triggered trigger: ${dstIdTriggersMap}`);
+    this.logger.info(`messageIds: [${msgIds}]: The event and trigger's type map: ${triggerSlugTypeIdMap}`);
     for (const event of events) {
       this.eventEmitter.emit(event.eventName, {
         ...event,
@@ -114,7 +122,7 @@ export class RobotEventService {
           dstIdTriggersMap,
           triggerSlugTypeIdMap,
           msgIds,
-        }
+        },
       });
     }
   }

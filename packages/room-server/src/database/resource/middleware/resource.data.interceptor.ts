@@ -46,7 +46,7 @@ export class ResourceDataInterceptor implements NestInterceptor {
       return next.handle().pipe();
     }
     return next.handle().pipe(
-      tap(async(data: ApiResponse<any>) => {
+      tap(async (data: ApiResponse<any>) => {
         const resourceIds = await this.getResourceIds(info.resourceType, data);
         // no need to create a new resource for mirror
         if (info.resourceType != ResourceType.Mirror) {

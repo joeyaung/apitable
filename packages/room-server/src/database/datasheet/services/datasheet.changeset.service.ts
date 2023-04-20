@@ -17,8 +17,17 @@
  */
 
 import {
-  composeOperation, composeOperations, ExecuteResult, FieldType, IFieldMap, ILocalChangeset, IOperation, IReduxState, ResourceType, Selectors,
-  StoreActions
+  composeOperation,
+  composeOperations,
+  ExecuteResult,
+  FieldType,
+  IFieldMap,
+  ILocalChangeset,
+  IOperation,
+  IReduxState,
+  ResourceType,
+  Selectors,
+  StoreActions,
 } from '@apitable/core';
 import { Injectable } from '@nestjs/common';
 import { Store } from 'redux';
@@ -117,8 +126,10 @@ export class DatasheetChangesetService {
     revisions: string[],
     filedIds: string[],
   ): Promise<{ commentChangesets: ChangesetBaseDto[]; users: UnitInfoDto[]; recordChangesets: ChangesetBaseDto[] }> {
-    const entities: (DatasheetChangesetEntity & { isComment: string })[]
-      = await this.datasheetChangesetRepository.selectDetailByDstIdAndRevisions(dstId, revisions);
+    const entities: (DatasheetChangesetEntity & { isComment: string })[] = await this.datasheetChangesetRepository.selectDetailByDstIdAndRevisions(
+      dstId,
+      revisions,
+    );
     if (!entities.length) {
       return { commentChangesets: [], users: [], recordChangesets: [] };
     }

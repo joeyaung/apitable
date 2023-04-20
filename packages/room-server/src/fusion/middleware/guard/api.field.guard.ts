@@ -29,9 +29,7 @@ import { UnitMemberService } from 'unit/services/unit.member.service';
  */
 @Injectable()
 export class ApiFieldGuard implements CanActivate {
-
-  constructor( private readonly memberService: UnitMemberService) {
-  }
+  constructor(private readonly memberService: UnitMemberService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -40,7 +38,7 @@ export class ApiFieldGuard implements CanActivate {
       throw ApiException.tipError(ApiTipConstant.api_datasheet_not_exist);
     }
     const spaceId = request.params.spaceId;
-    if(!spaceId) {
+    if (!spaceId) {
       throw ApiException.tipError(ApiTipConstant.api_params_instance_space_id_error);
     }
     // works for datasheet related APIs

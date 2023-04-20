@@ -36,12 +36,11 @@ export class ApiNotifyInterceptor implements NestInterceptor {
     @InjectLogger() private readonly logger: Logger,
     private readonly i18n: I18nService,
     private readonly queueSenderService: QueueSenderBaseService,
-  ) {
-  }
+  ) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Promise<any> {
     const request = context.switchToHttp().getRequest<any>();
-    return next.handle().pipe(
+    return (next.handle().pipe(
       tap((data: ApiResponse<any>) => {
         if (request[DATASHEET_MEMBER_FIELD] && data.data && data.data.records) {
           this.createMemberNotification(request, data.data.records).catch(err => {
@@ -49,7 +48,7 @@ export class ApiNotifyInterceptor implements NestInterceptor {
           });
         }
       }),
-    ) as any as Promise<any>;
+    ) as any) as Promise<any>;
   }
 
   async createMemberNotification(request: any, records: ApiRecordDto[]): Promise<void> {
@@ -81,9 +80,11 @@ export class ApiNotifyInterceptor implements NestInterceptor {
             body: {
               extras: {
                 fieldName,
-                recordTitle: recordTitle ? truncate(recordTitle, { length: 20 }) : await this.i18n.translate(Strings.record_unnamed, {
-                  lang: request[USER_HTTP_DECORATE]?.locale,
-                }),
+                recordTitle: recordTitle
+                  ? truncate(recordTitle, { length: 20 })
+                  : await this.i18n.translate(Strings.record_unnamed, {
+                      lang: request[USER_HTTP_DECORATE]?.locale,
+                    }),
                 recordIds: [record.recordId],
                 viewId: viewId,
               },
@@ -98,4 +99,3 @@ export class ApiNotifyInterceptor implements NestInterceptor {
     }
   }
 }
-

@@ -37,33 +37,15 @@ export class SocketModule {
   static register(enabled: boolean): DynamicModule {
     if (!enabled) {
       return {
-        module: SocketModule
+        module: SocketModule,
       };
     }
 
     return {
       module: SocketModule,
-      imports: [
-        GrpcClientModule,
-        HttpModule,
-        RedisModule,
-        TerminusModule
-      ],
-      controllers: [
-        SocketController,
-        NodeController,
-        DatasheetController,
-        SocketGrpcController
-      ],
-      providers: [
-        SocketIoService,
-        RoomService,
-        NotificationService,
-        NestService,
-        NotificationGateway,
-        RoomGateway,
-      ],
+      imports: [GrpcClientModule, HttpModule, RedisModule, TerminusModule],
+      controllers: [SocketController, NodeController, DatasheetController, SocketGrpcController],
+      providers: [SocketIoService, RoomService, NotificationService, NestService, NotificationGateway, RoomGateway],
     };
   }
 }
-

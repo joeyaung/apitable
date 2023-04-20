@@ -26,12 +26,9 @@ describe('UnitTeamServiceTest', () => {
   let service: UnitTeamService;
   let unitTeamRepository: UnitTeamRepository;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
-      providers: [
-        UnitTeamService,
-        UnitTeamRepository,
-      ],
+      providers: [UnitTeamService, UnitTeamRepository],
     }).compile();
     unitTeamRepository = module.get<UnitTeamRepository>(UnitTeamRepository);
     service = module.get<UnitTeamService>(UnitTeamService);
@@ -44,24 +41,26 @@ describe('UnitTeamServiceTest', () => {
       isDeleted: false,
     };
 
-    jest.spyOn(unitTeamRepository, 'selectTeamsByIdsIncludeDeleted')
-      .mockImplementation((teamIds: number[]): Promise<UnitTeamBaseInfoDto[]> => {
-        if(teamIds?.length === 1 && `${teamIds[0]}` == unitTeam.id) {
+    jest.spyOn(unitTeamRepository, 'selectTeamsByIdsIncludeDeleted').mockImplementation(
+      (teamIds: number[]): Promise<UnitTeamBaseInfoDto[]> => {
+        if (teamIds?.length === 1 && `${teamIds[0]}` == unitTeam.id) {
           return Promise.resolve([unitTeam]);
         }
         return Promise.resolve([]);
-      });
+      },
+    );
 
-    jest.spyOn(unitTeamRepository, 'selectIdBySpaceIdAndName')
-      .mockImplementation((spaceId: string, teamName: string): Promise<{ id: string } | undefined> => {
-        if(spaceId === 'spaceId' && teamName === 'teamName') {
+    jest.spyOn(unitTeamRepository, 'selectIdBySpaceIdAndName').mockImplementation(
+      (spaceId: string, teamName: string): Promise<{ id: string } | undefined> => {
+        if (spaceId === 'spaceId' && teamName === 'teamName') {
           return Promise.resolve({ id: '2023' });
         }
         return Promise.resolve(undefined);
-      });
+      },
+    );
   });
 
-  it('should be return team base infos by team ids', async() => {
+  it('should be return team base infos by team ids', async () => {
     const teamIdToTeamInfo = await service.getTeamsByIdsIncludeDeleted([2023]);
     expect(teamIdToTeamInfo['2023']?.name).toEqual('teamName');
     expect(teamIdToTeamInfo['2023']?.uuid).toEqual('');
@@ -70,13 +69,13 @@ describe('UnitTeamServiceTest', () => {
     expect(teamIdToTeamInfo['2023']?.isDeleted).toBeFalsy();
   });
 
-  it('return team id by space id and team name', async() => {
+  it('return team id by space id and team name', async () => {
     const teamId = await service.getIdBySpaceIdAndName('spaceId', 'teamName');
     expect(teamId).toEqual('2023');
   });
 
-  it('return null by space id and no exist team name', async() => {
+  it('return null by space id and no exist team name', async () => {
     const teamId = await service.getIdBySpaceIdAndName('spaceId', 'noExistTeamName');
     expect(teamId).toEqual(null);
-  } );
+  });
 });

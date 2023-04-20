@@ -21,4 +21,3 @@ export interface IAPISpace {
   name: string;
   isAdmin?: boolean;
 }
-

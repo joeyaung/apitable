@@ -38,12 +38,12 @@ import { RoomResourceRelService } from './services/room.resource.rel.service';
 
 @Module({
   imports: [
-    forwardRef(()=>NodeModule),
-    forwardRef(()=>UserModule),
-    forwardRef(()=>DatasheetModule),
-    forwardRef(()=>OtModule),
-    forwardRef(()=>WidgetModule),
-    forwardRef(()=>RobotModule),
+    forwardRef(() => NodeModule),
+    forwardRef(() => UserModule),
+    forwardRef(() => DatasheetModule),
+    forwardRef(() => OtModule),
+    forwardRef(() => WidgetModule),
+    forwardRef(() => RobotModule),
     TypeOrmModule.forFeature([
       ResourceChangesetRepository,
       ResourceMetaRepository,

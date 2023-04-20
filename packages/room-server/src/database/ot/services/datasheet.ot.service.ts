@@ -17,9 +17,33 @@
  */
 
 import {
-  CollaCommandName, Field, FieldType, IAttachmentValue, IComments, IField, IFieldMap, IFieldUpdatedMap, IJOTAction, IMeta, INodePermissions,
-  IObjectDeleteAction, IObjectInsertAction, IObjectReplaceAction, IOperation, IRecord, IRecordAlarm, IRecordCellValue, IRecordMap, IRecordMeta, IReduxState,
-  IRemoteChangeset, isSameSet, IViewProperty, jot, OTActionName, ViewType,
+  CollaCommandName,
+  Field,
+  FieldType,
+  IAttachmentValue,
+  IComments,
+  IField,
+  IFieldMap,
+  IFieldUpdatedMap,
+  IJOTAction,
+  IMeta,
+  INodePermissions,
+  IObjectDeleteAction,
+  IObjectInsertAction,
+  IObjectReplaceAction,
+  IOperation,
+  IRecord,
+  IRecordAlarm,
+  IRecordCellValue,
+  IRecordMap,
+  IRecordMeta,
+  IReduxState,
+  IRemoteChangeset,
+  isSameSet,
+  IViewProperty,
+  jot,
+  OTActionName,
+  ViewType,
 } from '@apitable/core';
 import { Span } from '@metinseylan/nestjs-opentelemetry';
 import { Injectable } from '@nestjs/common';
@@ -453,7 +477,7 @@ export class DatasheetOtService {
           }
           foreignDatasheetId = field.property.foreignDatasheetId;
         }
-        const foreignPermission = await getNodeRole(foreignDatasheetId, auth) as NodePermission;
+        const foreignPermission = (await getNodeRole(foreignDatasheetId, auth)) as NodePermission;
         if (!foreignPermission.readable) {
           throw new ServerException(PermissionException.OPERATION_DENIED);
         }
@@ -1233,7 +1257,7 @@ export class DatasheetOtService {
     // ===== Comment collection operation END ====
   }
 
-  transaction = async(manager: EntityManager, effectMap: Map<string, any>, commonData: ICommonData, resultSet: { [key: string]: any }) => {
+  transaction = async (manager: EntityManager, effectMap: Map<string, any>, commonData: ICommonData, resultSet: { [key: string]: any }) => {
     const beginTime = +new Date();
     this.logger.info(`[${commonData.dstId}] ====> transaction start......`);
     // ======== Fix comment time BEGIN ========
@@ -1810,10 +1834,10 @@ export class DatasheetOtService {
           Object.keys(recordData).forEach(fieldId => {
             fieldUpdatedMap[fieldId] = fieldUpdatedMap[fieldId]
               ? {
-                ...fieldUpdatedMap[fieldId],
-                at: updatedAt,
-                by: uuid,
-              }
+                  ...fieldUpdatedMap[fieldId],
+                  at: updatedAt,
+                  by: uuid,
+                }
               : { at: updatedAt, by: uuid };
           });
         }
@@ -1865,10 +1889,10 @@ export class DatasheetOtService {
         const newRecordMeta =
           updateFieldIds.length || autoNumberFields.length
             ? {
-              createdAt,
-              createdBy: uuid,
-              fieldUpdatedMap,
-            }
+                createdAt,
+                createdBy: uuid,
+                fieldUpdatedMap,
+              }
             : { createdAt, createdBy: uuid };
 
         // TODO Delete this code block after cell alarm is changed to async creation

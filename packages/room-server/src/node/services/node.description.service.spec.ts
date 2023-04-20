@@ -24,7 +24,7 @@ describe('Test NodeDescriptionService', () => {
   let repository: NodeDescRepository;
   let service: NodeDescriptionService;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       providers: [
         {
@@ -44,7 +44,7 @@ describe('Test NodeDescriptionService', () => {
     jest.spyOn(repository, 'selectDescriptionByNodeId').mockResolvedValue({ description: 'node description' });
   });
 
-  it('should be return node description', async() => {
+  it('should be return node description', async () => {
     const nodeDescription = await service.getDescription('nodeId');
     expect(nodeDescription).toEqual('node description');
   });

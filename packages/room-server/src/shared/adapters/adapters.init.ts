@@ -34,8 +34,18 @@ import { FastifyInstance } from 'fastify';
 import helmet from 'fastify-helmet';
 import fastifyMultipart from 'fastify-multipart';
 import {
-  CheckboxFieldPropertyDto, CurrencyFieldPropertyDto, DateTimeFieldPropertyDto, FormulaFieldPropertyDto, LinkFieldPropertyDto, LookupFieldPropertyDto,
-  MemberFieldPropertyDto, NumberFieldPropertyDto, RatingFieldPropertyDto, SelectFieldPropertyDto, SingleTextPropertyDto, UserPropertyDto,
+  CheckboxFieldPropertyDto,
+  CurrencyFieldPropertyDto,
+  DateTimeFieldPropertyDto,
+  FormulaFieldPropertyDto,
+  LinkFieldPropertyDto,
+  LookupFieldPropertyDto,
+  MemberFieldPropertyDto,
+  NumberFieldPropertyDto,
+  RatingFieldPropertyDto,
+  SelectFieldPropertyDto,
+  SingleTextPropertyDto,
+  UserPropertyDto,
 } from 'fusion/dtos/field.property.dto';
 import { protobufPackage } from 'grpc/generated/serving/SocketServingService';
 import { HelmetOptions } from 'helmet';
@@ -46,9 +56,22 @@ import { SocketConstants } from 'shared/common/constants/socket.module.constants
 import { RedisIoAdapter } from 'socket/adapter/redis/redis-io.adapter';
 import { SocketIoService } from 'socket/services/socket-io/socket-io.service';
 import {
-  AUTHORIZATION_PREFIX, DATASHEET_ENRICH_SELECT_FIELD, DATASHEET_HTTP_DECORATE, DATASHEET_LINKED, DATASHEET_MEMBER_FIELD,
-  DATASHEET_META_HTTP_DECORATE, GRPC_MAX_PACKAGE_SIZE, NODE_INFO, REQUEST_AT, REQUEST_HOOK_FOLDER, REQUEST_HOOK_PRE_NODE, REQUEST_ID, SERVER_TIME,
-  SPACE_ID_HTTP_DECORATE, SwaggerConstants, USER_HTTP_DECORATE,
+  AUTHORIZATION_PREFIX,
+  DATASHEET_ENRICH_SELECT_FIELD,
+  DATASHEET_HTTP_DECORATE,
+  DATASHEET_LINKED,
+  DATASHEET_MEMBER_FIELD,
+  DATASHEET_META_HTTP_DECORATE,
+  GRPC_MAX_PACKAGE_SIZE,
+  NODE_INFO,
+  REQUEST_AT,
+  REQUEST_HOOK_FOLDER,
+  REQUEST_HOOK_PRE_NODE,
+  REQUEST_ID,
+  SERVER_TIME,
+  SPACE_ID_HTTP_DECORATE,
+  SwaggerConstants,
+  USER_HTTP_DECORATE,
 } from '../common';
 import { FusionApiVersion } from '../enums';
 
@@ -226,10 +249,7 @@ export const initRoomGrpc = (logger: LoggerService, app: INestApplication) => {
       // 100M
       maxSendMessageLength: GRPC_MAX_PACKAGE_SIZE,
       maxReceiveMessageLength: GRPC_MAX_PACKAGE_SIZE,
-      protoPath: [
-        join(PROJECT_DIR, 'grpc/generated/serving/RoomServingService.proto'),
-        join(PROJECT_DIR, 'grpc/generated/common/Core.proto')
-      ],
+      protoPath: [join(PROJECT_DIR, 'grpc/generated/serving/RoomServingService.proto'), join(PROJECT_DIR, 'grpc/generated/common/Core.proto')],
       loader: {
         json: true,
       },

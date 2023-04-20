@@ -106,19 +106,16 @@ export class AutomationService {
       case 'http:': // some self-hosted service may use http
       case 'https:': {
         url.pathname = actionType.endpoint;
-        const resp = await fetch(
-          url.toString(),
-          {
-            method: 'POST',
-            headers: {
-              'content-type': 'application/json'
-            },
-            body: JSON.stringify(actionRuntimeInput)
-          }
-        );
+        const resp = await fetch(url.toString(), {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(actionRuntimeInput),
+        });
         return {
           success: resp.status === 200,
-          data: await resp.json()
+          data: await resp.json(),
         };
       }
       case 'automation:': {
@@ -164,7 +161,7 @@ export class AutomationService {
     // if (spaceRobotRunTimes >= 100000) {
     //   return;
     // }
-    const taskId = IdWorker.nextId().toString();// TODO: use uuid
+    const taskId = IdWorker.nextId().toString(); // TODO: use uuid
     // 1. create run history
     await this.createRunHistory(robotId, taskId, spaceId);
     try {
@@ -173,7 +170,7 @@ export class AutomationService {
         robotId,
         triggerInput: trigger.input,
         triggerOutput: trigger.output,
-        taskId
+        taskId,
       });
     } catch (error) {
       // 3. update run history when failed
@@ -200,20 +197,22 @@ export class AutomationService {
           errorsByNodeId[trigger.triggerId] = validationError ? [...errors, ...validationError] : errors;
           return {
             ok: false,
-            errorsByNodeId
+            errorsByNodeId,
           };
         }
       }
       this.logger.debug(`trigger is valid: ${isTriggerValid}`);
-      const noErrors = actions.length > 0 && actions.every(node => {
-        const actionType = robot.actionTypesById[node.typeId]!;
-        // FIXME: type
-        const { hasError, errors, validationError } = validateMagicForm((actionType.inputJSONSchema as any).schema, node.input);
-        if (hasError) {
-          errorsByNodeId[node.id] = validationError ? [...errors, ...validationError] : errors;
-        }
-        return !hasError;
-      });
+      const noErrors =
+        actions.length > 0 &&
+        actions.every(node => {
+          const actionType = robot.actionTypesById[node.typeId]!;
+          // FIXME: type
+          const { hasError, errors, validationError } = validateMagicForm((actionType.inputJSONSchema as any).schema, node.input);
+          if (hasError) {
+            errorsByNodeId[node.id] = validationError ? [...errors, ...validationError] : errors;
+          }
+          return !hasError;
+        });
       this.logger.debug(`no errors: ${noErrors},${actions}`);
       if (isTriggerValid && noErrors) {
         await this.automationRobotRepository.activeRobot(robotId, user.userId);
@@ -227,7 +226,7 @@ export class AutomationService {
     }
     return {
       ok: false,
-      errorsByNodeId
+      errorsByNodeId,
     };
   }
 

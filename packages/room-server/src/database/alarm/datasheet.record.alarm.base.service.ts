@@ -24,7 +24,6 @@ import { ICommonData } from '../ot/interfaces/ot.interface';
 
 @Injectable()
 export abstract class DatasheetRecordAlarmBaseService {
-
   public async getCurrentActivatedRecordAlarms(_intervalSecond: number): Promise<DatasheetRecordAlarmEntity[] | null> {
     return await Promise.resolve([]);
   }
@@ -33,12 +32,7 @@ export abstract class DatasheetRecordAlarmBaseService {
     await Promise.resolve();
   }
 
-  async handleRecordAlarms(
-    _manager: EntityManager,
-    _commonData: ICommonData,
-    _resultSet: { [key: string]: any },
-  ) {
+  async handleRecordAlarms(_manager: EntityManager, _commonData: ICommonData, _resultSet: { [key: string]: any }) {
     await Promise.resolve();
   }
-
 }

@@ -20,10 +20,8 @@ import { DynamicModule, Module } from '@nestjs/common';
 import path from 'path';
 import * as fs from 'fs';
 
-@Module({
-})
+@Module({})
 export class FusionApiDynamicModule {
-
   static forRoot(): DynamicModule {
     const fusionEnterpriseModulePath = path.join(__dirname, '../enterprise/fusion');
     const isEnterpriseLevel: boolean = fs.existsSync(fusionEnterpriseModulePath);
@@ -33,9 +31,8 @@ export class FusionApiDynamicModule {
         module: FusionApiEnterpriseModule,
       };
     }
-    return { 
+    return {
       module: FusionApiDynamicModule,
-    }; 
+    };
   }
-
 }

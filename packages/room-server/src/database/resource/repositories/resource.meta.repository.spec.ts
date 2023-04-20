@@ -28,7 +28,7 @@ describe('DatasheetRepositoryTest', () => {
   let repository: ResourceMetaRepository;
   let entity: ResourceMetaEntity;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({ isGlobal: true }),
@@ -41,7 +41,7 @@ describe('DatasheetRepositoryTest', () => {
     repository = module.get<ResourceMetaRepository>(ResourceMetaRepository);
   });
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     const resourceMeta: DeepPartial<ResourceMetaEntity> = {
       resourceId: 'resourceId',
       revision: 1,
@@ -50,15 +50,15 @@ describe('DatasheetRepositoryTest', () => {
     entity = await repository.save(record);
   });
 
-  afterEach(async() => {
+  afterEach(async () => {
     await repository.delete(entity.id);
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await repository.manager.connection.close();
   });
 
-  it('should get revisions by resource ids', async() => {
+  it('should get revisions by resource ids', async () => {
     const resourceRevisions = await repository.getRevisionByRscIds([entity.resourceId]);
     expect(resourceRevisions.length).toEqual(1);
     expect(resourceRevisions[0]?.resourceId).toEqual(entity.resourceId);

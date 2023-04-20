@@ -20,7 +20,6 @@
  * base exception Interface
  */
 export interface IBaseException {
-
   /**
    * exception code
    */

@@ -27,7 +27,7 @@ export interface IAPINode {
 }
 
 export interface IAPIFolderNode extends IAPINode {
-  children: IAPINode[]
+  children: IAPINode[];
 }
 
 export interface IAPINodeInfo {
@@ -35,7 +35,7 @@ export interface IAPINodeInfo {
   name: string;
   type: NodeTypeEnum;
   icon: string;
-  parentId: string,
+  parentId: string;
 }
 
 export type IAPINodeDetail = IAPINode | IAPIFolderNode;

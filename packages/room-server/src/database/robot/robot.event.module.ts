@@ -23,12 +23,8 @@ import { DatasheetModule } from 'database/datasheet/datasheet.module';
 import { RobotEventService } from './services/robot.event.service';
 
 @Module({
-  imports: [
-    CommandModule,
-    DatasheetModule,
-    forwardRef(()=>RobotModule),
-  ],
+  imports: [CommandModule, DatasheetModule, forwardRef(() => RobotModule)],
   providers: [RobotEventService],
-  exports: [RobotEventService]
+  exports: [RobotEventService],
 })
 export class RobotEventModule {}

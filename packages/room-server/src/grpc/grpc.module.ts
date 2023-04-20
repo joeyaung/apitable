@@ -25,21 +25,9 @@ import { UserModule } from 'user/user.module';
 import { GrpcController } from './controllers/grpc.controller';
 
 @Module({
-  imports: [
-    forwardRef(() => DatabaseModule),
-    UserModule,
-    forwardRef(() => NodeModule),
-    GrpcClientModule,
-  ],
+  imports: [forwardRef(() => DatabaseModule), UserModule, forwardRef(() => NodeModule), GrpcClientModule],
   controllers: [GrpcController],
-  providers: [
-    GrpcSocketService,
-  ],
-  exports: [
-    GrpcSocketService,
-    GrpcClientModule,
-  ],
+  providers: [GrpcSocketService],
+  exports: [GrpcSocketService, GrpcClientModule],
 })
-export class GrpcModule {
-}
-
+export class GrpcModule {}

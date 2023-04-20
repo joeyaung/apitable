@@ -34,7 +34,7 @@ export interface IRedisConfig {
 export interface ISocketConfig {
   url: string;
   path: string;
-  grpcUrl: string
+  grpcUrl: string;
 }
 
 export interface IServerConfig {
@@ -62,7 +62,7 @@ export interface IRateLimiter extends IBaseRateLimiter {
   /**
    * whiteList, token->rate limit configuration
    */
-  whiteList: Map<string, IBaseRateLimiter>
+  whiteList: Map<string, IBaseRateLimiter>;
 }
 
 export interface IBaseRateLimiter {

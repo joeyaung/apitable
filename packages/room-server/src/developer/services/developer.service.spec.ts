@@ -31,10 +31,10 @@ describe('developer service', () => {
   let developerRepo: DeveloperRepository;
   let userRepository: UserRepository;
   const knownAPIKey = 'key1';
-  const knownExpiredAPIKey= 'key2';
+  const knownExpiredAPIKey = 'key2';
   const knownUserId = 12345;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -42,23 +42,23 @@ describe('developer service', () => {
     await app.init();
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await app.close();
   });
 
   beforeEach(() => {
     developerService = module.get<DeveloperService>(DeveloperService);
-    developerRepo = module.get<DeveloperRepository>(DeveloperRepository); 
+    developerRepo = module.get<DeveloperRepository>(DeveloperRepository);
     userRepository = module.get<UserRepository>(UserRepository);
-    jest.spyOn(developerRepo, 'selectUserIdByApiKey').mockImplementation(async(apiKey) => {
+    jest.spyOn(developerRepo, 'selectUserIdByApiKey').mockImplementation(async apiKey => {
       if (apiKey === knownAPIKey) {
         return await Promise.resolve({ userId: BigInt(knownUserId) });
       } else if (apiKey === knownExpiredAPIKey) {
-        return await Promise.resolve({ userId: BigInt(Math.floor(Math.random()*10000)) });
+        return await Promise.resolve({ userId: BigInt(Math.floor(Math.random() * 10000)) });
       }
       return await Promise.resolve(undefined);
     });
-    jest.spyOn(userRepository, 'selectUserBaseInfoById').mockImplementation(async(userId) => {
+    jest.spyOn(userRepository, 'selectUserBaseInfoById').mockImplementation(async userId => {
       if (userId === knownUserId.toString()) {
         const nikeName = 'xiaoming';
         const userEntity = new UserEntity();
@@ -70,23 +70,20 @@ describe('developer service', () => {
   });
 
   describe('test getUserInfoByApiKey', () => {
-
-    it('should return null with an unknown API key', async() => {
-      const result = await developerService.getUserInfoByApiKey(Math.floor(Math.random()*10000).toString());
+    it('should return null with an unknown API key', async () => {
+      const result = await developerService.getUserInfoByApiKey(Math.floor(Math.random() * 10000).toString());
       expect(result).toBeNull();
     });
 
-    it('should return user entity with a known API key', async() => {
+    it('should return user entity with a known API key', async () => {
       const nikeName = 'xiaoming';
       const result = (await developerService.getUserInfoByApiKey(knownAPIKey))!;
       expect(result.nikeName).toEqual(nikeName);
     });
 
-    it('should return undefined with an expired API key', async() => {
+    it('should return undefined with an expired API key', async () => {
       const result = (await developerService.getUserInfoByApiKey(knownExpiredAPIKey))!;
       expect(result).toBeUndefined();
     });
-
   });
-
 });

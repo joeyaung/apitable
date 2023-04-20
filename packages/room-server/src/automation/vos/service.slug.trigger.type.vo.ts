@@ -17,5 +17,5 @@
  */
 
 export interface IServiceSlugTriggerTypeVo {
-  [triggerSlug: string]: string,
+  [triggerSlug: string]: string;
 }

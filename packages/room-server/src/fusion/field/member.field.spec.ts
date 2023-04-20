@@ -31,7 +31,7 @@ describe('MemberField', () => {
   let field: IMemberField;
   let unitservice: UnitService;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     jest.setTimeout(60000);
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -52,7 +52,7 @@ describe('MemberField', () => {
     };
   });
 
-  afterAll(async() => {
+  afterAll(async () => {
     await app.close();
   });
 
@@ -69,22 +69,43 @@ describe('MemberField', () => {
     });
     it('memberId not string--should throw an error', () => {
       field.property.isMulti = false;
-      expect(() => fieldClass.validate([{
-        id: 1
-      }], field)).toThrow(/^api_param_member_id_type_error$/);
+      expect(() =>
+        fieldClass.validate(
+          [
+            {
+              id: 1,
+            },
+          ],
+          field,
+        ),
+      ).toThrow(/^api_param_member_id_type_error$/);
     });
     it('name not exist--should throw an error', () => {
       field.property.isMulti = false;
-      expect(() => fieldClass.validate([{
-        id: '1'
-      }], field)).toThrow(/^api_params_instance_member_name_error$/);
+      expect(() =>
+        fieldClass.validate(
+          [
+            {
+              id: '1',
+            },
+          ],
+          field,
+        ),
+      ).toThrow(/^api_params_instance_member_name_error$/);
     });
     it('type not exist--should throw an error', () => {
       field.property.isMulti = false;
-      expect(() => fieldClass.validate([{
-        id: '1',
-        name: 'name'
-      }], field)).toThrow(/^api_params_instance_member_type_error$/);
+      expect(() =>
+        fieldClass.validate(
+          [
+            {
+              id: '1',
+              name: 'name',
+            },
+          ],
+          field,
+        ),
+      ).toThrow(/^api_params_instance_member_type_error$/);
     });
   });
 });

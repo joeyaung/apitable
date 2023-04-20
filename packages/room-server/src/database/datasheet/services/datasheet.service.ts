@@ -112,8 +112,8 @@ export class DatasheetService {
     const recordMap = USE_NATIVE_MODULE
       ? await this.nativeService.getRecords(dstId, options?.recordIds ?? null, false, true)
       : options?.recordIds
-        ? await this.datasheetRecordService.getRecordsByDstIdAndRecordIds(dstId, options?.recordIds)
-        : await this.datasheetRecordService.getRecordsByDstId(dstId);
+      ? await this.datasheetRecordService.getRecordsByDstIdAndRecordIds(dstId, options?.recordIds)
+      : await this.datasheetRecordService.getRecordsByDstId(dstId);
     fetchDataPackProfiler.done({ message: `fetchDataPackProfiler ${dstId} done` });
     // Query foreignDatasheetMap and unitMap
     const combine = await this.processField(

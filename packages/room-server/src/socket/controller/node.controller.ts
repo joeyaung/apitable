@@ -27,10 +27,7 @@ import { RoomService } from 'socket/services/room/room.service';
 @UseGuards(AuthGuard)
 @UseInterceptors(HttpResponseInterceptor)
 export class NodeController {
-  constructor(
-    private readonly roomGateway: RoomGateway,
-    private readonly roomService: RoomService
-  ) {}
+  constructor(private readonly roomGateway: RoomGateway, private readonly roomService: RoomService) {}
 
   @Post('/disableShare')
   disableNodeShare(@Body() message: NodeShareDisableRo[]) {

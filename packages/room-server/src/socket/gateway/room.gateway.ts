@@ -33,9 +33,7 @@ import { Span } from '@metinseylan/nestjs-opentelemetry';
   pingTimeout: GatewayConstants.PING_TIMEOUT,
 })
 export class RoomGateway {
-  constructor(
-    private readonly roomService: RoomService,
-  ) {}
+  constructor(private readonly roomService: RoomService) {}
 
   /*
    * The Server object of the current namespace socket.io will be injected into the controller later

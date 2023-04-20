@@ -24,7 +24,6 @@ import { CreateDatasheetPipe } from './create.datasheet.pipe';
 
 @Injectable()
 export class CreateFieldPipe implements PipeTransform {
-
   transform(ro: FieldCreateRo): FieldCreateRo {
     this.validate(ro);
     this.transformProperty(ro);
@@ -60,5 +59,4 @@ export class CreateFieldPipe implements PipeTransform {
     }
     return true;
   }
-
 }

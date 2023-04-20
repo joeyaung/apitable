@@ -69,6 +69,7 @@
     "@commitlint/cli": "8.1.0",
     "@commitlint/config-conventional": "8.1.0",
     "@microsoft/eslint-formatter-sarif": "^3.0.0",
+    "@types/classnames": "^2.3.1",
     "@types/dot-object": "^2.1.2",
     "@types/lru-cache": "^5.1.0",
     "@types/node": "12.7.3",
@@ -117,5 +118,8 @@
       "packages/room-server/**/*.yaml"
     ]
   },
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@3.4.1",
+  "dependencies": {
+    "canvas": "^2.11.2"
+  }
 }

@@ -654,11 +654,7 @@ export class FusionApiService {
     return this.getNewRecordListVo(datasheet, { viewId, rows, fieldMap });
   }
 
-  private getRecordViewObjects(
-    records: databus.Record[],
-    userTimeZone?: string,
-    cellFormat: CellFormatEnum = CellFormatEnum.JSON,
-  ): ApiRecordDto[] {
+  private getRecordViewObjects(records: databus.Record[], userTimeZone?: string, cellFormat: CellFormatEnum = CellFormatEnum.JSON): ApiRecordDto[] {
     return records.map(record =>
       record.getViewObject<ApiRecordDto>((id, options) => this.transform.recordVoTransform(id, options, userTimeZone, cellFormat)),
     );

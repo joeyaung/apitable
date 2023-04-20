@@ -25,11 +25,11 @@ export class CommentListVo {
     type: [CommentDto],
     description: 'record comment list',
   })
-    comments!: CommentDto[];
+  comments!: CommentDto[];
 
   @ApiProperty({
     type: [CommentDto],
     description: 'list of units involved in record comments',
   })
-    units!: UnitInfoDto[];
+  units!: UnitInfoDto[];
 }

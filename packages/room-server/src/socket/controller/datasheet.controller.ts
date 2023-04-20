@@ -27,10 +27,7 @@ import { RoomService } from 'socket/services/room/room.service';
 @UseGuards(AuthGuard)
 @UseInterceptors(HttpResponseInterceptor)
 export class DatasheetController {
-  constructor(
-    private readonly roomGateway: RoomGateway,
-    private readonly roomService: RoomService,
-  ) {}
+  constructor(private readonly roomGateway: RoomGateway, private readonly roomService: RoomService) {}
 
   @Post('/field/permission/change')
   async fieldPermissionChange(@Body() message: FieldPermissionChangeRo) {

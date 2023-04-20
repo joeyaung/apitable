@@ -21,4 +21,3 @@ export class UnitBaseInfoDto {
   unitType!: number;
   unitRefId!: number;
 }
-
