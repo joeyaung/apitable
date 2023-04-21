@@ -19,6 +19,7 @@
 package com.apitable.interfaces.auth;
 
 import com.apitable.interfaces.auth.facade.AuthServiceFacade;
+import com.apitable.interfaces.auth.facade.CasAuthServiceFacadeImpl;
 import com.apitable.interfaces.auth.facade.DefaultAuthServiceFacadeImpl;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -27,6 +28,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration(proxyBeanMethods = false)
 public class AuthContextConfig {
+
+    @Bean
+    public AuthServiceFacade casAuthServiceFacade() {
+        return new CasAuthServiceFacadeImpl();
+    }
 
     @Bean
     @ConditionalOnMissingBean
