@@ -16,31 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Typography, useThemeColors, Box } from '@apitable/components';
-import { integrateCdnHost, SystemConfig } from '@apitable/core';
+import { Typography, useThemeColors } from '@apitable/components';
+import { integrateCdnHost } from '@apitable/core';
 import { getEnvVariables } from 'pc/utils/env';
-import { GithubButton } from './components/github_button';
 import { NavBar } from './components/nav_bar';
 import styles from './style.module.less';
 
 export const HomeWrapper: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
  
   const colors = useThemeColors();
-  
-  const linkIcons = [
-    {
-      icon: SystemConfig.settings.twitter_icon.value,
-      link: 'https://twitter.com/apitable_com'
-    },
-    {
-      icon: SystemConfig.settings.linkedin_icon.value,
-      link: 'https://www.linkedin.com/company/APITable'
-    },
-    {
-      icon: SystemConfig.settings.email_icon.value,
-      link: 'mailto:support@apitable.com'
-    }
-  ];
 
   return (
     <div className={styles.pcHome}>
@@ -50,20 +34,6 @@ export const HomeWrapper: React.FC<React.PropsWithChildren<unknown>> = ({ childr
           <Typography variant={'h7'} color={colors.textCommonSecondary}>
             {"let's make the world more productive!"}
           </Typography>
-        </div>
-        <div className={styles.iconContent}>
-          <div className={styles.linkLine}>
-            {linkIcons.map(({ icon, link }) => {
-              return (
-                <a key={link} href={link} target="_blank" rel="noreferrer">
-                  <img src={integrateCdnHost(icon)} alt="apitable" />
-                </a>
-              );
-            })}
-          </div>
-          <Box marginLeft={24}>
-            <GithubButton/>
-          </Box>
         </div>
       </div>
       <div className={styles.main}>
