@@ -45,6 +45,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -175,6 +176,9 @@ public class AuthController {
         });
         // Handling login logic
         Long userId = loginActionFunc.get(data.getType()).apply(data);
+        if (Objects.isNull(userId)) {
+            return ResponseData.error(401, "Unauthorized");
+        }
         // Banned account verification
         blackListServiceFacade.checkUser(userId);
         // save session

@@ -6,10 +6,18 @@ import com.apitable.interfaces.auth.model.UserLogout;
 import com.apitable.user.entity.UserEntity;
 import com.apitable.user.service.IUserService;
 import com.google.gson.Gson;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Resource;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import okhttp3.Call;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -17,6 +25,7 @@ import okhttp3.OkHttpClient.Builder;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +58,30 @@ public class CasAuthServiceFacadeImpl implements AuthServiceFacade {
     // 這邊的 username 是 token
     String token = param.getUsername();
     try {
-      OkHttpClient httpClient = new Builder().build();
+      TrustManager[] trustAllCerts =
+          new TrustManager[] {
+            new X509TrustManager() {
+              @Override
+              public void checkClientTrusted(X509Certificate[] chain, String authType)
+                  throws CertificateException {}
+
+              @Override
+              public void checkServerTrusted(X509Certificate[] chain, String authType)
+                  throws CertificateException {}
+
+              @Override
+              public X509Certificate[] getAcceptedIssuers() {
+                return new X509Certificate[] {};
+              }
+            }
+          };
+      SSLContext sslContext = SSLContext.getInstance("SSL");
+      sslContext.init(null, trustAllCerts, new SecureRandom());
+      OkHttpClient httpClient =
+          new Builder()
+              .sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustAllCerts[0])
+              .hostnameVerifier((hostname, session) -> true)
+              .build();
       Headers defaultHeader =
           new Headers.Builder()
               .add(
@@ -73,9 +105,11 @@ public class CasAuthServiceFacadeImpl implements AuthServiceFacade {
       if (Objects.isNull(body)) {
         throw new Exception("Response Body is Empty.");
       }
-      String bodyString = body.toString();
+      String bodyString = new String(body.bytes());
       Map<String, Object> data = gson.fromJson(bodyString, Map.class);
-      Map<String, Object> me = (Map<String, Object>) data.getOrDefault("me", new HashMap<>());
+      List<Map<String, Object>> resultList = (List<Map<String, Object>>) data.getOrDefault("result", new ArrayList<>());
+      Map<String, Object> resultMap = CollectionUtils.isEmpty(resultList) ? new HashMap<>() : resultList.get(0);
+      Map<String, Object> me = (Map<String, Object>) resultMap.getOrDefault("me", new HashMap<>());
       String email = MapUtils.getString(me, "email");
       String name = MapUtils.getString(me, "name");
       UserEntity userEntity = userService.getByEmail(email);
@@ -84,6 +118,7 @@ public class CasAuthServiceFacadeImpl implements AuthServiceFacade {
         result = new UserAuth(userId);
       } else {
         Long userId = userEntity.getId();
+        result = new UserAuth(userId);
         userService.updateLoginTime(userId);
       }
     } catch (Exception e) {
