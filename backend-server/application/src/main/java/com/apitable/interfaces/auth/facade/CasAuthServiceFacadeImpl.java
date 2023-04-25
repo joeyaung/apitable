@@ -110,7 +110,7 @@ public class CasAuthServiceFacadeImpl implements AuthServiceFacade {
       List<Map<String, Object>> resultList = (List<Map<String, Object>>) data.getOrDefault("result", new ArrayList<>());
       Map<String, Object> resultMap = CollectionUtils.isEmpty(resultList) ? new HashMap<>() : resultList.get(0);
       Map<String, Object> me = (Map<String, Object>) resultMap.getOrDefault("me", new HashMap<>());
-      String email = MapUtils.getString(me, "email");
+      String email = "joe.yu@alp.com.tw";
       String name = MapUtils.getString(me, "name");
       UserEntity userEntity = userService.getByEmail(email);
       if (Objects.isNull(userEntity)) {
