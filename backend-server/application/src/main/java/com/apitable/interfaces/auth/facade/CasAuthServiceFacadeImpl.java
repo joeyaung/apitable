@@ -38,7 +38,7 @@ public class CasAuthServiceFacadeImpl implements AuthServiceFacade {
   private static final String CAS_EXTERNAL_ID = "CAS";
 
   private static final String REGISTER_TOKEN_URL =
-      "https://localhost:8443/klaw/unauthApi/v1/register/token";
+      "https://dev-account.alpos.tech/klaw/unauthApi/v1/register/token";
 
   private static final String CAS_LOGOUT_URL =
       "https://localhost:8443/cas/logout?service=http://localhost:3000";
